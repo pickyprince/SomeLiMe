@@ -7,20 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE2DD96429C4AF73002AF99B /* HomeNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD96329C4AF73002AF99B /* HomeNavBar.swift */; };
+		CE2DD96629C59721002AF99B /* BoardSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD96529C59721002AF99B /* BoardSectionView.swift */; };
+		CE2DD96829C59F84002AF99B /* DropDownBoardPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD96729C59F84002AF99B /* DropDownBoardPickerView.swift */; };
+		CE4F263B29B4D07F0037AA30 /* LabelCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */; };
+		CE4F264029BA0A060037AA30 /* CategorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */; };
 		CE7A7A0F29A87B4B00DDE8A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */; };
 		CE7A7A1129A87B4B00DDE8A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A1029A87B4B00DDE8A5 /* SceneDelegate.swift */; };
-		CE7A7A1329A87B4B00DDE8A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A1229A87B4B00DDE8A5 /* ViewController.swift */; };
-		CE7A7A1629A87B4B00DDE8A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE7A7A1429A87B4B00DDE8A5 /* Main.storyboard */; };
+		CE7A7A1329A87B4B00DDE8A5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A1229A87B4B00DDE8A5 /* HomeViewController.swift */; };
 		CE7A7A1829A87B4D00DDE8A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE7A7A1729A87B4D00DDE8A5 /* Assets.xcassets */; };
 		CE7A7A1B29A87B4D00DDE8A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE7A7A1929A87B4D00DDE8A5 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE2DD96329C4AF73002AF99B /* HomeNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavBar.swift; sourceTree = "<group>"; };
+		CE2DD96529C59721002AF99B /* BoardSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSectionView.swift; sourceTree = "<group>"; };
+		CE2DD96729C59F84002AF99B /* DropDownBoardPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownBoardPickerView.swift; sourceTree = "<group>"; };
+		CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionView.swift; sourceTree = "<group>"; };
+		CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySectionView.swift; sourceTree = "<group>"; };
 		CE7A7A0B29A87B4B00DDE8A5 /* Somlimee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Somlimee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE7A7A1029A87B4B00DDE8A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CE7A7A1229A87B4B00DDE8A5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		CE7A7A1529A87B4B00DDE8A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CE7A7A1229A87B4B00DDE8A5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		CE7A7A1729A87B4D00DDE8A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE7A7A1A29A87B4D00DDE8A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE7A7A1C29A87B4D00DDE8A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -37,6 +45,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE4F263729B489320037AA30 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CE7A7A1229A87B4B00DDE8A5 /* HomeViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CE4F263C29B4D08A0037AA30 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */,
+				CE2DD96529C59721002AF99B /* BoardSectionView.swift */,
+				CE2DD96729C59F84002AF99B /* DropDownBoardPickerView.swift */,
+				CE2DD96329C4AF73002AF99B /* HomeNavBar.swift */,
+				CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE4F263D29B8D1830037AA30 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CE4F263E29B8D19E0037AA30 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		CE7A7A0229A87B4B00DDE8A5 = {
 			isa = PBXGroup;
 			children = (
@@ -56,13 +98,15 @@
 		CE7A7A0D29A87B4B00DDE8A5 /* Somlimee */ = {
 			isa = PBXGroup;
 			children = (
+				CE4F263E29B8D19E0037AA30 /* Services */,
+				CE4F263D29B8D1830037AA30 /* Models */,
+				CE4F263C29B4D08A0037AA30 /* Views */,
+				CE4F263729B489320037AA30 /* ViewControllers */,
 				CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */,
 				CE7A7A1029A87B4B00DDE8A5 /* SceneDelegate.swift */,
-				CE7A7A1229A87B4B00DDE8A5 /* ViewController.swift */,
-				CE7A7A1429A87B4B00DDE8A5 /* Main.storyboard */,
 				CE7A7A1729A87B4D00DDE8A5 /* Assets.xcassets */,
-				CE7A7A1929A87B4D00DDE8A5 /* LaunchScreen.storyboard */,
 				CE7A7A1C29A87B4D00DDE8A5 /* Info.plist */,
+				CE7A7A1929A87B4D00DDE8A5 /* LaunchScreen.storyboard */,
 			);
 			path = Somlimee;
 			sourceTree = "<group>";
@@ -127,7 +171,6 @@
 			files = (
 				CE7A7A1B29A87B4D00DDE8A5 /* LaunchScreen.storyboard in Resources */,
 				CE7A7A1829A87B4D00DDE8A5 /* Assets.xcassets in Resources */,
-				CE7A7A1629A87B4B00DDE8A5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +181,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE7A7A1329A87B4B00DDE8A5 /* ViewController.swift in Sources */,
+				CE4F263B29B4D07F0037AA30 /* LabelCollectionView.swift in Sources */,
+				CE2DD96429C4AF73002AF99B /* HomeNavBar.swift in Sources */,
+				CE4F264029BA0A060037AA30 /* CategorySectionView.swift in Sources */,
+				CE7A7A1329A87B4B00DDE8A5 /* HomeViewController.swift in Sources */,
 				CE7A7A0F29A87B4B00DDE8A5 /* AppDelegate.swift in Sources */,
 				CE7A7A1129A87B4B00DDE8A5 /* SceneDelegate.swift in Sources */,
+				CE2DD96629C59721002AF99B /* BoardSectionView.swift in Sources */,
+				CE2DD96829C59F84002AF99B /* DropDownBoardPickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		CE7A7A1429A87B4B00DDE8A5 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CE7A7A1529A87B4B00DDE8A5 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CE7A7A1929A87B4D00DDE8A5 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -292,7 +332,6 @@
 				INFOPLIST_FILE = Somlimee/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -320,7 +359,6 @@
 				INFOPLIST_FILE = Somlimee/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
