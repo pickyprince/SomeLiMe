@@ -7,16 +7,19 @@
 
 import UIKit
 
+
 // MARK: - Customized Title With Horizontal Collection View
 class LabelCollectionView: UIView {
     // MARK: - Contents Data
-    public var titleString: String = "" {didSet {self.headerLabel.text = titleString}}
+    
+    public var detailButtonClicked: (()->())?
+    public var titleLabelString: String = "" {didSet {self.headerLabel.text = titleLabelString}}
     public var data: [String] = ["temp"]
     public var buttonTitleString: String = "" {didSet{self.topRightButton.setTitle(buttonTitleString, for: .normal)}}
     public var buttonImage: UIImage? = nil {
         didSet{
-        guard let image = buttonImage else{return}
-        self.topRightButton.setImage(image, for: .normal)
+            guard let image = buttonImage else{return}
+            self.topRightButton.setImage(image, for: .normal)
         }
     }
     // MARK: - UI Objects
@@ -37,6 +40,10 @@ class LabelCollectionView: UIView {
         let stackView = UIStackView()
         return stackView
     }()
+    
+    @objc func didTapTopRightButton(){
+        self.detailButtonClicked?()
+    }
     
     private let collectionViewContainer: UIStackView = UIStackView()
     
@@ -71,6 +78,7 @@ class LabelCollectionView: UIView {
         
         topRightButton.setTitleColor(.label, for: .normal)
         topRightButton.tintColor = .label
+        topRightButton.addTarget(self, action: #selector(didTapTopRightButton), for: .touchUpInside)
         container.distribution = .fill
         container.axis = .vertical
         collectionView.backgroundColor = .systemGray6

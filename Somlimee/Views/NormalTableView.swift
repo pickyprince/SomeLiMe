@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DropDownBoardPickerView: UITableView {
+class NormalTableView: UITableView {
     public var data: [String] = []
     
     override init(frame: CGRect, style: UITableView.Style) {
@@ -16,8 +16,7 @@ class DropDownBoardPickerView: UITableView {
         self.delegate = self
         self.dataSource = self
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.register(DropDownBoardPickerViewCell.self, forCellReuseIdentifier: String(describing: DropDownBoardPickerViewCell.self))
-        
+        self.register(NormalTableViewCell.self, forCellReuseIdentifier: String(describing: NormalTableViewCell.self))
         
     }
     
@@ -27,23 +26,20 @@ class DropDownBoardPickerView: UITableView {
     
 }
 
-extension DropDownBoardPickerView: UITableViewDelegate, UITableViewDataSource{
+extension NormalTableView: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DropDownBoardPickerViewCell.self), for: indexPath) as! DropDownBoardPickerViewCell
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NormalTableViewCell.self), for: indexPath) as! NormalTableViewCell
         cell.label.text = data[indexPath.item]
         return cell
     }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
     
 }
-class DropDownBoardPickerViewCell: UITableViewCell{
+class NormalTableViewCell: UITableViewCell{
     let label = {
         let label = UILabel()
-        label.text = "oifejof"
         label.font = UIFont.systemFont(ofSize: 18)
         return label
     }()
@@ -52,6 +48,7 @@ class DropDownBoardPickerViewCell: UITableViewCell{
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.addSubview(view)
+        self.backgroundColor = .none
         view.addSubview(label)
         view.translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false

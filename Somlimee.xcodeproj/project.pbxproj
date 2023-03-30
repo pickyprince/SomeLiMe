@@ -7,28 +7,88 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DB4A586DCC80EE7EBF5DBA0 /* Pods_Somlimee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E5A735D7FA822DBB91BC78 /* Pods_Somlimee.framework */; };
 		CE2DD96429C4AF73002AF99B /* HomeNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD96329C4AF73002AF99B /* HomeNavBar.swift */; };
 		CE2DD96629C59721002AF99B /* BoardSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD96529C59721002AF99B /* BoardSectionView.swift */; };
-		CE2DD96829C59F84002AF99B /* DropDownBoardPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD96729C59F84002AF99B /* DropDownBoardPickerView.swift */; };
+		CE2DD96829C59F84002AF99B /* NormalTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD96729C59F84002AF99B /* NormalTableView.swift */; };
+		CE2DD96A29C740F4002AF99B /* BoardPostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD96929C740F4002AF99B /* BoardPostData.swift */; };
+		CE2DD96C29C7466D002AF99B /* BoardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD96B29C7466D002AF99B /* BoardTableView.swift */; };
+		CE2DD96E29C827B7002AF99B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD96D29C827B7002AF99B /* SearchViewController.swift */; };
+		CE2DD97029C828B2002AF99B /* SearchNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD96F29C828B2002AF99B /* SearchNavBar.swift */; };
+		CE2DD97629CC1107002AF99B /* RealTimeHotDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD97529CC1107002AF99B /* RealTimeHotDetailViewController.swift */; };
+		CE2DD97829CC2084002AF99B /* RealTimeHotBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD97729CC2084002AF99B /* RealTimeHotBoardViewController.swift */; };
+		CE2DD97A29CC21A1002AF99B /* CategoryRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD97929CC21A1002AF99B /* CategoryRequestViewController.swift */; };
+		CE2DD97C29CC21DA002AF99B /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD97B29CC21DA002AF99B /* LogInViewController.swift */; };
+		CE2DD97E29CC2717002AF99B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD97D29CC2717002AF99B /* ProfileViewController.swift */; };
+		CE2DD98029CC2729002AF99B /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD97F29CC2729002AF99B /* SideMenuViewController.swift */; };
+		CE2DD98229CCA126002AF99B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD98129CCA126002AF99B /* HomeViewController.swift */; };
+		CE2DD98529CD88B8002AF99B /* HomeViewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD98429CD88B8002AF99B /* HomeViewRepository.swift */; };
+		CE2DD98729D2BE02002AF99B /* HotTrendData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD98629D2BE02002AF99B /* HotTrendData.swift */; };
+		CE2DD98929D2BFA2002AF99B /* HotBoardRankingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD98829D2BFA2002AF99B /* HotBoardRankingData.swift */; };
+		CE2DD98B29D2C02C002AF99B /* CategoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD98A29D2C02C002AF99B /* CategoryData.swift */; };
+		CE2DD98D29D2C0E1002AF99B /* BoardHotKeyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD98C29D2C0E1002AF99B /* BoardHotKeyData.swift */; };
+		CE2DD98F29D2D58B002AF99B /* ProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD98E29D2D58B002AF99B /* ProfileData.swift */; };
+		CE2DD99129D2D5AA002AF99B /* PersonalityTestResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD99029D2D5AA002AF99B /* PersonalityTestResultData.swift */; };
+		CE2DD99329D2D711002AF99B /* LocalDataSourceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD99229D2D711002AF99B /* LocalDataSourceService.swift */; };
+		CE2DD99529D2D71D002AF99B /* RemoteDataSourceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD99429D2D71D002AF99B /* RemoteDataSourceService.swift */; };
+		CE2DD99729D2D72A002AF99B /* CacheControlService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD99629D2D72A002AF99B /* CacheControlService.swift */; };
+		CE2DD99929D2DAFA002AF99B /* SearchHistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD99829D2DAFA002AF99B /* SearchHistoryData.swift */; };
+		CE2DD99B29D2DB90002AF99B /* SearchRealTimeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD99A29D2DB90002AF99B /* SearchRealTimeData.swift */; };
+		CE2DD99F29D2DEF5002AF99B /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD99E29D2DEF5002AF99B /* UserData.swift */; };
+		CE2DD9A129D2FCA5002AF99B /* PersonalityTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9A029D2FCA5002AF99B /* PersonalityTestData.swift */; };
+		CE2DD9A529D30035002AF99B /* SearchViewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9A429D30035002AF99B /* SearchViewRepository.swift */; };
+		CE2DD9A729D42570002AF99B /* SearchListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9A629D42570002AF99B /* SearchListData.swift */; };
+		CE2DD9A929D425E0002AF99B /* BoardInfoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9A829D425E0002AF99B /* BoardInfoData.swift */; };
 		CE4F263B29B4D07F0037AA30 /* LabelCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */; };
 		CE4F264029BA0A060037AA30 /* CategorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */; };
 		CE7A7A0F29A87B4B00DDE8A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */; };
 		CE7A7A1129A87B4B00DDE8A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A1029A87B4B00DDE8A5 /* SceneDelegate.swift */; };
-		CE7A7A1329A87B4B00DDE8A5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A1229A87B4B00DDE8A5 /* HomeViewController.swift */; };
+		CE7A7A1329A87B4B00DDE8A5 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A1229A87B4B00DDE8A5 /* ContainerViewController.swift */; };
 		CE7A7A1829A87B4D00DDE8A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE7A7A1729A87B4D00DDE8A5 /* Assets.xcassets */; };
 		CE7A7A1B29A87B4D00DDE8A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE7A7A1929A87B4D00DDE8A5 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1732E69D082DAF5B0709637F /* Pods-Somlimee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Somlimee.release.xcconfig"; path = "Target Support Files/Pods-Somlimee/Pods-Somlimee.release.xcconfig"; sourceTree = "<group>"; };
+		B4E5A735D7FA822DBB91BC78 /* Pods_Somlimee.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Somlimee.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC0206F4DEE857BC1A7DEA97 /* Pods-Somlimee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Somlimee.debug.xcconfig"; path = "Target Support Files/Pods-Somlimee/Pods-Somlimee.debug.xcconfig"; sourceTree = "<group>"; };
 		CE2DD96329C4AF73002AF99B /* HomeNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavBar.swift; sourceTree = "<group>"; };
 		CE2DD96529C59721002AF99B /* BoardSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSectionView.swift; sourceTree = "<group>"; };
-		CE2DD96729C59F84002AF99B /* DropDownBoardPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownBoardPickerView.swift; sourceTree = "<group>"; };
+		CE2DD96729C59F84002AF99B /* NormalTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalTableView.swift; sourceTree = "<group>"; };
+		CE2DD96929C740F4002AF99B /* BoardPostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPostData.swift; sourceTree = "<group>"; };
+		CE2DD96B29C7466D002AF99B /* BoardTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableView.swift; sourceTree = "<group>"; };
+		CE2DD96D29C827B7002AF99B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		CE2DD96F29C828B2002AF99B /* SearchNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNavBar.swift; sourceTree = "<group>"; };
+		CE2DD97529CC1107002AF99B /* RealTimeHotDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeHotDetailViewController.swift; sourceTree = "<group>"; };
+		CE2DD97729CC2084002AF99B /* RealTimeHotBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeHotBoardViewController.swift; sourceTree = "<group>"; };
+		CE2DD97929CC21A1002AF99B /* CategoryRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRequestViewController.swift; sourceTree = "<group>"; };
+		CE2DD97B29CC21DA002AF99B /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		CE2DD97D29CC2717002AF99B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		CE2DD97F29CC2729002AF99B /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		CE2DD98129CCA126002AF99B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		CE2DD98429CD88B8002AF99B /* HomeViewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewRepository.swift; sourceTree = "<group>"; };
+		CE2DD98629D2BE02002AF99B /* HotTrendData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTrendData.swift; sourceTree = "<group>"; };
+		CE2DD98829D2BFA2002AF99B /* HotBoardRankingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotBoardRankingData.swift; sourceTree = "<group>"; };
+		CE2DD98A29D2C02C002AF99B /* CategoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryData.swift; sourceTree = "<group>"; };
+		CE2DD98C29D2C0E1002AF99B /* BoardHotKeyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardHotKeyData.swift; sourceTree = "<group>"; };
+		CE2DD98E29D2D58B002AF99B /* ProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileData.swift; sourceTree = "<group>"; };
+		CE2DD99029D2D5AA002AF99B /* PersonalityTestResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalityTestResultData.swift; sourceTree = "<group>"; };
+		CE2DD99229D2D711002AF99B /* LocalDataSourceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataSourceService.swift; sourceTree = "<group>"; };
+		CE2DD99429D2D71D002AF99B /* RemoteDataSourceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataSourceService.swift; sourceTree = "<group>"; };
+		CE2DD99629D2D72A002AF99B /* CacheControlService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheControlService.swift; sourceTree = "<group>"; };
+		CE2DD99829D2DAFA002AF99B /* SearchHistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryData.swift; sourceTree = "<group>"; };
+		CE2DD99A29D2DB90002AF99B /* SearchRealTimeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRealTimeData.swift; sourceTree = "<group>"; };
+		CE2DD99E29D2DEF5002AF99B /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		CE2DD9A029D2FCA5002AF99B /* PersonalityTestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalityTestData.swift; sourceTree = "<group>"; };
+		CE2DD9A429D30035002AF99B /* SearchViewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewRepository.swift; sourceTree = "<group>"; };
+		CE2DD9A629D42570002AF99B /* SearchListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListData.swift; sourceTree = "<group>"; };
+		CE2DD9A829D425E0002AF99B /* BoardInfoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardInfoData.swift; sourceTree = "<group>"; };
 		CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionView.swift; sourceTree = "<group>"; };
 		CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySectionView.swift; sourceTree = "<group>"; };
 		CE7A7A0B29A87B4B00DDE8A5 /* Somlimee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Somlimee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE7A7A1029A87B4B00DDE8A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CE7A7A1229A87B4B00DDE8A5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		CE7A7A1229A87B4B00DDE8A5 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		CE7A7A1729A87B4D00DDE8A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE7A7A1A29A87B4D00DDE8A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE7A7A1C29A87B4D00DDE8A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -39,16 +99,66 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DB4A586DCC80EE7EBF5DBA0 /* Pods_Somlimee.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C4034CDB6EA994A8CAA6483 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CC0206F4DEE857BC1A7DEA97 /* Pods-Somlimee.debug.xcconfig */,
+				1732E69D082DAF5B0709637F /* Pods-Somlimee.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		804A2CAA2A97B19CD58DC6A6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B4E5A735D7FA822DBB91BC78 /* Pods_Somlimee.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE2DD98329CD8885002AF99B /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				CE2DD98429CD88B8002AF99B /* HomeViewRepository.swift */,
+				CE2DD9A429D30035002AF99B /* SearchViewRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		CE2DD99C29D2DE96002AF99B /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				CE2DD99D29D2DEA2002AF99B /* Functions */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		CE2DD99D29D2DEA2002AF99B /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Functions;
+			sourceTree = "<group>";
+		};
 		CE4F263729B489320037AA30 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				CE7A7A1229A87B4B00DDE8A5 /* HomeViewController.swift */,
+				CE7A7A1229A87B4B00DDE8A5 /* ContainerViewController.swift */,
+				CE2DD98129CCA126002AF99B /* HomeViewController.swift */,
+				CE2DD97D29CC2717002AF99B /* ProfileViewController.swift */,
+				CE2DD96D29C827B7002AF99B /* SearchViewController.swift */,
+				CE2DD97F29CC2729002AF99B /* SideMenuViewController.swift */,
+				CE2DD97B29CC21DA002AF99B /* LogInViewController.swift */,
+				CE2DD97729CC2084002AF99B /* RealTimeHotBoardViewController.swift */,
+				CE2DD97929CC21A1002AF99B /* CategoryRequestViewController.swift */,
+				CE2DD97529CC1107002AF99B /* RealTimeHotDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -58,9 +168,11 @@
 			children = (
 				CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */,
 				CE2DD96529C59721002AF99B /* BoardSectionView.swift */,
-				CE2DD96729C59F84002AF99B /* DropDownBoardPickerView.swift */,
+				CE2DD96729C59F84002AF99B /* NormalTableView.swift */,
+				CE2DD96F29C828B2002AF99B /* SearchNavBar.swift */,
 				CE2DD96329C4AF73002AF99B /* HomeNavBar.swift */,
 				CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */,
+				CE2DD96B29C7466D002AF99B /* BoardTableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -68,6 +180,19 @@
 		CE4F263D29B8D1830037AA30 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CE2DD9A829D425E0002AF99B /* BoardInfoData.swift */,
+				CE2DD96929C740F4002AF99B /* BoardPostData.swift */,
+				CE2DD98C29D2C0E1002AF99B /* BoardHotKeyData.swift */,
+				CE2DD99A29D2DB90002AF99B /* SearchRealTimeData.swift */,
+				CE2DD99829D2DAFA002AF99B /* SearchHistoryData.swift */,
+				CE2DD98829D2BFA2002AF99B /* HotBoardRankingData.swift */,
+				CE2DD98629D2BE02002AF99B /* HotTrendData.swift */,
+				CE2DD99029D2D5AA002AF99B /* PersonalityTestResultData.swift */,
+				CE2DD98E29D2D58B002AF99B /* ProfileData.swift */,
+				CE2DD98A29D2C02C002AF99B /* CategoryData.swift */,
+				CE2DD99E29D2DEF5002AF99B /* UserData.swift */,
+				CE2DD9A029D2FCA5002AF99B /* PersonalityTestData.swift */,
+				CE2DD9A629D42570002AF99B /* SearchListData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -75,6 +200,9 @@
 		CE4F263E29B8D19E0037AA30 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				CE2DD99229D2D711002AF99B /* LocalDataSourceService.swift */,
+				CE2DD99429D2D71D002AF99B /* RemoteDataSourceService.swift */,
+				CE2DD99629D2D72A002AF99B /* CacheControlService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -84,6 +212,8 @@
 			children = (
 				CE7A7A0D29A87B4B00DDE8A5 /* Somlimee */,
 				CE7A7A0C29A87B4B00DDE8A5 /* Products */,
+				0C4034CDB6EA994A8CAA6483 /* Pods */,
+				804A2CAA2A97B19CD58DC6A6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,7 +228,9 @@
 		CE7A7A0D29A87B4B00DDE8A5 /* Somlimee */ = {
 			isa = PBXGroup;
 			children = (
+				CE2DD99C29D2DE96002AF99B /* Core */,
 				CE4F263E29B8D19E0037AA30 /* Services */,
+				CE2DD98329CD8885002AF99B /* Repositories */,
 				CE4F263D29B8D1830037AA30 /* Models */,
 				CE4F263C29B4D08A0037AA30 /* Views */,
 				CE4F263729B489320037AA30 /* ViewControllers */,
@@ -118,9 +250,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CE7A7A1F29A87B4D00DDE8A5 /* Build configuration list for PBXNativeTarget "Somlimee" */;
 			buildPhases = (
+				B0037F0506F0A10DCB9626DF /* [CP] Check Pods Manifest.lock */,
 				CE7A7A0729A87B4B00DDE8A5 /* Sources */,
 				CE7A7A0829A87B4B00DDE8A5 /* Frameworks */,
 				CE7A7A0929A87B4B00DDE8A5 /* Resources */,
+				8545B2AE405242C4878290B6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -176,19 +310,89 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8545B2AE405242C4878290B6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Somlimee/Pods-Somlimee-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Somlimee/Pods-Somlimee-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Somlimee/Pods-Somlimee-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B0037F0506F0A10DCB9626DF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Somlimee-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CE7A7A0729A87B4B00DDE8A5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE2DD96C29C7466D002AF99B /* BoardTableView.swift in Sources */,
+				CE2DD99B29D2DB90002AF99B /* SearchRealTimeData.swift in Sources */,
+				CE2DD99F29D2DEF5002AF99B /* UserData.swift in Sources */,
+				CE2DD98729D2BE02002AF99B /* HotTrendData.swift in Sources */,
+				CE2DD96E29C827B7002AF99B /* SearchViewController.swift in Sources */,
+				CE2DD98F29D2D58B002AF99B /* ProfileData.swift in Sources */,
+				CE2DD98229CCA126002AF99B /* HomeViewController.swift in Sources */,
+				CE2DD96A29C740F4002AF99B /* BoardPostData.swift in Sources */,
 				CE4F263B29B4D07F0037AA30 /* LabelCollectionView.swift in Sources */,
 				CE2DD96429C4AF73002AF99B /* HomeNavBar.swift in Sources */,
+				CE2DD99929D2DAFA002AF99B /* SearchHistoryData.swift in Sources */,
+				CE2DD99529D2D71D002AF99B /* RemoteDataSourceService.swift in Sources */,
+				CE2DD9A729D42570002AF99B /* SearchListData.swift in Sources */,
 				CE4F264029BA0A060037AA30 /* CategorySectionView.swift in Sources */,
-				CE7A7A1329A87B4B00DDE8A5 /* HomeViewController.swift in Sources */,
+				CE2DD98529CD88B8002AF99B /* HomeViewRepository.swift in Sources */,
+				CE2DD9A129D2FCA5002AF99B /* PersonalityTestData.swift in Sources */,
+				CE2DD98029CC2729002AF99B /* SideMenuViewController.swift in Sources */,
+				CE7A7A1329A87B4B00DDE8A5 /* ContainerViewController.swift in Sources */,
+				CE2DD97A29CC21A1002AF99B /* CategoryRequestViewController.swift in Sources */,
 				CE7A7A0F29A87B4B00DDE8A5 /* AppDelegate.swift in Sources */,
+				CE2DD97E29CC2717002AF99B /* ProfileViewController.swift in Sources */,
+				CE2DD99329D2D711002AF99B /* LocalDataSourceService.swift in Sources */,
+				CE2DD98D29D2C0E1002AF99B /* BoardHotKeyData.swift in Sources */,
+				CE2DD97629CC1107002AF99B /* RealTimeHotDetailViewController.swift in Sources */,
+				CE2DD9A929D425E0002AF99B /* BoardInfoData.swift in Sources */,
 				CE7A7A1129A87B4B00DDE8A5 /* SceneDelegate.swift in Sources */,
+				CE2DD9A529D30035002AF99B /* SearchViewRepository.swift in Sources */,
+				CE2DD97829CC2084002AF99B /* RealTimeHotBoardViewController.swift in Sources */,
+				CE2DD97C29CC21DA002AF99B /* LogInViewController.swift in Sources */,
+				CE2DD97029C828B2002AF99B /* SearchNavBar.swift in Sources */,
+				CE2DD99129D2D5AA002AF99B /* PersonalityTestResultData.swift in Sources */,
+				CE2DD99729D2D72A002AF99B /* CacheControlService.swift in Sources */,
 				CE2DD96629C59721002AF99B /* BoardSectionView.swift in Sources */,
-				CE2DD96829C59F84002AF99B /* DropDownBoardPickerView.swift in Sources */,
+				CE2DD96829C59F84002AF99B /* NormalTableView.swift in Sources */,
+				CE2DD98B29D2C02C002AF99B /* CategoryData.swift in Sources */,
+				CE2DD98929D2BFA2002AF99B /* HotBoardRankingData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +526,7 @@
 		};
 		CE7A7A2029A87B4D00DDE8A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC0206F4DEE857BC1A7DEA97 /* Pods-Somlimee.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -349,6 +554,7 @@
 		};
 		CE7A7A2129A87B4D00DDE8A5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1732E69D082DAF5B0709637F /* Pods-Somlimee.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

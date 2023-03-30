@@ -23,9 +23,59 @@ class HomeNavBar: UIView {
     let dropDownButton = UIButton()
     let leftDrawerButton = UIButton()
     let blurEffect = UIBlurEffect(style: .regular)
-    let blurEffectView = UIVisualEffectView()
+    let container = UIVisualEffectView()
+    let screenSize: CGRect = UIScreen.main.bounds
+    var viewHeightConstraint: NSLayoutConstraint = NSLayoutConstraint()
+    var viewWidthConsstraint: NSLayoutConstraint = NSLayoutConstraint()
+    var dropDownTableHeightConstraint: NSLayoutConstraint = NSLayoutConstraint()
+    var defaultMultiplierOfHeight: CGFloat = 0.12
+    var multiplierOfDropDownTable: CGFloat = 0.18
+    let dropDownTableContainer = UIVisualEffectView()
+    let dropDownTable: NormalTableView = NormalTableView()
     
-    let tableView: DropDownBoardPickerView = DropDownBoardPickerView()
+    public weak var delegate: HomeViewController? {
+        didSet{
+            if let dele = delegate{
+                searchButton.addTarget(dele, action: #selector(dele.searchButtonTouchUp), for: .touchUpInside)
+                leftDrawerButton.addTarget(dele, action: #selector(dele.sideMenuButtonTouchUp), for: .touchUpInside)
+                profileButton.addTarget(dele, action: #selector(dele.profileButtonTouchUp), for: .touchUpInside)
+            }
+        }
+    }
+    private var isDropDown: Bool = false
+    
+    @objc func dropDownButtonTouchUp(){
+        if isDropDown{
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn ,animations: {
+                self.dropDownButton.transform = CGAffineTransform(rotationAngle: 0)
+                self.dropDownTableHeightConstraint.constant -= self.screenSize.height * self.multiplierOfDropDownTable
+                self.layoutIfNeeded()
+            }, completion: { isComp in
+                if isComp {
+                    self.viewHeightConstraint.isActive = false
+                    self.viewHeightConstraint = self.heightAnchor.constraint(equalToConstant: self.screenSize.height * self.defaultMultiplierOfHeight)
+                    self.viewHeightConstraint.isActive = true
+                }
+            })
+            isDropDown = false
+        }else{
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn ,animations: {
+                self.dropDownButton.transform = CGAffineTransform(rotationAngle: .pi)
+                self.dropDownTableHeightConstraint.constant += self.screenSize.height * self.multiplierOfDropDownTable
+                self.layoutIfNeeded()
+            }, completion: { isComp in
+                if isComp {
+                    self.viewHeightConstraint.isActive = false
+
+                    self.viewHeightConstraint = self.heightAnchor.constraint(equalToConstant: self.screenSize.height * (self.defaultMultiplierOfHeight+self.multiplierOfDropDownTable))
+
+                    self.viewHeightConstraint.isActive = true
+                }
+            })
+
+            isDropDown = true
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,20 +90,23 @@ class HomeNavBar: UIView {
     func setup(){
         
         //Auto layout pre-setup
+//        self.backgroundColor = .blue
         self.translatesAutoresizingMaskIntoConstraints = false
-        blurEffectView.contentView.translatesAutoresizingMaskIntoConstraints = false
-        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+        container.contentView.translatesAutoresizingMaskIntoConstraints = false
+        container.translatesAutoresizingMaskIntoConstraints = false
         titleView.translatesAutoresizingMaskIntoConstraints = false
         buttonGroups.translatesAutoresizingMaskIntoConstraints = false
         leftDrawerButton.translatesAutoresizingMaskIntoConstraints = false
         profileButton.translatesAutoresizingMaskIntoConstraints = false
         searchButton.translatesAutoresizingMaskIntoConstraints = false
-        
+        dropDownTableContainer.contentView.translatesAutoresizingMaskIntoConstraints = false
+        dropDownTableContainer.translatesAutoresizingMaskIntoConstraints = false
+        dropDownTable.translatesAutoresizingMaskIntoConstraints = false
         
         //Data assignment
-        tableView.data = NavData.dropDownList
-        
-        
+        dropDownTable.data = NavData.dropDownList
+        viewHeightConstraint = self.heightAnchor.constraint(equalToConstant: screenSize.height * defaultMultiplierOfHeight)
+        viewWidthConsstraint = self.widthAnchor.constraint(equalToConstant: screenSize.width)
         //UI configuration
         titleView.axis = .horizontal
         buttonGroups.distribution = .fill
@@ -61,11 +114,17 @@ class HomeNavBar: UIView {
         buttonGroups.spacing = 10
         dropDownButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
         dropDownButton.tintColor = .label
+        dropDownButton.addTarget(self, action: #selector(dropDownButtonTouchUp), for: .touchUpInside)
         searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         searchButton.tintColor = .label
+        
+//        if let dele = delegate {
+//            searchButton.addTarget(self, action: #selector(dele.SearchButtonTouchUp), for: .touchUpInside)
+//        }
         leftDrawerButton.setImage(UIImage(systemName: "line.3.horizontal"), for: .normal)
         leftDrawerButton.tintColor = .label
-        blurEffectView.effect = blurEffect
+        container.effect = blurEffect
+        dropDownTableContainer.effect = blurEffect
         title.text = NavData.title
         
         profileButton.setImage(UIImage(named: "sadfrog"), for: .normal)
@@ -73,10 +132,12 @@ class HomeNavBar: UIView {
         profileButton.heightAnchor.constraint(equalToConstant: searchButton.intrinsicContentSize.height + 10).isActive = true
         profileButton.layer.cornerRadius = .greatestFiniteMagnitude
         
-        self.addSubview(blurEffectView)
-        blurEffectView.contentView.addSubview(titleView)
-        blurEffectView.contentView.addSubview(buttonGroups)
-        blurEffectView.contentView.addSubview(leftDrawerButton)
+        self.addSubview(container)
+        self.addSubview(dropDownTableContainer)
+        container.contentView.addSubview(titleView)
+        container.contentView.addSubview(buttonGroups)
+        container.contentView.addSubview(leftDrawerButton)
+        dropDownTableContainer.contentView.addSubview(dropDownTable)
         buttonGroups.addArrangedSubview(searchButton)
         buttonGroups.addArrangedSubview(profileButton)
         titleView.addArrangedSubview(title)
@@ -84,29 +145,48 @@ class HomeNavBar: UIView {
         titleView.distribution = .fill
         titleView.spacing = 5
         
-//        tableView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-//        tableView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
         
-        leftDrawerButton.leadingAnchor.constraint(equalTo:blurEffectView.contentView.leadingAnchor, constant: 10).isActive = true
-        leftDrawerButton.bottomAnchor.constraint(equalTo:blurEffectView.contentView.bottomAnchor, constant: -10).isActive = true
-        buttonGroups.trailingAnchor.constraint(equalTo:blurEffectView.contentView.trailingAnchor, constant: -10).isActive = true
-        buttonGroups.bottomAnchor.constraint(equalTo:         blurEffectView.contentView.bottomAnchor, constant: -10).isActive = true
-        titleView.centerXAnchor.constraint(equalTo:         blurEffectView.contentView.centerXAnchor).isActive = true
-        titleView.bottomAnchor.constraint(equalTo:         blurEffectView.contentView.bottomAnchor, constant: -10).isActive = true
+        leftDrawerButton.leadingAnchor.constraint(equalTo:container.contentView.leadingAnchor, constant: 10).isActive = true
+        leftDrawerButton.bottomAnchor.constraint(equalTo:container.contentView.bottomAnchor, constant: -10).isActive = true
+        buttonGroups.trailingAnchor.constraint(equalTo:container.contentView.trailingAnchor, constant: -10).isActive = true
+        buttonGroups.bottomAnchor.constraint(equalTo:         container.contentView.bottomAnchor, constant: -10).isActive = true
+        titleView.centerXAnchor.constraint(equalTo:         container.contentView.centerXAnchor).isActive = true
+        titleView.bottomAnchor.constraint(equalTo:         container.contentView.bottomAnchor, constant: -10).isActive = true
         
         NSLayoutConstraint.activate([
-        self.topAnchor.constraint(equalTo:         blurEffectView.topAnchor),
-        self.bottomAnchor.constraint(equalTo:         blurEffectView.bottomAnchor),
-        self.leadingAnchor.constraint(equalTo:         blurEffectView.leadingAnchor),
-        self.trailingAnchor.constraint(equalTo:         blurEffectView.trailingAnchor)
-        ])
-        NSLayoutConstraint.activate([
-            blurEffectView.topAnchor.constraint(equalTo:         blurEffectView.contentView.topAnchor),
-            blurEffectView.bottomAnchor.constraint(equalTo:         blurEffectView.contentView.bottomAnchor),
-            blurEffectView.leadingAnchor.constraint(equalTo:         blurEffectView.contentView.leadingAnchor),
-            blurEffectView.trailingAnchor.constraint(equalTo:         blurEffectView.contentView.trailingAnchor)
+            viewWidthConsstraint,
+            viewHeightConstraint,
+            self.topAnchor.constraint(equalTo:         container.topAnchor),
+            container.heightAnchor.constraint(equalToConstant: screenSize.height * defaultMultiplierOfHeight),
+            self.leadingAnchor.constraint(equalTo:         container.leadingAnchor),
+            self.trailingAnchor.constraint(equalTo:         container.trailingAnchor)
         ])
         
+        NSLayoutConstraint.activate([
+            container.topAnchor.constraint(equalTo:         container.contentView.topAnchor),
+            container.bottomAnchor.constraint(equalTo:         container.contentView.bottomAnchor),
+            container.leadingAnchor.constraint(equalTo:         container.contentView.leadingAnchor),
+            container.trailingAnchor.constraint(equalTo:         container.contentView.trailingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            dropDownTableContainer.topAnchor.constraint(equalTo:         dropDownTableContainer.contentView.topAnchor),
+            dropDownTableContainer.contentView.bottomAnchor.constraint(equalTo:         dropDownTableContainer.bottomAnchor),
+            dropDownTableContainer.leadingAnchor.constraint(equalTo:         dropDownTableContainer.contentView.leadingAnchor),
+            dropDownTableContainer.trailingAnchor.constraint(equalTo:         dropDownTableContainer.contentView.trailingAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            dropDownTable.topAnchor.constraint(equalTo:         dropDownTableContainer.contentView.topAnchor),
+            dropDownTable.bottomAnchor.constraint(equalTo:         dropDownTableContainer.contentView.bottomAnchor),
+            dropDownTable.leadingAnchor.constraint(equalTo:   dropDownTableContainer.contentView.leadingAnchor),
+            dropDownTable.trailingAnchor.constraint(equalTo:    dropDownTableContainer.contentView.trailingAnchor)
+        ])
+        dropDownTableHeightConstraint = dropDownTableContainer.heightAnchor.constraint(equalToConstant:0)
+        NSLayoutConstraint.activate([
+            dropDownTableContainer.topAnchor.constraint(equalTo:         container.bottomAnchor),
+            self.leadingAnchor.constraint(equalTo: dropDownTableContainer.leadingAnchor),
+            self.trailingAnchor.constraint(equalTo: dropDownTableContainer.trailingAnchor),
+            dropDownTableHeightConstraint
+        ])
     }
-    
 }
