@@ -14,7 +14,7 @@ fileprivate enum NavData{
 
 class SearchNavBar: UIView {
     
-    public weak var delegate: SearchViewController? {
+    weak var delegate: SearchViewController? {
         didSet{
             if let dele = delegate{
                 cancelButton.addTarget(dele, action: #selector(dele.cancel), for: .touchUpInside)

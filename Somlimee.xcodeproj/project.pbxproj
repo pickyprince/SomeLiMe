@@ -39,6 +39,11 @@
 		CE2DD9A529D30035002AF99B /* SearchViewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9A429D30035002AF99B /* SearchViewRepository.swift */; };
 		CE2DD9A729D42570002AF99B /* SearchListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9A629D42570002AF99B /* SearchListData.swift */; };
 		CE2DD9A929D425E0002AF99B /* BoardInfoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9A829D425E0002AF99B /* BoardInfoData.swift */; };
+		CE2DD9AD29D5E052002AF99B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE2DD9AC29D5E052002AF99B /* GoogleService-Info.plist */; };
+		CE2DD9AF29D6DD91002AF99B /* UserLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9AE29D6DD91002AF99B /* UserLoginService.swift */; };
+		CE2DD9B129D7205F002AF99B /* UserSignUpWithEmailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9B029D7205F002AF99B /* UserSignUpWithEmailService.swift */; };
+		CE2DD9B529D7261D002AF99B /* Success.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9B429D7261D002AF99B /* Success.swift */; };
+		CE2DD9B729D7262E002AF99B /* Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9B629D7262E002AF99B /* Failure.swift */; };
 		CE4F263B29B4D07F0037AA30 /* LabelCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */; };
 		CE4F264029BA0A060037AA30 /* CategorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */; };
 		CE7A7A0F29A87B4B00DDE8A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */; };
@@ -83,6 +88,11 @@
 		CE2DD9A429D30035002AF99B /* SearchViewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewRepository.swift; sourceTree = "<group>"; };
 		CE2DD9A629D42570002AF99B /* SearchListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListData.swift; sourceTree = "<group>"; };
 		CE2DD9A829D425E0002AF99B /* BoardInfoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardInfoData.swift; sourceTree = "<group>"; };
+		CE2DD9AC29D5E052002AF99B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CE2DD9AE29D6DD91002AF99B /* UserLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginService.swift; sourceTree = "<group>"; };
+		CE2DD9B029D7205F002AF99B /* UserSignUpWithEmailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpWithEmailService.swift; sourceTree = "<group>"; };
+		CE2DD9B429D7261D002AF99B /* Success.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Success.swift; sourceTree = "<group>"; };
+		CE2DD9B629D7262E002AF99B /* Failure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Failure.swift; sourceTree = "<group>"; };
 		CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionView.swift; sourceTree = "<group>"; };
 		CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySectionView.swift; sourceTree = "<group>"; };
 		CE7A7A0B29A87B4B00DDE8A5 /* Somlimee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Somlimee.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +145,8 @@
 		CE2DD99C29D2DE96002AF99B /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				CE2DD9B329D7260A002AF99B /* Success */,
+				CE2DD9B229D725D5002AF99B /* Failures */,
 				CE2DD99D29D2DEA2002AF99B /* Functions */,
 			);
 			path = Core;
@@ -145,6 +157,22 @@
 			children = (
 			);
 			path = Functions;
+			sourceTree = "<group>";
+		};
+		CE2DD9B229D725D5002AF99B /* Failures */ = {
+			isa = PBXGroup;
+			children = (
+				CE2DD9B629D7262E002AF99B /* Failure.swift */,
+			);
+			path = Failures;
+			sourceTree = "<group>";
+		};
+		CE2DD9B329D7260A002AF99B /* Success */ = {
+			isa = PBXGroup;
+			children = (
+				CE2DD9B429D7261D002AF99B /* Success.swift */,
+			);
+			path = Success;
 			sourceTree = "<group>";
 		};
 		CE4F263729B489320037AA30 /* ViewControllers */ = {
@@ -203,6 +231,8 @@
 				CE2DD99229D2D711002AF99B /* LocalDataSourceService.swift */,
 				CE2DD99429D2D71D002AF99B /* RemoteDataSourceService.swift */,
 				CE2DD99629D2D72A002AF99B /* CacheControlService.swift */,
+				CE2DD9AE29D6DD91002AF99B /* UserLoginService.swift */,
+				CE2DD9B029D7205F002AF99B /* UserSignUpWithEmailService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -236,6 +266,7 @@
 				CE4F263729B489320037AA30 /* ViewControllers */,
 				CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */,
 				CE7A7A1029A87B4B00DDE8A5 /* SceneDelegate.swift */,
+				CE2DD9AC29D5E052002AF99B /* GoogleService-Info.plist */,
 				CE7A7A1729A87B4D00DDE8A5 /* Assets.xcassets */,
 				CE7A7A1C29A87B4D00DDE8A5 /* Info.plist */,
 				CE7A7A1929A87B4D00DDE8A5 /* LaunchScreen.storyboard */,
@@ -305,6 +336,7 @@
 			files = (
 				CE7A7A1B29A87B4D00DDE8A5 /* LaunchScreen.storyboard in Resources */,
 				CE7A7A1829A87B4D00DDE8A5 /* Assets.xcassets in Resources */,
+				CE2DD9AD29D5E052002AF99B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE2DD9B729D7262E002AF99B /* Failure.swift in Sources */,
 				CE2DD96C29C7466D002AF99B /* BoardTableView.swift in Sources */,
 				CE2DD99B29D2DB90002AF99B /* SearchRealTimeData.swift in Sources */,
 				CE2DD99F29D2DEF5002AF99B /* UserData.swift in Sources */,
@@ -377,6 +410,7 @@
 				CE7A7A1329A87B4B00DDE8A5 /* ContainerViewController.swift in Sources */,
 				CE2DD97A29CC21A1002AF99B /* CategoryRequestViewController.swift in Sources */,
 				CE7A7A0F29A87B4B00DDE8A5 /* AppDelegate.swift in Sources */,
+				CE2DD9B129D7205F002AF99B /* UserSignUpWithEmailService.swift in Sources */,
 				CE2DD97E29CC2717002AF99B /* ProfileViewController.swift in Sources */,
 				CE2DD99329D2D711002AF99B /* LocalDataSourceService.swift in Sources */,
 				CE2DD98D29D2C0E1002AF99B /* BoardHotKeyData.swift in Sources */,
@@ -384,7 +418,9 @@
 				CE2DD9A929D425E0002AF99B /* BoardInfoData.swift in Sources */,
 				CE7A7A1129A87B4B00DDE8A5 /* SceneDelegate.swift in Sources */,
 				CE2DD9A529D30035002AF99B /* SearchViewRepository.swift in Sources */,
+				CE2DD9B529D7261D002AF99B /* Success.swift in Sources */,
 				CE2DD97829CC2084002AF99B /* RealTimeHotBoardViewController.swift in Sources */,
+				CE2DD9AF29D6DD91002AF99B /* UserLoginService.swift in Sources */,
 				CE2DD97C29CC21DA002AF99B /* LogInViewController.swift in Sources */,
 				CE2DD97029C828B2002AF99B /* SearchNavBar.swift in Sources */,
 				CE2DD99129D2D5AA002AF99B /* PersonalityTestResultData.swift in Sources */,
