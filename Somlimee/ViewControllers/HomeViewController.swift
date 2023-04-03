@@ -7,7 +7,7 @@
 
 import UIKit
 
-fileprivate enum HomeViewData {
+fileprivate enum HomeViewStaticData {
     static let realTimeHotHeader: String = "실시간 HOT 트렌드"
     static let realTimeHotButtonTitle: String = ""
     static let realTimeHotButtonImage: UIImage? = UIImage(systemName: "chevron.right")
@@ -28,7 +28,6 @@ fileprivate enum HomeViewData {
 class HomeViewController: UIViewController {
     
     var repository: HomeViewRepository? = nil
-    
     let scrollView: UIScrollView = UIScrollView()
     
     let contentView: UIStackView = UIStackView()
@@ -63,9 +62,18 @@ class HomeViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    var isLoggedIn = UserLoginService.sharedInstance.isUserLoggedIn{
+        didSet{
+            if self.isLoggedIn{
+                
+            }else{
+                
+            }
+        }
+    }
     
     @objc func searchButtonTouchUp(){
-        print("search button clicked!")
+        print(">>>>SEARCH BUTTON CLICKED!")
         UIView.animate(withDuration: 0.3, animations: {
             
             self.scrollView.layer.opacity -= 1
@@ -89,20 +97,20 @@ class HomeViewController: UIViewController {
     }
     
     @objc func sideMenuButtonTouchUp(){
-        print("sideMenuButton Clicked")
+        print(">>>>SIDE MENU BUTTON CLICKED!")
         self.view.addSubview(self.fogView)
         sideMenuTouched?()
     }
     
     @objc func profileButtonTouchUp(){
-        print("profileButtonClicked")
+        print(">>>>PROFILE BUTTON CLICKED!")
         self.view.addSubview(self.fogView)
         profileTouched?()
-            
+        
     }
     
     @objc func fogTouchUP(){
-        print("fogViewTouched!")
+        print(">>>>FOGVIEW BUTTON CLICKED!")
         fogView.removeFromSuperview()
         fogTouched?()
         
@@ -118,26 +126,44 @@ class HomeViewController: UIViewController {
     }
     
     func loadData(){
+        //loadTask
+        Task.init {
+            do{
+                
+                realTimeHotRankSectionView.data = try await repository?.getHotTrendData()?.realTimeHotRanking ?? []
+                
+                realTimeBoardRankSectionView.data = try await repository?.getHotBoardRankingData()?.realTimeBoardRanking ?? []
+                
+                categorySectionView.data = try await repository?.getCategoryData()?.list ?? []
+                
+                print(">>>> LOADING HOMEVIEW RT DATA SUCCEEDED...")
+                
+            } catch {
+                
+                print(">>>> LOADING HOMEVIEW RT DATA FAILED...")
+                
+            }
+        }
         
-        //DATA ASSIGNMENT
-        realTimeHotRankSectionView.titleLabelString = HomeViewData.realTimeHotHeader
-        realTimeHotRankSectionView.data = repository?.getHotTrendData()?.realTimeHotRanking ?? []
-        realTimeHotRankSectionView.buttonTitleString = HomeViewData.realTimeHotButtonTitle
-        realTimeHotRankSectionView.buttonImage = HomeViewData.realTimeHotButtonImage
-
-        realTimeBoardRankSectionView.titleLabelString = HomeViewData.realTimeBoardHeader
-        realTimeBoardRankSectionView.data = repository?.getHotBoardRankingData()?.realTimeBoardRanking ?? []
-        realTimeBoardRankSectionView.buttonTitleString = HomeViewData.realTimeBoardButtonTitle
-        realTimeBoardRankSectionView.buttonImage = HomeViewData.realTimeBoardButtonImage
-
-        categorySectionView.titleString = HomeViewData.categoryHeader
-        categorySectionView.data = repository?.getCategoryData()?.list ?? []
-        categorySectionView.buttonTitleString = HomeViewData.categoryButtonTitle
         
     }
     
     // MARK: - UI Configuration and Setup
     func configure(){
+        
+        //DATA ASSIGNMENT
+        realTimeHotRankSectionView.titleLabelString = HomeViewStaticData.realTimeHotHeader
+        
+        realTimeHotRankSectionView.buttonTitleString = HomeViewStaticData.realTimeHotButtonTitle
+        realTimeHotRankSectionView.buttonImage = HomeViewStaticData.realTimeHotButtonImage
+        
+        realTimeBoardRankSectionView.titleLabelString = HomeViewStaticData.realTimeBoardHeader
+        
+        realTimeBoardRankSectionView.buttonTitleString = HomeViewStaticData.realTimeBoardButtonTitle
+        realTimeBoardRankSectionView.buttonImage = HomeViewStaticData.realTimeBoardButtonImage
+        
+        categorySectionView.titleString = HomeViewStaticData.categoryHeader
+        categorySectionView.buttonTitleString = HomeViewStaticData.categoryButtonTitle
         
         //Navigation Disable
         self.navigationController?.navigationBar.isHidden = true
@@ -203,10 +229,12 @@ class HomeViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("HomeVC view loaded!")
+        loadData()
         configure()
         setupLayout()
     }
     
     
-
+    
 }

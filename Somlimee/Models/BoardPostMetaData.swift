@@ -12,7 +12,7 @@ enum PostType{
     case video
     case text
 }
-struct BoardPostData {
+struct BoardPostMetaData {
     
     let boardID: String
     
@@ -24,7 +24,7 @@ struct BoardPostData {
     
     let postTitle: String
     
-    let boardCategory: String
+    let boardTap: String
     
     let userID: String
     

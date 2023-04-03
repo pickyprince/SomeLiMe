@@ -13,10 +13,12 @@ struct BoardInfoData {
         
     let boardName: String
     
-    let administratorID: String
+    let boardOwnerID: String
     
     let tapList: [String]
     
-    let BoardLevel: Int
+    let boardLevel: Int
+    
+    let boardDescription: String
     
 }

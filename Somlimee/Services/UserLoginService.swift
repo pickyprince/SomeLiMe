@@ -8,7 +8,7 @@
 import Foundation
 import Firebase
 
-class UserLoginService{
+final class UserLoginService{
     static let sharedInstance = UserLoginService()
     internal var isUserLoggedIn: Bool = false
     private init(){

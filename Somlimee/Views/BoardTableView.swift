@@ -10,7 +10,7 @@ import UIKit
 class BoardTableView: UITableView{
     
     //fixtures
-    let fix = BoardPostData(boardID: "2939481239", postID: "320240243", publishedTime: NSDate(), postType: .text, postTitle: "재밋는 짤 .... jpg", boardCategory: "자유/잡담", userID: "유저아이디", numberOfViews: 24, numberOfRecommendation: 10)
+    let fix = BoardPostMetaData(boardID: "2939481239", postID: "320240243", publishedTime: NSDate(), postType: .text, postTitle: "재밋는 짤 .... jpg", boardCategory: "자유/잡담", userID: "유저아이디", numberOfViews: 24, numberOfRecommendation: 10)
     
     private var heightConstraint: NSLayoutConstraint = NSLayoutConstraint()
     private var cellHeight: CGFloat = 56{
@@ -22,7 +22,7 @@ class BoardTableView: UITableView{
     }
     
     private let topBottomInsets: CGFloat = 10
-    public var boardSectionPostCellData: [BoardPostData] = [] {
+    public var boardSectionPostCellData: [BoardPostMetaData] = [] {
         didSet{
             
                 heightConstraint.isActive = false

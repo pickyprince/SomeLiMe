@@ -9,7 +9,4 @@ import Foundation
 
 struct UserData{
     let profileData: ProfileData
-    let userID: String
-    let userPW: String
-    
 }

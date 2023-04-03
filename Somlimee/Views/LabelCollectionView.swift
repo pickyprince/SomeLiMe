@@ -14,7 +14,12 @@ class LabelCollectionView: UIView {
     
     public var detailButtonClicked: (()->())?
     public var titleLabelString: String = "" {didSet {self.headerLabel.text = titleLabelString}}
-    public var data: [String] = ["temp"]
+    public var data: [String] = ["temp"] {
+        didSet{
+            collectionView.reloadData()
+            collectionView.setContentOffset(.zero, animated: true)
+        }
+    }
     public var buttonTitleString: String = "" {didSet{self.topRightButton.setTitle(buttonTitleString, for: .normal)}}
     public var buttonImage: UIImage? = nil {
         didSet{

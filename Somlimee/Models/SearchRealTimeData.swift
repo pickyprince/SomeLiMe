@@ -8,5 +8,5 @@
 import Foundation
 
 struct SearchRealTimeData{
-    let SearchRealTimePosts: [BoardPostData]
+    let SearchRealTimePosts: [BoardPostMetaData]
 }

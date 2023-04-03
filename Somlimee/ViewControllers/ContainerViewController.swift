@@ -41,7 +41,8 @@ final class ContainerViewController: UIViewController {
     }
     
     func configureVC(){
-        
+        // add dependencies
+        homeVC.repository = HomeViewRepositoryImpl()
         offSetValue = view.frame.width * 0.7
         
         NSLayoutConstraint.activate([
