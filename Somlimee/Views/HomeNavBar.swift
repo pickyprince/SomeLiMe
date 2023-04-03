@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import FirebaseAuth
 fileprivate enum NavData{
     static let title: String = "광장게시판"
     static let dropDownList: [String] = ["A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장"]
@@ -66,13 +66,13 @@ class HomeNavBar: UIView {
             }, completion: { isComp in
                 if isComp {
                     self.viewHeightConstraint.isActive = false
-
+                    
                     self.viewHeightConstraint = self.heightAnchor.constraint(equalToConstant: self.screenSize.height * (self.defaultMultiplierOfHeight+self.multiplierOfDropDownTable))
-
+                    
                     self.viewHeightConstraint.isActive = true
                 }
             })
-
+            
             isDropDown = true
         }
     }
@@ -89,8 +89,19 @@ class HomeNavBar: UIView {
     
     func setup(){
         
+        
+        FirebaseAuth.Auth.auth().addStateDidChangeListener({ auth, user in
+            if user == nil {
+                self.profileButton.setImage(UIImage(systemName: "person.fill"), for: .normal)
+            }else{
+                self.profileButton.setImage(UIImage(named: "sadfrog"), for: .normal)
+            }
+        })
+        
+        
         //Auto layout pre-setup
-//        self.backgroundColor = .blue
+        
+        //        self.backgroundColor = .blue
         self.translatesAutoresizingMaskIntoConstraints = false
         container.contentView.translatesAutoresizingMaskIntoConstraints = false
         container.translatesAutoresizingMaskIntoConstraints = false
@@ -118,16 +129,15 @@ class HomeNavBar: UIView {
         searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         searchButton.tintColor = .label
         
-//        if let dele = delegate {
-//            searchButton.addTarget(self, action: #selector(dele.SearchButtonTouchUp), for: .touchUpInside)
-//        }
+        //        if let dele = delegate {
+        //            searchButton.addTarget(self, action: #selector(dele.SearchButtonTouchUp), for: .touchUpInside)
+        //        }
         leftDrawerButton.setImage(UIImage(systemName: "line.3.horizontal"), for: .normal)
         leftDrawerButton.tintColor = .label
         container.effect = blurEffect
         dropDownTableContainer.effect = blurEffect
         title.text = NavData.title
         
-        profileButton.setImage(UIImage(named: "sadfrog"), for: .normal)
         profileButton.widthAnchor.constraint(equalToConstant: searchButton.intrinsicContentSize.width + 10).isActive = true
         profileButton.heightAnchor.constraint(equalToConstant: searchButton.intrinsicContentSize.height + 10).isActive = true
         profileButton.layer.cornerRadius = .greatestFiniteMagnitude

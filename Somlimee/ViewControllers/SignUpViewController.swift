@@ -1,36 +1,33 @@
 //
-//  LogInViewController.swift
+//  SignUpViewController.swift
 //  Somlimee
 //
-//  Created by Chanhee on 2023/03/23.
+//  Created by Chanhee on 2023/04/03.
 //
 
 import UIKit
 
-class LogInViewController: UIViewController {
+class SignUpViewController: UIViewController {
     
     //Declare
     let stackView: UIStackView = UIStackView()
     let userID: UITextField = UITextField()
     let userPW: UITextField = UITextField()
-    let loginButton: UIButton = UIButton()
     let signUpButton: UIButton = UIButton()
-    @objc func loginClicked(){
+    
+    @objc func signUpClicked(){
         let id = self.userID.text ?? ""
         let pw = self.userPW.text ?? ""
         Task.init {
             do{
-                print("logging in")
-                try await UserLoginService.sharedInstance.signIn(ID: id, PW: pw)
-                print("logged in successfully")
-                navigationController?.popToRootViewController(animated: true)
-            }catch{
-                print("not logged in...\(error)")
+                print("Creating User")
+                try await UserSignUpWithEmailService.sharedInstance.createUser(Email: id, PW: pw)
+                print("Created User Successfully")
+                navigationController?.pushViewController(VerifyEmailViewController(), animated: true)
+            }catch UserSignUpFailures.CouldNotCreatUser{
+                print(">>>>ERROR: Could Not Creat User")
             }
         }
-    }
-    @objc func signUpClicked(){
-        navigationController?.pushViewController(SignUpViewController(), animated: true)
     }
     //Configure
     private func configure(){
@@ -44,15 +41,10 @@ class LogInViewController: UIViewController {
         userPW.backgroundColor = UIColor(red: 50/255, green: 205/255, blue: 50/255, alpha:0.2)
         userID.placeholder = "아이디..."
         userPW.placeholder = "패스워드..."
-        loginButton.setTitleColor(.white, for: .normal)
-        loginButton.setTitle("로그인", for: .normal)
-        loginButton.backgroundColor = UIColor(red: 50/255, green: 205/255, blue: 50/255, alpha:1)
-        loginButton.addTarget(self, action: #selector(loginClicked), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUpClicked), for: .touchUpInside)
         signUpButton.setTitleColor(.white, for: .normal)
         signUpButton.setTitle("가입하기", for: .normal)
         signUpButton.backgroundColor = UIColor(red: 50/255, green: 205/255, blue: 50/255, alpha:1)
-        
-        signUpButton.addTarget(self, action: #selector(signUpClicked), for: .touchUpInside)
     }
     
     //Layout
@@ -61,12 +53,10 @@ class LogInViewController: UIViewController {
         userID.translatesAutoresizingMaskIntoConstraints = false
         userPW.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         
         //add subviews
         view.addSubview(stackView)
-        view.addSubview(loginButton)
         view.addSubview(signUpButton)
         stackView.addArrangedSubview(userID)
         stackView.addArrangedSubview(userPW)
@@ -80,14 +70,7 @@ class LogInViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            loginButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 10),
-            loginButton.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            loginButton.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-            loginButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05)
-        ])
-        
-        NSLayoutConstraint.activate([
-            signUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 10),
+            signUpButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 10),
             signUpButton.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
             signUpButton.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
             signUpButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05)
@@ -98,6 +81,5 @@ class LogInViewController: UIViewController {
         layout()
         super.viewDidLoad()
     }
-    
-    
+
 }

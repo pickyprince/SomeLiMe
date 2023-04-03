@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 fileprivate enum HomeViewStaticData {
     static let realTimeHotHeader: String = "실시간 HOT 트렌드"
@@ -26,8 +27,8 @@ fileprivate enum HomeViewStaticData {
 }
 
 class HomeViewController: UIViewController {
-    
     var repository: HomeViewRepository? = nil
+    
     let scrollView: UIScrollView = UIScrollView()
     
     let contentView: UIStackView = UIStackView()
@@ -62,15 +63,7 @@ class HomeViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    var isLoggedIn = UserLoginService.sharedInstance.isUserLoggedIn{
-        didSet{
-            if self.isLoggedIn{
-                
-            }else{
-                
-            }
-        }
-    }
+    
     
     @objc func searchButtonTouchUp(){
         print(">>>>SEARCH BUTTON CLICKED!")
@@ -150,6 +143,7 @@ class HomeViewController: UIViewController {
     
     // MARK: - UI Configuration and Setup
     func configure(){
+        
         
         //DATA ASSIGNMENT
         realTimeHotRankSectionView.titleLabelString = HomeViewStaticData.realTimeHotHeader

@@ -10,7 +10,7 @@ import UIKit
 class BoardTableView: UITableView{
     
     //fixtures
-    let fix = BoardPostMetaData(boardID: "2939481239", postID: "320240243", publishedTime: NSDate(), postType: .text, postTitle: "재밋는 짤 .... jpg", boardCategory: "자유/잡담", userID: "유저아이디", numberOfViews: 24, numberOfRecommendation: 10)
+    let fix = BoardPostMetaData(boardID: "2939481239", postID: "320240243", publishedTime: NSDate(), postType: .text, postTitle: "재밋는 짤 .... jpg", boardTap: "자유/잡담", userID: "유저아이디", numberOfViews: 24, numberOfRecommendation: 10)
     
     private var heightConstraint: NSLayoutConstraint = NSLayoutConstraint()
     private var cellHeight: CGFloat = 56{
@@ -74,7 +74,7 @@ extension BoardTableView: UITableViewDataSource, UITableViewDelegate{
         cell.numberOfRecommendation = boardSectionPostCellData[indexPath.item].numberOfRecommendation
         cell.userID = boardSectionPostCellData[indexPath.item].userID
         cell.publishedTime = boardSectionPostCellData[indexPath.item].publishedTime
-        cell.boardCategory = boardSectionPostCellData[indexPath.item].boardCategory
+        cell.boardCategory = boardSectionPostCellData[indexPath.item].boardTap
         
         return cell
     }

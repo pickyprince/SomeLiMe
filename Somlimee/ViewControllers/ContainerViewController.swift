@@ -41,10 +41,10 @@ final class ContainerViewController: UIViewController {
     }
     
     func configureVC(){
+        
         // add dependencies
         homeVC.repository = HomeViewRepositoryImpl()
         offSetValue = view.frame.width * 0.7
-        
         NSLayoutConstraint.activate([
             profileVC.view.heightAnchor.constraint(equalTo: view.heightAnchor),
             profileVC.view.widthAnchor.constraint(equalToConstant: view.frame.width * 0.7),
@@ -79,6 +79,28 @@ final class ContainerViewController: UIViewController {
                 
             })
         }
+        
+        profileVC.navigateToLogin = {
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn ,animations: {
+                self.navigationVC.view.frame.origin.x = 0
+                self.sideMenuVC.view.frame.origin.x = -self.offSetValue
+                self.profileVC.view.frame.origin.x = self.view.frame.width
+                
+            }, completion: {isComp in self.navigationVC.pushViewController(LogInViewController(), animated: true)
+                self.homeVC.fogTouchUP()
+            })
+        }
+        profileVC.navigateToVerifyEmail = {
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn ,animations: {
+                self.navigationVC.view.frame.origin.x = 0
+                self.sideMenuVC.view.frame.origin.x = -self.offSetValue
+                self.profileVC.view.frame.origin.x = self.view.frame.width
+                
+            }, completion: {isComp in self.navigationVC.pushViewController(VerifyEmailViewController(), animated: true)
+                self.homeVC.fogTouchUP()
+            })
+        }
+        
     }
     // MARK: - LifeCycle
     override func viewDidLoad() {

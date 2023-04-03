@@ -10,14 +10,18 @@ import Firebase
 
 final class UserLoginService{
     static let sharedInstance = UserLoginService()
-    internal var isUserLoggedIn: Bool = false
-    private init(){
-        FirebaseAuth.Auth.auth().addStateDidChangeListener({ auth, user in
-            if user == nil{
-                self.isUserLoggedIn = false
-            }else{
-                self.isUserLoggedIn = true
-            }
-        })
+    internal func signIn(ID: String, PW: String) async throws -> Void {
+        do {
+            try await FirebaseAuth.Auth.auth().signIn(withEmail: ID, password: PW)
+        } catch{
+            throw UserLoginFailures.LoginFailed
+        }
+    }
+    internal func logOut() throws -> Void {
+        do {
+            try FirebaseAuth.Auth.auth().signOut()
+        } catch{
+            throw UserLoginFailures.LogOutFailed
+        }
     }
 }

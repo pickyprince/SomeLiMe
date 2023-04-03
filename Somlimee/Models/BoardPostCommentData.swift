@@ -8,7 +8,5 @@
 import Foundation
 
 struct BoardPostCommentData{
-    let user: UserData
-    let targetUser: UserData?
     let comment: String
 }

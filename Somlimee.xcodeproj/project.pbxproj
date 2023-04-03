@@ -34,7 +34,6 @@
 		CE2DD99729D2D72A002AF99B /* DataSourceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD99629D2D72A002AF99B /* DataSourceService.swift */; };
 		CE2DD99929D2DAFA002AF99B /* SearchHistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD99829D2DAFA002AF99B /* SearchHistoryData.swift */; };
 		CE2DD99B29D2DB90002AF99B /* SearchRealTimeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD99A29D2DB90002AF99B /* SearchRealTimeData.swift */; };
-		CE2DD99F29D2DEF5002AF99B /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD99E29D2DEF5002AF99B /* UserData.swift */; };
 		CE2DD9A129D2FCA5002AF99B /* PersonalityTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9A029D2FCA5002AF99B /* PersonalityTestData.swift */; };
 		CE2DD9A529D30035002AF99B /* SearchViewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9A429D30035002AF99B /* SearchViewRepository.swift */; };
 		CE2DD9A729D42570002AF99B /* SearchListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9A629D42570002AF99B /* SearchListData.swift */; };
@@ -42,13 +41,17 @@
 		CE2DD9AD29D5E052002AF99B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE2DD9AC29D5E052002AF99B /* GoogleService-Info.plist */; };
 		CE2DD9AF29D6DD91002AF99B /* UserLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9AE29D6DD91002AF99B /* UserLoginService.swift */; };
 		CE2DD9B129D7205F002AF99B /* UserSignUpWithEmailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9B029D7205F002AF99B /* UserSignUpWithEmailService.swift */; };
-		CE2DD9BB29D7FFDC002AF99B /* UserSignUpFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9BA29D7FFDC002AF99B /* UserSignUpFailure.swift */; };
+		CE2DD9BB29D7FFDC002AF99B /* UserSignUpFailures.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9BA29D7FFDC002AF99B /* UserSignUpFailures.swift */; };
 		CE2DD9BF29D8264E002AF99B /* SQLQueryCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9BE29D8264E002AF99B /* SQLQueryCollections.swift */; };
 		CE2DD9C129D84E2B002AF99B /* BoardPostContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9C029D84E2B002AF99B /* BoardPostContentData.swift */; };
 		CE2DD9C329D84EDB002AF99B /* BoardPostCommentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9C229D84EDB002AF99B /* BoardPostCommentData.swift */; };
 		CE2DD9C529D858EC002AF99B /* LocalDataSourceFailures.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9C429D858EC002AF99B /* LocalDataSourceFailures.swift */; };
 		CE2DD9C929D86CE6002AF99B /* DataSourceFailures.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9C829D86CE6002AF99B /* DataSourceFailures.swift */; };
 		CE2DD9CB29D9549E002AF99B /* injectDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9CA29D9549E002AF99B /* injectDependencies.swift */; };
+		CE2DD9CD29DA9AED002AF99B /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9CC29DA9AED002AF99B /* SignUpViewController.swift */; };
+		CE2DD9CF29DAB9D2002AF99B /* UserLogInFailures.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9CE29DAB9D1002AF99B /* UserLogInFailures.swift */; };
+		CE2DD9D329DAEAB4002AF99B /* VerifyEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9D229DAEAB3002AF99B /* VerifyEmailViewController.swift */; };
+		CE2DD9D529DAEBEC002AF99B /* PersonalityTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9D429DAEBEC002AF99B /* PersonalityTestViewController.swift */; };
 		CE4F263B29B4D07F0037AA30 /* LabelCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */; };
 		CE4F264029BA0A060037AA30 /* CategorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */; };
 		CE7A7A0F29A87B4B00DDE8A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */; };
@@ -88,7 +91,6 @@
 		CE2DD99629D2D72A002AF99B /* DataSourceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceService.swift; sourceTree = "<group>"; };
 		CE2DD99829D2DAFA002AF99B /* SearchHistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryData.swift; sourceTree = "<group>"; };
 		CE2DD99A29D2DB90002AF99B /* SearchRealTimeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRealTimeData.swift; sourceTree = "<group>"; };
-		CE2DD99E29D2DEF5002AF99B /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		CE2DD9A029D2FCA5002AF99B /* PersonalityTestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalityTestData.swift; sourceTree = "<group>"; };
 		CE2DD9A429D30035002AF99B /* SearchViewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewRepository.swift; sourceTree = "<group>"; };
 		CE2DD9A629D42570002AF99B /* SearchListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListData.swift; sourceTree = "<group>"; };
@@ -96,13 +98,17 @@
 		CE2DD9AC29D5E052002AF99B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CE2DD9AE29D6DD91002AF99B /* UserLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginService.swift; sourceTree = "<group>"; };
 		CE2DD9B029D7205F002AF99B /* UserSignUpWithEmailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpWithEmailService.swift; sourceTree = "<group>"; };
-		CE2DD9BA29D7FFDC002AF99B /* UserSignUpFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpFailure.swift; sourceTree = "<group>"; };
+		CE2DD9BA29D7FFDC002AF99B /* UserSignUpFailures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpFailures.swift; sourceTree = "<group>"; };
 		CE2DD9BE29D8264E002AF99B /* SQLQueryCollections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLQueryCollections.swift; sourceTree = "<group>"; };
 		CE2DD9C029D84E2B002AF99B /* BoardPostContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPostContentData.swift; sourceTree = "<group>"; };
 		CE2DD9C229D84EDB002AF99B /* BoardPostCommentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPostCommentData.swift; sourceTree = "<group>"; };
 		CE2DD9C429D858EC002AF99B /* LocalDataSourceFailures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataSourceFailures.swift; sourceTree = "<group>"; };
 		CE2DD9C829D86CE6002AF99B /* DataSourceFailures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceFailures.swift; sourceTree = "<group>"; };
 		CE2DD9CA29D9549E002AF99B /* injectDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = injectDependencies.swift; sourceTree = "<group>"; };
+		CE2DD9CC29DA9AED002AF99B /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		CE2DD9CE29DAB9D1002AF99B /* UserLogInFailures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogInFailures.swift; sourceTree = "<group>"; };
+		CE2DD9D229DAEAB3002AF99B /* VerifyEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailViewController.swift; sourceTree = "<group>"; };
+		CE2DD9D429DAEBEC002AF99B /* PersonalityTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalityTestViewController.swift; sourceTree = "<group>"; };
 		CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionView.swift; sourceTree = "<group>"; };
 		CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySectionView.swift; sourceTree = "<group>"; };
 		CE7A7A0B29A87B4B00DDE8A5 /* Somlimee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Somlimee.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,7 +179,8 @@
 		CE2DD9B929D7FFC6002AF99B /* Failures */ = {
 			isa = PBXGroup;
 			children = (
-				CE2DD9BA29D7FFDC002AF99B /* UserSignUpFailure.swift */,
+				CE2DD9BA29D7FFDC002AF99B /* UserSignUpFailures.swift */,
+				CE2DD9CE29DAB9D1002AF99B /* UserLogInFailures.swift */,
 				CE2DD9C429D858EC002AF99B /* LocalDataSourceFailures.swift */,
 				CE2DD9C829D86CE6002AF99B /* DataSourceFailures.swift */,
 			);
@@ -185,6 +192,7 @@
 			children = (
 				CE7A7A1229A87B4B00DDE8A5 /* ContainerViewController.swift */,
 				CE2DD98129CCA126002AF99B /* HomeViewController.swift */,
+				CE2DD9CC29DA9AED002AF99B /* SignUpViewController.swift */,
 				CE2DD97D29CC2717002AF99B /* ProfileViewController.swift */,
 				CE2DD96D29C827B7002AF99B /* SearchViewController.swift */,
 				CE2DD97F29CC2729002AF99B /* SideMenuViewController.swift */,
@@ -192,6 +200,8 @@
 				CE2DD97729CC2084002AF99B /* RealTimeHotBoardViewController.swift */,
 				CE2DD97929CC21A1002AF99B /* CategoryRequestViewController.swift */,
 				CE2DD97529CC1107002AF99B /* RealTimeHotDetailViewController.swift */,
+				CE2DD9D229DAEAB3002AF99B /* VerifyEmailViewController.swift */,
+				CE2DD9D429DAEBEC002AF99B /* PersonalityTestViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -219,15 +229,14 @@
 				CE2DD96929C740F4002AF99B /* BoardPostMetaData.swift */,
 				CE2DD98C29D2C0E1002AF99B /* BoardHotKeyData.swift */,
 				CE2DD99A29D2DB90002AF99B /* SearchRealTimeData.swift */,
+				CE2DD9A629D42570002AF99B /* SearchListData.swift */,
 				CE2DD99829D2DAFA002AF99B /* SearchHistoryData.swift */,
 				CE2DD98829D2BFA2002AF99B /* HotBoardRankingData.swift */,
 				CE2DD98629D2BE02002AF99B /* HotTrendData.swift */,
 				CE2DD99029D2D5AA002AF99B /* PersonalityTestResultData.swift */,
 				CE2DD98E29D2D58B002AF99B /* ProfileData.swift */,
 				CE2DD98A29D2C02C002AF99B /* CategoryData.swift */,
-				CE2DD99E29D2DEF5002AF99B /* UserData.swift */,
 				CE2DD9A029D2FCA5002AF99B /* PersonalityTestData.swift */,
-				CE2DD9A629D42570002AF99B /* SearchListData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -398,7 +407,6 @@
 			files = (
 				CE2DD96C29C7466D002AF99B /* BoardTableView.swift in Sources */,
 				CE2DD99B29D2DB90002AF99B /* SearchRealTimeData.swift in Sources */,
-				CE2DD99F29D2DEF5002AF99B /* UserData.swift in Sources */,
 				CE2DD98729D2BE02002AF99B /* HotTrendData.swift in Sources */,
 				CE2DD96E29C827B7002AF99B /* SearchViewController.swift in Sources */,
 				CE2DD9BF29D8264E002AF99B /* SQLQueryCollections.swift in Sources */,
@@ -409,6 +417,7 @@
 				CE2DD96429C4AF73002AF99B /* HomeNavBar.swift in Sources */,
 				CE2DD99929D2DAFA002AF99B /* SearchHistoryData.swift in Sources */,
 				CE2DD99529D2D71D002AF99B /* RemoteDataSourceService.swift in Sources */,
+				CE2DD9D329DAEAB4002AF99B /* VerifyEmailViewController.swift in Sources */,
 				CE2DD9A729D42570002AF99B /* SearchListData.swift in Sources */,
 				CE4F264029BA0A060037AA30 /* CategorySectionView.swift in Sources */,
 				CE2DD98529CD88B8002AF99B /* HomeViewRepository.swift in Sources */,
@@ -418,15 +427,18 @@
 				CE7A7A1329A87B4B00DDE8A5 /* ContainerViewController.swift in Sources */,
 				CE2DD97A29CC21A1002AF99B /* CategoryRequestViewController.swift in Sources */,
 				CE7A7A0F29A87B4B00DDE8A5 /* AppDelegate.swift in Sources */,
-				CE2DD9BB29D7FFDC002AF99B /* UserSignUpFailure.swift in Sources */,
+				CE2DD9BB29D7FFDC002AF99B /* UserSignUpFailures.swift in Sources */,
 				CE2DD9B129D7205F002AF99B /* UserSignUpWithEmailService.swift in Sources */,
 				CE2DD97E29CC2717002AF99B /* ProfileViewController.swift in Sources */,
+				CE2DD9CD29DA9AED002AF99B /* SignUpViewController.swift in Sources */,
 				CE2DD99329D2D711002AF99B /* LocalDataSourceService.swift in Sources */,
 				CE2DD98D29D2C0E1002AF99B /* BoardHotKeyData.swift in Sources */,
 				CE2DD97629CC1107002AF99B /* RealTimeHotDetailViewController.swift in Sources */,
 				CE2DD9C529D858EC002AF99B /* LocalDataSourceFailures.swift in Sources */,
 				CE2DD9A929D425E0002AF99B /* BoardInfoData.swift in Sources */,
+				CE2DD9D529DAEBEC002AF99B /* PersonalityTestViewController.swift in Sources */,
 				CE7A7A1129A87B4B00DDE8A5 /* SceneDelegate.swift in Sources */,
+				CE2DD9CF29DAB9D2002AF99B /* UserLogInFailures.swift in Sources */,
 				CE2DD9C929D86CE6002AF99B /* DataSourceFailures.swift in Sources */,
 				CE2DD9A529D30035002AF99B /* SearchViewRepository.swift in Sources */,
 				CE2DD97829CC2084002AF99B /* RealTimeHotBoardViewController.swift in Sources */,

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import FirebaseAuth
 
 
 class ProfileViewController: UIViewController {
@@ -37,7 +37,6 @@ class ProfileViewController: UIViewController {
     let mailButton: UIButton = UIButton()
     var defaultFont: UIFont = UIFont()
     
-    
     private func createPostListItem(){
         for data in loadedData.recentPostList{
             let postItemContainer = UIView()
@@ -58,14 +57,14 @@ class ProfileViewController: UIViewController {
             
             
             NSLayoutConstraint.activate([
-            title.leadingAnchor.constraint(equalTo: postItemContainer.leadingAnchor, constant: 10),
-            title.centerYAnchor.constraint(equalTo: postItemContainer.centerYAnchor),
-            title.trailingAnchor.constraint(greaterThanOrEqualTo: date.leadingAnchor, constant: 5)
+                title.leadingAnchor.constraint(equalTo: postItemContainer.leadingAnchor, constant: 10),
+                title.centerYAnchor.constraint(equalTo: postItemContainer.centerYAnchor),
+                title.trailingAnchor.constraint(greaterThanOrEqualTo: date.leadingAnchor, constant: 5)
             ])
             
             NSLayoutConstraint.activate([
-            date.trailingAnchor.constraint(equalTo: postItemContainer.trailingAnchor, constant: -10),
-            date.centerYAnchor.constraint(equalTo: postItemContainer.centerYAnchor)
+                date.trailingAnchor.constraint(equalTo: postItemContainer.trailingAnchor, constant: -10),
+                date.centerYAnchor.constraint(equalTo: postItemContainer.centerYAnchor)
             ])
             postItemContainer.backgroundColor = .systemGray4
             recentPostsListContainer.addArrangedSubview(postItemContainer)
@@ -74,6 +73,12 @@ class ProfileViewController: UIViewController {
     }
     @objc func profileSettingButtonTouchUp(){
         print("profile button clicked")
+            do { try UserLoginService.sharedInstance.logOut()
+            } catch{
+                print("logout error")
+            }
+        
+        
     }
     
     @objc func testResultDetailButtonTouchUp(){
@@ -102,14 +107,31 @@ class ProfileViewController: UIViewController {
         print("alarmButton button clicked")
     }
     
-//    private func loadData(){
-//        self.view.loadedData = Repository.userProfileData
-//    }
+    //    private func loadData(){
+    //        self.view.loadedData = Repository.userProfileData
+    //    }
     
+    
+    // Not Logged In Props
+    let loginButton: UIButton = UIButton()
+    let verifyEmailButton: UIButton = UIButton()
+    
+    var navigateToLogin: (()->())?
+    
+    @objc func navigateToLoginView(){
+        navigateToLogin?()
+    }
+    var navigateToVerifyEmail: (()->())?
+    
+    @objc func navigateToVerifyEmailView(){
+        navigateToVerifyEmail?()
+    }
     
     private func configureUI(){
         
         //ADD SUBVIEWS
+        self.view.addSubview(loginButton)
+        self.view.addSubview(verifyEmailButton)
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(recentPostsListContainer)
         self.view.addSubview(profileImageView)
@@ -153,9 +175,22 @@ class ProfileViewController: UIViewController {
         bottomButtonGroup.translatesAutoresizingMaskIntoConstraints = false
         alarmButton.translatesAutoresizingMaskIntoConstraints = false
         mailButton.translatesAutoresizingMaskIntoConstraints = false
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        verifyEmailButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        loginButton.setTitle("로그인하기", for: .normal)
+        loginButton.setTitleColor(.label, for: .normal)
+        loginButton.addTarget(self, action: #selector(navigateToLoginView), for: .touchUpInside)
+        loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        verifyEmailButton.setTitle("이메일 인증", for: .normal)
+        verifyEmailButton.setTitleColor(.label, for: .normal)
+        verifyEmailButton.addTarget(self, action: #selector(navigateToVerifyEmailView), for: .touchUpInside)
         
         defaultFont = UIFont.systemFont(ofSize: 13)
-        profileImageView.image = UIImage(named: "sadfrog")
+        profileImageView.image = UIImage(systemName: "person.fill")
         userNameLabel.text = loadedData.userName
         profileSettingButton.setImage(UIImage(systemName: "gearshape.fill"), for: .normal)
         profileSettingButton.tintColor = .label
@@ -195,6 +230,8 @@ class ProfileViewController: UIViewController {
         mailButton.setImage(UIImage(systemName: "envelope"), for: .normal)
         mailButton.tintColor = .label
         mailButton.addTarget(self, action: #selector(mailButtonTouchUp), for: .touchUpInside)
+        
+        
     }
     
     private func setUpLayout(){
@@ -287,16 +324,90 @@ class ProfileViewController: UIViewController {
         NSLayoutConstraint.activate([
             alarmButton.widthAnchor.constraint(equalToConstant: 40),
             alarmButton.heightAnchor.constraint(equalToConstant: 40),
-            alarmButton.widthAnchor.constraint(equalToConstant: 40),
-            alarmButton.heightAnchor.constraint(equalToConstant: 40),
+            mailButton.widthAnchor.constraint(equalToConstant: 40),
+            mailButton.heightAnchor.constraint(equalToConstant: 40),
         ])
-        
+        NSLayoutConstraint.activate([
+            verifyEmailButton.topAnchor.constraint(equalTo: bottomButtonGroup.bottomAnchor),
+            verifyEmailButton.trailingAnchor.constraint(equalTo: bottomButtonGroup.trailingAnchor),
+            verifyEmailButton.leadingAnchor.constraint(equalTo: bottomButtonGroup.leadingAnchor)
+        ])
         
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-//        loadData()
+        do {
+            try UserLoginService.sharedInstance.logOut()
+        }catch{
+            print("signouterror")
+        }
+        FirebaseAuth.Auth.auth().addStateDidChangeListener({ auth, user in
+            
+            if user == nil {
+                self.loginButton.isHidden = false
+                self.verifyEmailButton.isHidden = true
+                self.profileImageView.isHidden = true
+                self.userNameLabel.isHidden = true
+                self.profileSettingButton.isHidden = true
+                self.receivedUpsLabel.isHidden = true
+                
+                self.giveUpsLabel.isHidden = false
+                self.pointsLabel.isHidden = true
+                self.activeLabel.isHidden = true
+                self.badgeView.isHidden = true
+                self.testResultContainer.isHidden = true
+                self.recentPostsLabel.isHidden = true
+                self.recentPostsNumberLabel.isHidden = true
+                self.recentPostsListContainer.isHidden = true
+                self.recentPostsDetailButton.isHidden = true
+                self.bottomButtonGroup.isHidden = true
+            }else{
+                self.loginButton.isHidden = true
+                self.profileImageView.isHidden = false
+                self.userNameLabel.isHidden = false
+                self.profileSettingButton.isHidden = false
+                self.receivedUpsLabel.isHidden = false
+                
+                self.giveUpsLabel.isHidden = false
+                self.pointsLabel.isHidden = false
+                self.activeLabel.isHidden = false
+                self.badgeView.isHidden = false
+                self.testResultContainer.isHidden = false
+                self.recentPostsLabel.isHidden = false
+                self.recentPostsNumberLabel.isHidden = false
+                self.recentPostsListContainer.isHidden = false
+                self.recentPostsDetailButton.isHidden = false
+                self.bottomButtonGroup.isHidden = false
+                guard let result = user?.isEmailVerified else{
+                    return
+                }
+                if result{
+                    self.verifyEmailButton.isHidden = false
+                }else{
+                    self.verifyEmailButton.isHidden = false
+                }
+            }
+        })
+        //        loadData()
         configureUI()
         setUpLayout()
+        
+        
+        
+        self.loginButton.isHidden = false
+        self.profileImageView.isHidden = true
+        self.userNameLabel.isHidden = true
+        self.profileSettingButton.isHidden = true
+        self.receivedUpsLabel.isHidden = true
+        self.giveUpsLabel.isHidden = true
+        self.pointsLabel.isHidden = true
+        self.activeLabel.isHidden = true
+        self.badgeView.isHidden = true
+        self.testResultContainer.isHidden = true
+        self.recentPostsLabel.isHidden = true
+        self.recentPostsNumberLabel.isHidden = true
+        self.recentPostsListContainer.isHidden = true
+        self.recentPostsDetailButton.isHidden = true
+        self.bottomButtonGroup.isHidden = true
     }
 }

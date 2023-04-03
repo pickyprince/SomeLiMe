@@ -11,8 +11,15 @@ import Firebase
 
 final class UserSignUpWithEmailService{
     static let sharedInstance = UserSignUpWithEmailService()
+    internal func createUser(Email: String, PW: String) async throws -> Void{
+        do{
+            try await FirebaseAuth.Auth.auth().createUser(withEmail: Email, password: PW)
+        }catch{
+            throw UserSignUpFailures.CouldNotCreatUser
+        }
+    }
     internal func verifyEmail() async throws -> Void{
-        //sync
+        
         guard let user = FirebaseAuth.Auth.auth().currentUser else{
             throw UserSignUpFailures.UserDoesNotExist
         }
@@ -20,7 +27,6 @@ final class UserSignUpWithEmailService{
             throw UserSignUpFailures.UserAlreadyVerified
         }
         
-        //async
         do{
             try await user.sendEmailVerification()
         }catch{
