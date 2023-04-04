@@ -52,6 +52,13 @@
 		CE2DD9CF29DAB9D2002AF99B /* UserLogInFailures.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9CE29DAB9D1002AF99B /* UserLogInFailures.swift */; };
 		CE2DD9D329DAEAB4002AF99B /* VerifyEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9D229DAEAB3002AF99B /* VerifyEmailViewController.swift */; };
 		CE2DD9D529DAEBEC002AF99B /* PersonalityTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9D429DAEBEC002AF99B /* PersonalityTestViewController.swift */; };
+		CE2DD9D729DBF279002AF99B /* PersonalityTestViewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9D629DBF279002AF99B /* PersonalityTestViewRepository.swift */; };
+		CE2DD9D929DBF8A6002AF99B /* AnswerBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9D829DBF8A6002AF99B /* AnswerBarView.swift */; };
+		CE2DD9DB29DC1174002AF99B /* PersonalityTestResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9DA29DC1174002AF99B /* PersonalityTestResultViewController.swift */; };
+		CE2DD9DD29DC50A0002AF99B /* CalculateTestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9DC29DC50A0002AF99B /* CalculateTestResult.swift */; };
+		CE2DD9DF29DC7057002AF99B /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9DE29DC7057002AF99B /* BoardViewController.swift */; };
+		CE2DD9E129DC70BA002AF99B /* BoardPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9E029DC70BA002AF99B /* BoardPostViewController.swift */; };
+		CE2DD9E329DC70CF002AF99B /* BoardPostWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9E229DC70CF002AF99B /* BoardPostWriteViewController.swift */; };
 		CE4F263B29B4D07F0037AA30 /* LabelCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */; };
 		CE4F264029BA0A060037AA30 /* CategorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */; };
 		CE7A7A0F29A87B4B00DDE8A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */; };
@@ -109,6 +116,13 @@
 		CE2DD9CE29DAB9D1002AF99B /* UserLogInFailures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogInFailures.swift; sourceTree = "<group>"; };
 		CE2DD9D229DAEAB3002AF99B /* VerifyEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailViewController.swift; sourceTree = "<group>"; };
 		CE2DD9D429DAEBEC002AF99B /* PersonalityTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalityTestViewController.swift; sourceTree = "<group>"; };
+		CE2DD9D629DBF279002AF99B /* PersonalityTestViewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalityTestViewRepository.swift; sourceTree = "<group>"; };
+		CE2DD9D829DBF8A6002AF99B /* AnswerBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerBarView.swift; sourceTree = "<group>"; };
+		CE2DD9DA29DC1174002AF99B /* PersonalityTestResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalityTestResultViewController.swift; sourceTree = "<group>"; };
+		CE2DD9DC29DC50A0002AF99B /* CalculateTestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateTestResult.swift; sourceTree = "<group>"; };
+		CE2DD9DE29DC7057002AF99B /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
+		CE2DD9E029DC70BA002AF99B /* BoardPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPostViewController.swift; sourceTree = "<group>"; };
+		CE2DD9E229DC70CF002AF99B /* BoardPostWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPostWriteViewController.swift; sourceTree = "<group>"; };
 		CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionView.swift; sourceTree = "<group>"; };
 		CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySectionView.swift; sourceTree = "<group>"; };
 		CE7A7A0B29A87B4B00DDE8A5 /* Somlimee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Somlimee.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				CE2DD98429CD88B8002AF99B /* HomeViewRepository.swift */,
+				CE2DD9D629DBF279002AF99B /* PersonalityTestViewRepository.swift */,
 				CE2DD9A429D30035002AF99B /* SearchViewRepository.swift */,
 			);
 			path = Repositories;
@@ -172,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				CE2DD9CA29D9549E002AF99B /* injectDependencies.swift */,
+				CE2DD9DC29DC50A0002AF99B /* CalculateTestResult.swift */,
 			);
 			path = Functions;
 			sourceTree = "<group>";
@@ -202,6 +218,10 @@
 				CE2DD97529CC1107002AF99B /* RealTimeHotDetailViewController.swift */,
 				CE2DD9D229DAEAB3002AF99B /* VerifyEmailViewController.swift */,
 				CE2DD9D429DAEBEC002AF99B /* PersonalityTestViewController.swift */,
+				CE2DD9DA29DC1174002AF99B /* PersonalityTestResultViewController.swift */,
+				CE2DD9DE29DC7057002AF99B /* BoardViewController.swift */,
+				CE2DD9E029DC70BA002AF99B /* BoardPostViewController.swift */,
+				CE2DD9E229DC70CF002AF99B /* BoardPostWriteViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -212,6 +232,7 @@
 				CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */,
 				CE2DD96529C59721002AF99B /* BoardSectionView.swift */,
 				CE2DD96729C59F84002AF99B /* NormalTableView.swift */,
+				CE2DD9D829DBF8A6002AF99B /* AnswerBarView.swift */,
 				CE2DD96F29C828B2002AF99B /* SearchNavBar.swift */,
 				CE2DD96329C4AF73002AF99B /* HomeNavBar.swift */,
 				CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */,
@@ -411,6 +432,8 @@
 				CE2DD96E29C827B7002AF99B /* SearchViewController.swift in Sources */,
 				CE2DD9BF29D8264E002AF99B /* SQLQueryCollections.swift in Sources */,
 				CE2DD98F29D2D58B002AF99B /* ProfileData.swift in Sources */,
+				CE2DD9E329DC70CF002AF99B /* BoardPostWriteViewController.swift in Sources */,
+				CE2DD9D729DBF279002AF99B /* PersonalityTestViewRepository.swift in Sources */,
 				CE2DD98229CCA126002AF99B /* HomeViewController.swift in Sources */,
 				CE2DD96A29C740F4002AF99B /* BoardPostMetaData.swift in Sources */,
 				CE4F263B29B4D07F0037AA30 /* LabelCollectionView.swift in Sources */,
@@ -431,8 +454,10 @@
 				CE2DD9B129D7205F002AF99B /* UserSignUpWithEmailService.swift in Sources */,
 				CE2DD97E29CC2717002AF99B /* ProfileViewController.swift in Sources */,
 				CE2DD9CD29DA9AED002AF99B /* SignUpViewController.swift in Sources */,
+				CE2DD9DF29DC7057002AF99B /* BoardViewController.swift in Sources */,
 				CE2DD99329D2D711002AF99B /* LocalDataSourceService.swift in Sources */,
 				CE2DD98D29D2C0E1002AF99B /* BoardHotKeyData.swift in Sources */,
+				CE2DD9DD29DC50A0002AF99B /* CalculateTestResult.swift in Sources */,
 				CE2DD97629CC1107002AF99B /* RealTimeHotDetailViewController.swift in Sources */,
 				CE2DD9C529D858EC002AF99B /* LocalDataSourceFailures.swift in Sources */,
 				CE2DD9A929D425E0002AF99B /* BoardInfoData.swift in Sources */,
@@ -447,10 +472,13 @@
 				CE2DD97C29CC21DA002AF99B /* LogInViewController.swift in Sources */,
 				CE2DD97029C828B2002AF99B /* SearchNavBar.swift in Sources */,
 				CE2DD99129D2D5AA002AF99B /* PersonalityTestResultData.swift in Sources */,
+				CE2DD9E129DC70BA002AF99B /* BoardPostViewController.swift in Sources */,
 				CE2DD99729D2D72A002AF99B /* DataSourceService.swift in Sources */,
+				CE2DD9D929DBF8A6002AF99B /* AnswerBarView.swift in Sources */,
 				CE2DD96629C59721002AF99B /* BoardSectionView.swift in Sources */,
 				CE2DD96829C59F84002AF99B /* NormalTableView.swift in Sources */,
 				CE2DD98B29D2C02C002AF99B /* CategoryData.swift in Sources */,
+				CE2DD9DB29DC1174002AF99B /* PersonalityTestResultViewController.swift in Sources */,
 				CE2DD98929D2BFA2002AF99B /* HotBoardRankingData.swift in Sources */,
 				CE2DD9C329D84EDB002AF99B /* BoardPostCommentData.swift in Sources */,
 			);

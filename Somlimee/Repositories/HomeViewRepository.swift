@@ -34,7 +34,17 @@ final class HomeViewRepositoryImpl: HomeViewRepository{
     }
     
     func getHotBoardRankingData() async throws -> HotBaoardRankingData? {
-        return nil
+        let rawData = try await DataSourceService.sharedInstance.getHotBoardRankingData()
+        guard let unwrappedRawData = rawData?["RankingList"] else{
+            print("RankingList rawData empty!")
+            return nil
+        }
+        let castedRawData = unwrappedRawData as? [String]
+        guard let unwrappedCastedRawData = castedRawData else {
+            print("could not caste rawData")
+            return nil
+        }
+        return HotBaoardRankingData(realTimeBoardRanking: unwrappedCastedRawData)
     }
     
     func getCategoryData() async throws -> CategoryData? {
@@ -45,8 +55,4 @@ final class HomeViewRepositoryImpl: HomeViewRepository{
     func getBoardHotKeyData() async throws -> BoardHotKeyData? {
         return nil
     }
-    
-    
-    
-    
 }

@@ -43,7 +43,7 @@ class HomeViewController: UIViewController {
     
     let categorySectionView: CategorySectionView = CategorySectionView()
     
-    
+    var scrollViewTopConstraint: NSLayoutConstraint?
     //call back functions
     public var sideMenuTouched: (()->())?
     
@@ -108,7 +108,15 @@ class HomeViewController: UIViewController {
         fogTouched?()
         
     }
-    
+    @objc func handleRefreshControl() {
+        // Update your content…
+        loadData()
+        Auth.auth().currentUser?.reload()
+        // Dismiss the refresh control.
+        DispatchQueue.main.async {
+            self.scrollView.refreshControl?.endRefreshing()
+        }
+    }
     func test(){
         for _ in 1...10 {
             let view = UIView()
@@ -144,20 +152,33 @@ class HomeViewController: UIViewController {
     // MARK: - UI Configuration and Setup
     func configure(){
         
-        
+        let refresh: UIRefreshControl = UIRefreshControl()
+        self.scrollView.refreshControl = refresh
+        self.scrollView.refreshControl?.addTarget(self, action:
+                                                    #selector(handleRefreshControl),
+                                                  for: .valueChanged)
+        self.scrollView.delegate = self
         //DATA ASSIGNMENT
         realTimeHotRankSectionView.titleLabelString = HomeViewStaticData.realTimeHotHeader
-        
         realTimeHotRankSectionView.buttonTitleString = HomeViewStaticData.realTimeHotButtonTitle
         realTimeHotRankSectionView.buttonImage = HomeViewStaticData.realTimeHotButtonImage
+        realTimeHotRankSectionView.cellClicked = { str in
+            print("cell clicked \(str ?? "")")
+        }
         
         realTimeBoardRankSectionView.titleLabelString = HomeViewStaticData.realTimeBoardHeader
-        
         realTimeBoardRankSectionView.buttonTitleString = HomeViewStaticData.realTimeBoardButtonTitle
         realTimeBoardRankSectionView.buttonImage = HomeViewStaticData.realTimeBoardButtonImage
-        
+        realTimeBoardRankSectionView.cellClicked = { str in
+            
+                print("cell clicked \(str ?? "")")
+        }
         categorySectionView.titleString = HomeViewStaticData.categoryHeader
         categorySectionView.buttonTitleString = HomeViewStaticData.categoryButtonTitle
+        categorySectionView.cellClicked = { str in
+            
+                print("cell clicked \(str ?? "")")
+        }
         
         //Navigation Disable
         self.navigationController?.navigationBar.isHidden = true
@@ -177,7 +198,7 @@ class HomeViewController: UIViewController {
         
         //Router
         realTimeHotRankSectionView.detailButtonClicked = {
-            self.navigationController?.pushViewController(RealTimeHotDetailViewController(), animated: true)
+            self.navigationController?.pushViewController(PersonalityTestViewController(), animated: true)
         }
         realTimeBoardRankSectionView.detailButtonClicked = {
             self.navigationController?.pushViewController(RealTimeHotDetailViewController(), animated: true)
@@ -206,8 +227,10 @@ class HomeViewController: UIViewController {
             navBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             navBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
+        
+        self.scrollViewTopConstraint = scrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 10)
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 10),
+            scrollViewTopConstraint!,
             scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -10),
             scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
@@ -231,4 +254,13 @@ class HomeViewController: UIViewController {
     
     
     
+}
+extension HomeViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y < 0 {
+            self.scrollViewTopConstraint?.constant = -scrollView.contentOffset.y/2
+        } else {
+            self.scrollViewTopConstraint?.constant = 0
+        }
+    }
 }

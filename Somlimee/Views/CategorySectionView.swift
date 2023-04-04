@@ -76,7 +76,10 @@ class CategorySectionView: UIView {
         
 
     }
-    
+    var cellClicked: ((String?) -> Void)?
+    @objc func cellTouchUpInside(sender: UIButton){
+        cellClicked?(sender.currentTitle)
+    }
     private let collectionViewContainer: UIStackView = UIStackView()
     
     private let collectionView: UICollectionView = {
@@ -89,17 +92,6 @@ class CategorySectionView: UIView {
         return collectionView
     }()
     
-    
-    
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        internalInit()
-    }
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        internalInit()
-    }
     private func internalInit(){
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -184,6 +176,14 @@ class CategorySectionView: UIView {
     }
     
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        internalInit()
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        internalInit()
+    }
 }
 // MARK: - DataSource and Delegate Method
 extension CategorySectionView: UICollectionViewDataSource, UICollectionViewDelegate{
@@ -200,6 +200,7 @@ extension CategorySectionView: UICollectionViewDataSource, UICollectionViewDeleg
             cell.cellColor = selectColor
         }
         cell.text = data[indexPath.item]
+        cell.cellButton.addTarget(self, action: #selector(cellTouchUpInside(sender:)), for: .touchUpInside)
         return cell
     }
     
@@ -207,9 +208,9 @@ extension CategorySectionView: UICollectionViewDataSource, UICollectionViewDeleg
 extension CategorySectionView: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let label = UILabel()
-        label.text = data[indexPath.item]
-        return CGSize(width: (label.intrinsicContentSize.width + 10), height: label.intrinsicContentSize.height)
+        let button = UIButton()
+        button.setTitle(data[indexPath.item], for: .normal)
+        return CGSize(width: (button.intrinsicContentSize.width + 10), height: button.intrinsicContentSize.height)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 3
@@ -225,18 +226,18 @@ extension CategorySectionView: UICollectionViewDelegateFlowLayout{
 class CategorySectionViewCell: UICollectionViewCell {
     var cellColor: UIColor = .systemGray3
     var index: Int = 0
-    var text : String = "" {didSet{cellLabel.text = text}}
+    var text : String = "" {didSet{cellButton.setTitle(text, for: .normal)}}
     let container: UIView = {
         let view: UIView = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 10
         return view
     }()
-    let cellLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .label
-        return label
+    let cellButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(.label, for: .normal)
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -252,12 +253,12 @@ class CategorySectionViewCell: UICollectionViewCell {
         container.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
         container.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
 
-        container.addSubview(cellLabel)
+        container.addSubview(cellButton)
         
-        cellLabel.topAnchor.constraint(equalTo: container.topAnchor).isActive = true
-        cellLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
-        cellLabel.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
-        cellLabel.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -5).isActive = true
+        cellButton.topAnchor.constraint(equalTo: container.topAnchor).isActive = true
+        cellButton.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
+        cellButton.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+        cellButton.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -5).isActive = true
         
     }
     

@@ -62,8 +62,10 @@ class LabelCollectionView: UIView {
         return collectionView
     }()
     
-    
-    
+    var cellClicked: ((String?) -> Void)?
+    @objc func cellTouchUpInside(sender: UIButton){
+        cellClicked?(sender.currentTitle)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -114,7 +116,7 @@ class LabelCollectionView: UIView {
             topRightButton.trailingAnchor.constraint(equalTo: headerSectionView.trailingAnchor),
             topRightButton.leadingAnchor.constraint(greaterThanOrEqualTo:headerLabel.trailingAnchor, constant: 50)
         ])
-
+        
         container.addArrangedSubview(headerSectionView)
         container.addArrangedSubview(collectionView)
         
@@ -149,6 +151,7 @@ extension LabelCollectionView: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! LabelCollectionViewCell
         cell.text = data[indexPath.item]
+        cell.cellButton.addTarget(self, action: #selector(cellTouchUpInside(sender:)), for: .touchUpInside)
         return cell
     }
     
@@ -156,8 +159,8 @@ extension LabelCollectionView: UICollectionViewDataSource, UICollectionViewDeleg
 extension LabelCollectionView: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let label = UILabel()
-        label.text = data[indexPath.item]
+        let label = UIButton()
+        label.setTitle(data[indexPath.item], for: .normal)
         return CGSize(width: (label.intrinsicContentSize.width + 10), height: label.intrinsicContentSize.height)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -174,18 +177,22 @@ extension LabelCollectionView: UICollectionViewDelegateFlowLayout{
 // MARK: - Cell
 class LabelCollectionViewCell: UICollectionViewCell {
     
-    var text : String = "" {didSet{cellLabel.text = text}}
+    var text : String = "" {
+        didSet{
+            cellButton.setTitle(text, for: .normal)
+        }
+    }
     let container: UIView = {
         let view: UIView = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-//        view.backgroundColor = .systemGray5
-//        view.layer.cornerRadius = 10
+        //        view.backgroundColor = .systemGray5
+        //        view.layer.cornerRadius = 10
         return view
     }()
-    let cellLabel: UILabel = {
-        let label = UILabel()
+    let cellButton: UIButton = {
+        let label = UIButton()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .label
+        label.setTitleColor(.label, for: .normal)
         return label
     }()
     
@@ -193,18 +200,18 @@ class LabelCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         contentView.addSubview(container)
-
+        
         container.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         container.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
         container.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-
-        container.addSubview(cellLabel)
         
-        cellLabel.topAnchor.constraint(equalTo: container.topAnchor).isActive = true
-        cellLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
-        cellLabel.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
-        cellLabel.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -5).isActive = true
+        container.addSubview(cellButton)
+        
+        cellButton.topAnchor.constraint(equalTo: container.topAnchor).isActive = true
+        cellButton.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
+        cellButton.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+        cellButton.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -5).isActive = true
         
     }
     

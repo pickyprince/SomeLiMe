@@ -12,7 +12,7 @@ import FirebaseAuth
 class ProfileViewController: UIViewController {
     
     //MARK: - Data
-    let loadedData: ProfileData = ProfileData(userName: "sadFrog1233", profileImage: UIImage(named: "sadfrog"), totalUps: 10, receivedUps: 13, points: 1000, daysOfActive: 138, badges: ["First Follower"], personalityTestResult: PersonalityTestResultData(concentration: 10.0, humorous: 20.0, gonggam: 30.0, logic: 10.0), recentPostsNumber: 30, recentPostList: [["title": "asdfasdf", "date": NSDate()], ["title": "asdfadf", "date": NSDate()]])
+    let loadedData: ProfileData = ProfileData(userName: "sadFrog1233", profileImage: UIImage(named: "sadfrog"), totalUps: 10, receivedUps: 13, points: 1000, daysOfActive: 138, badges: ["First Follower"], personalityTestResult: PersonalityTestResultData(fire: 0, water: 0, air: 0, earth: 0), recentPostsNumber: 30, recentPostList: [["title": "asdfasdf", "date": NSDate()], ["title": "asdfadf", "date": NSDate()]])
     
     //MARK: - Props
     let profileImageView: UIImageView = UIImageView()
@@ -336,11 +336,6 @@ class ProfileViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        do {
-            try UserLoginService.sharedInstance.logOut()
-        }catch{
-            print("signouterror")
-        }
         FirebaseAuth.Auth.auth().addStateDidChangeListener({ auth, user in
             
             if user == nil {
@@ -382,7 +377,7 @@ class ProfileViewController: UIViewController {
                     return
                 }
                 if result{
-                    self.verifyEmailButton.isHidden = false
+                    self.verifyEmailButton.isHidden = true
                 }else{
                     self.verifyEmailButton.isHidden = false
                 }

@@ -58,6 +58,7 @@ final class ContainerViewController: UIViewController {
         
         homeVC.sideMenuTouched = {
             self.sideMenuVC.view.frame.origin.x = -self.offSetValue
+            self.profileVC.view.frame.origin.x = self.view.frame.width
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn ,animations: {
                 self.navigationVC.view.frame.origin.x += self.offSetValue
                 self.sideMenuVC.view.frame.origin.x = 0
@@ -65,6 +66,7 @@ final class ContainerViewController: UIViewController {
         }
         homeVC.profileTouched = {
             self.profileVC.view.frame.origin.x = self.view.frame.width
+            self.sideMenuVC.view.frame.origin.x = -self.offSetValue
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn ,animations: {
                 self.navigationVC.view.frame.origin.x -= self.offSetValue
                 self.profileVC.view.frame.origin.x -= self.offSetValue

@@ -8,8 +8,8 @@
 import Foundation
 
 struct PersonalityTestResultData {
-    let concentration: Float
-    let humorous: Float
-    let gonggam: Float
-    let logic: Float
+    let fire: Int
+    let water: Int
+    let air: Int
+    let earth: Int
 }
