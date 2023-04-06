@@ -13,6 +13,8 @@ final class DataSourceService{
     
     
     //MARK: - HOME VIEW REPOSITORY
+    
+    
     func getHotTrendData() async throws -> [String : Any]? {
         guard let db = RemoteDataSourceService.sharedInstance.database else{
             print("CouldNotFindRemoteDataBase")
@@ -28,9 +30,9 @@ final class DataSourceService{
         }
         return document.data()
     }
-    func getBoardHotKeyData() async throws -> [String : Any]?{
-        return nil
-    }
+    
+    
+    
     func getHotBoardRankingData() async throws -> [String : Any]?{
         guard let db = RemoteDataSourceService.sharedInstance.database else{
             print("CouldNotFindRemoteDataBase")
@@ -46,7 +48,15 @@ final class DataSourceService{
         }
         return document.data()
     }
+    
+    
+    
     func getCategoryData() async throws -> [String : Any]?{
+        guard let db = LocalDataSourceService.sharedInstance.database else{
+            print("CouldNotFindRemoteDataBase")
+            throw DataSourceFailures.CouldNotFindRemoteDataBase
+        }
+        
         return nil
     }
     
@@ -85,4 +95,14 @@ final class DataSourceService{
     func updatePersonalityTest(test: PersonalityTestResultData) async throws -> Void{
         
     }
+    
+    
+    
+    
+    //MARK: - SEARCH VIEW REPOSITORY
+    
+    func getBoardHotKeyData() async throws -> [String : Any]?{
+        return nil
+    }
+    
 }

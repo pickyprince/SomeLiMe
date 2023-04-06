@@ -19,6 +19,7 @@ final class LocalDataSourceService{
             let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
             let fileUrl = documentDirectory.appending(path:"Somlimee").appendingPathExtension("sqlite3")
             database = try Connection(fileUrl.path)
+            try database?.run(SQLQueryCollections.createCategoryTable)
         } catch{
             database = nil
         }

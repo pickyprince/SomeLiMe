@@ -213,12 +213,12 @@
 				CE2DD96D29C827B7002AF99B /* SearchViewController.swift */,
 				CE2DD97F29CC2729002AF99B /* SideMenuViewController.swift */,
 				CE2DD97B29CC21DA002AF99B /* LogInViewController.swift */,
-				CE2DD97729CC2084002AF99B /* RealTimeHotBoardViewController.swift */,
-				CE2DD97929CC21A1002AF99B /* CategoryRequestViewController.swift */,
-				CE2DD97529CC1107002AF99B /* RealTimeHotDetailViewController.swift */,
 				CE2DD9D229DAEAB3002AF99B /* VerifyEmailViewController.swift */,
 				CE2DD9D429DAEBEC002AF99B /* PersonalityTestViewController.swift */,
 				CE2DD9DA29DC1174002AF99B /* PersonalityTestResultViewController.swift */,
+				CE2DD97529CC1107002AF99B /* RealTimeHotDetailViewController.swift */,
+				CE2DD97929CC21A1002AF99B /* CategoryRequestViewController.swift */,
+				CE2DD97729CC2084002AF99B /* RealTimeHotBoardViewController.swift */,
 				CE2DD9DE29DC7057002AF99B /* BoardViewController.swift */,
 				CE2DD9E029DC70BA002AF99B /* BoardPostViewController.swift */,
 				CE2DD9E229DC70CF002AF99B /* BoardPostWriteViewController.swift */,
@@ -250,7 +250,6 @@
 				CE2DD96929C740F4002AF99B /* BoardPostMetaData.swift */,
 				CE2DD98C29D2C0E1002AF99B /* BoardHotKeyData.swift */,
 				CE2DD99A29D2DB90002AF99B /* SearchRealTimeData.swift */,
-				CE2DD9A629D42570002AF99B /* SearchListData.swift */,
 				CE2DD99829D2DAFA002AF99B /* SearchHistoryData.swift */,
 				CE2DD98829D2BFA2002AF99B /* HotBoardRankingData.swift */,
 				CE2DD98629D2BE02002AF99B /* HotTrendData.swift */,
@@ -258,6 +257,7 @@
 				CE2DD98E29D2D58B002AF99B /* ProfileData.swift */,
 				CE2DD98A29D2C02C002AF99B /* CategoryData.swift */,
 				CE2DD9A029D2FCA5002AF99B /* PersonalityTestData.swift */,
+				CE2DD9A629D42570002AF99B /* SearchListData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
