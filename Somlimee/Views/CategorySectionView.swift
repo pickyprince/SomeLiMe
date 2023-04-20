@@ -16,7 +16,11 @@ class CategorySectionView: UIView {
     
     // MARK: - Contents Data
     public var titleString: String = "" {didSet {self.headerLabel.text = titleString}}
-    public var data: [String] = ["temp"]
+    public var data: [String] = ["temp"] {
+        didSet{
+            collectionView.reloadData()
+        }
+    }
     public var buttonTitleString: String = "" {didSet{self.topRightButton.setTitle(buttonTitleString, for: .normal)}}
     public var buttonImage: UIImage? = nil {
         didSet{

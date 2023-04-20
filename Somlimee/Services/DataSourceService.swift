@@ -9,11 +9,10 @@ import Foundation
 import FirebaseFirestore
 
 final class DataSourceService{
+    
     static let sharedInstance = DataSourceService()
     
-    
     //MARK: - HOME VIEW REPOSITORY
-    
     
     func getHotTrendData() async throws -> [String : Any]? {
         guard let db = RemoteDataSourceService.sharedInstance.database else{
@@ -52,11 +51,11 @@ final class DataSourceService{
     
     
     func getCategoryData() async throws -> [String : Any]?{
-        guard let db = LocalDataSourceService.sharedInstance.database else{
-            print("CouldNotFindRemoteDataBase")
-            throw DataSourceFailures.CouldNotFindRemoteDataBase
+        do {
+            return try await SQLiteDatabaseCommands.presentCategoryRows()
+        } catch {
+            print("Getting Category Failed: \(error)")
         }
-        
         return nil
     }
     
@@ -105,4 +104,13 @@ final class DataSourceService{
         return nil
     }
     
+    //MARK: - COMMON
+    
+    func updateAppStates(appStates: AppStates) async throws -> Void{
+        try await SQLiteDatabaseCommands.updateAppStates(appStates: appStates)
+    }
+    
+    func getAppState()async throws -> [String : Any]?{
+        return try await SQLiteDatabaseCommands.presentAppStatesData()
+    }
 }

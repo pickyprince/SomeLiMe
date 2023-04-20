@@ -48,7 +48,9 @@ final class HomeViewRepositoryImpl: HomeViewRepository{
     }
     
     func getCategoryData() async throws -> CategoryData? {
-        return nil
+        let data = try await DataSourceService.sharedInstance.getCategoryData()
+        let list = (data?["list"] ?? []) as! [String]
+        return CategoryData(list: list)
     }
     
     
