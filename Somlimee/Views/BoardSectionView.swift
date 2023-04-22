@@ -10,14 +10,27 @@ import UIKit
 class BoardSectionView: UIStackView{
     
     //MARK: - DATA
-    public var boardTitle: String = "축구게시판"
+    var data: BoardInfoData? {
+        didSet{
+            hotKeywordsList =  data?.boardHotKeyword ?? ["Could Not Load"]
+            boardDescription = data?.boardDescription ?? "Could Not Load"
+            boardTitle = data?.boardName ?? "Could Not Load"
+            boardLevel = data?.boardLevel ?? 404
+            hotKeyWordsSection.data = hotKeywordsList
+            boardTitleLabel.text = boardTitle
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
+    }
+    private var boardTitle: String = ""
     
-    public var hotKeywordsList: [String] = ["롤", "트와이스", "방탄소년단"]
+    private var hotKeywordsList: [String] = []
     
-    public var hotKeywordsHeader: String = "실시간 HOT 키워드"
+    private var hotKeywordsHeader: String = "실시간 HOT 키워드"
     
-    public var boardDescription: String = "이 게시판은 축구 게시판입니다."
+    private var boardDescription: String = ""
     
+    private var boardLevel: Int = 0
     //MARK: - UI Objects Declaration
     private let boardTitleView: UIView = UIView()
     
@@ -30,7 +43,6 @@ class BoardSectionView: UIStackView{
     private let hotKeyWordsSection: LabelCollectionView = LabelCollectionView()
     
     private let boardTableView: BoardTableView = BoardTableView()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         boardTitleLabel.text = boardTitle

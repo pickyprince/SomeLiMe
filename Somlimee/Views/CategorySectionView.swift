@@ -16,9 +16,12 @@ class CategorySectionView: UIView {
     
     // MARK: - Contents Data
     public var titleString: String = "" {didSet {self.headerLabel.text = titleString}}
-    public var data: [String] = ["temp"] {
+    public var data: [String] = [] {
         didSet{
             collectionView.reloadData()
+            
+            
+            collectionView.selectItem(at: IndexPath(item: 1, section: 0), animated: true, scrollPosition: .init())
         }
     }
     public var buttonTitleString: String = "" {didSet{self.topRightButton.setTitle(buttonTitleString, for: .normal)}}
@@ -78,12 +81,10 @@ class CategorySectionView: UIView {
             isExpanded = true
         }
         
-
+        
     }
     var cellClicked: ((String?) -> Void)?
-    @objc func cellTouchUpInside(sender: UIButton){
-        cellClicked?(sender.currentTitle)
-    }
+    
     private let collectionViewContainer: UIStackView = UIStackView()
     
     private let collectionView: UICollectionView = {
@@ -103,12 +104,11 @@ class CategorySectionView: UIView {
         setUpLayout()
     }
     private func configure(){
-        
         topRightButton.setTitleColor(.systemBlue, for: .normal)
         topRightButton.tintColor = .systemCyan
         container.distribution = .fill
         container.axis = .vertical
-//        collectionView.backgroundColor = .blue
+        //        collectionView.backgroundColor = .blue
         collectionView.isScrollEnabled = false
         collectionView.backgroundColor = .systemGray6
         collectionView.layer.cornerRadius = 5
@@ -128,7 +128,7 @@ class CategorySectionView: UIView {
         expandButton.addTarget(self, action: #selector(onTouchUp) , for: .touchUpInside)
         expandButton.layer.cornerRadius = 5
         expandButton.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-
+        
         
         
     }
@@ -200,17 +200,17 @@ extension CategorySectionView: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! CategorySectionViewCell
         cell.index = indexPath.item
-        if selectedIndex == indexPath.item {
-            cell.cellColor = selectColor
-        }
         cell.text = data[indexPath.item]
-        cell.cellButton.addTarget(self, action: #selector(cellTouchUpInside(sender:)), for: .touchUpInside)
         return cell
     }
     
 }
 extension CategorySectionView: UICollectionViewDelegateFlowLayout{
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! CategorySectionViewCell
+        cellClicked?(cell.cellLabel.text)
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let button = UIButton()
         button.setTitle(data[indexPath.item], for: .normal)
@@ -230,17 +230,27 @@ extension CategorySectionView: UICollectionViewDelegateFlowLayout{
 class CategorySectionViewCell: UICollectionViewCell {
     var cellColor: UIColor = .systemGray3
     var index: Int = 0
-    var text : String = "" {didSet{cellButton.setTitle(text, for: .normal)}}
+    var text : String = "" {didSet{cellLabel.text = text}}
+    override var isSelected: Bool {
+        didSet{
+            if isSelected{
+                self.cellColor = .systemGreen
+            }else{
+                self.cellColor = .systemGray3
+            }
+            container.backgroundColor = cellColor
+        }
+    }
     let container: UIView = {
         let view: UIView = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 10
         return view
     }()
-    let cellButton: UIButton = {
-        let button = UIButton()
+    let cellLabel: UILabel = {
+        let button = UILabel()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(.label, for: .normal)
+        button.textColor = .label
         return button
     }()
     
@@ -251,18 +261,18 @@ class CategorySectionViewCell: UICollectionViewCell {
         container.backgroundColor = cellColor
         
         contentView.addSubview(container)
-
+        
         container.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         container.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
         container.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-
-        container.addSubview(cellButton)
         
-        cellButton.topAnchor.constraint(equalTo: container.topAnchor).isActive = true
-        cellButton.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
-        cellButton.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
-        cellButton.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -5).isActive = true
+        container.addSubview(cellLabel)
+        
+        cellLabel.topAnchor.constraint(equalTo: container.topAnchor).isActive = true
+        cellLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
+        cellLabel.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+        cellLabel.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -5).isActive = true
         
     }
     

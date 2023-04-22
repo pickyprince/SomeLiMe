@@ -18,7 +18,7 @@ struct BoardPostMetaData {
     
     let postID: String
     
-    let publishedTime: NSDate
+    let publishedTime: String
     
     let postType: PostType
     
@@ -30,5 +30,5 @@ struct BoardPostMetaData {
     
     let numberOfViews: Int
     
-    let numberOfRecommendation: Int
+    let numberOfVoteUps: Int
 }

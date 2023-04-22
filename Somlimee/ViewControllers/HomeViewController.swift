@@ -43,6 +43,8 @@ class HomeViewController: UIViewController {
     
     let categorySectionView: CategorySectionView = CategorySectionView()
     
+    var currentCategory: String = "유머"
+    
     var scrollViewTopConstraint: NSLayoutConstraint?
     //call back functions
     public var sideMenuTouched: (()->())?
@@ -137,6 +139,9 @@ class HomeViewController: UIViewController {
                 
                 categorySectionView.data = try await repository?.getCategoryData()?.list ?? []
                 
+                currentCategory = "유머"
+                boardSectionView.data = try await repository?.getBoardInfoData(name: currentCategory)
+                
                 print(">>>> LOADING HOMEVIEW RT DATA SUCCEEDED...")
                 
             } catch {
@@ -171,13 +176,23 @@ class HomeViewController: UIViewController {
         realTimeBoardRankSectionView.buttonImage = HomeViewStaticData.realTimeBoardButtonImage
         realTimeBoardRankSectionView.cellClicked = { str in
             
-                print("cell clicked \(str ?? "")")
+            print("cell clicked \(str ?? "")")
         }
         categorySectionView.titleString = HomeViewStaticData.categoryHeader
         categorySectionView.buttonTitleString = HomeViewStaticData.categoryButtonTitle
         categorySectionView.cellClicked = { str in
             
-                print("cell clicked \(str ?? "")")
+            print("cell clicked \(str ?? "")")
+            self.currentCategory = str ?? ""
+            Task.init {
+                do{
+                    self.boardSectionView.data = try await self.repository?.getBoardInfoData(name: self.currentCategory)
+                }catch{
+                    print(">>>> ERROR: \(error)")
+                    self.boardSectionView.data = BoardInfoData(boardName: "ERROR", boardOwnerID: "", tapList: [], boardLevel: 404, boardDescription: "ERROR", boardHotKeyword: ["ERROR"])
+                }
+            }
+            print(">>>> LOADING HOMEVIEW RT DATA SUCCEEDED...")
         }
         
         //Navigation Disable

@@ -9,8 +9,6 @@ import Foundation
 
 struct BoardInfoData {
     
-    let boardID: String
-        
     let boardName: String
     
     let boardOwnerID: String
@@ -20,5 +18,7 @@ struct BoardInfoData {
     let boardLevel: Int
     
     let boardDescription: String
+    
+    let boardHotKeyword: [String]
     
 }

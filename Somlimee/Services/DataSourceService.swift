@@ -15,8 +15,7 @@ final class DataSourceService{
     //MARK: - HOME VIEW REPOSITORY
     
     func getHotTrendData() async throws -> [String : Any]? {
-        guard let db = RemoteDataSourceService.sharedInstance.database else{
-            print("CouldNotFindRemoteDataBase")
+        guard let db = RemoteDataSourceService.sharedInstance.database else {
             throw DataSourceFailures.CouldNotFindRemoteDataBase
         }
         let docRef = db.collection("RealTime").document("RThotTrends")
@@ -59,6 +58,21 @@ final class DataSourceService{
         return nil
     }
     
+    func getBoardInfoData(name: String) async throws -> [String : Any]?{
+        guard let db = RemoteDataSourceService.sharedInstance.database else{
+            print(">>>>> CouldNotFindRemoteDataBase")
+            throw DataSourceFailures.CouldNotFindRemoteDataBase
+        }
+        do {
+            let docRef = db.collection("BoardInfo").document(name)
+            let document: DocumentSnapshot
+            document = try await docRef.getDocument()
+            return document.data()
+        }catch{
+            print(">>>>>> CouldNotFindDocument")
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+    }
     //MARK: - SEARCH VIEW REPOSITORY
     
     
@@ -100,9 +114,6 @@ final class DataSourceService{
     
     //MARK: - SEARCH VIEW REPOSITORY
     
-    func getBoardHotKeyData() async throws -> [String : Any]?{
-        return nil
-    }
     
     //MARK: - COMMON
     

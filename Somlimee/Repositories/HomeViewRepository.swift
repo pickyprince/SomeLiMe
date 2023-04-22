@@ -11,13 +11,15 @@ protocol HomeViewRepository{
     
     //GET REPOSITORY ITEMS
     func getHotTrendData() async throws -> HotTrendData?
-    func getBoardHotKeyData() async throws -> BoardHotKeyData?
     func getHotBoardRankingData() async throws -> HotBaoardRankingData?
     func getCategoryData() async throws -> CategoryData?
+    func getBoardInfoData(name: String) async throws -> BoardInfoData?
     
 }
 
 final class HomeViewRepositoryImpl: HomeViewRepository{
+    
+    
     func getHotTrendData() async throws -> HotTrendData? {
         
         let rawData = try await DataSourceService.sharedInstance.getHotTrendData()
@@ -54,7 +56,27 @@ final class HomeViewRepositoryImpl: HomeViewRepository{
     }
     
     
-    func getBoardHotKeyData() async throws -> BoardHotKeyData? {
-        return nil
+    
+    
+    func getBoardInfoData(name: String) async throws -> BoardInfoData? {
+        let data = try await DataSourceService.sharedInstance.getBoardInfoData(name: "Vh0eyDgLKArtsRSswXti")
+        guard let boardOwnerID = data?["BoardOwnerId"] else{
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+        guard let boardTapList = data?["BoardTapList"]  else{
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+        guard let boardLevel = data?["BoardLevel"] else{
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+        
+        guard let boardHotKeyword = data?["BoardHotKeywords"] else{
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+        
+        guard let boardDescription = data?["BoardDescription"] else{
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+        return BoardInfoData(boardName: name, boardOwnerID: boardOwnerID as! String, tapList: boardTapList as! [String], boardLevel: boardLevel as! Int, boardDescription: boardDescription as! String, boardHotKeyword: boardHotKeyword as! [String])
     }
 }

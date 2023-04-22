@@ -10,7 +10,7 @@ import UIKit
 class BoardTableView: UITableView{
     
     //fixtures
-    let fix = BoardPostMetaData(boardID: "2939481239", postID: "320240243", publishedTime: NSDate(), postType: .text, postTitle: "재밋는 짤 .... jpg", boardTap: "자유/잡담", userID: "유저아이디", numberOfViews: 24, numberOfRecommendation: 10)
+    let fix = BoardPostMetaData(boardID: "2939481239", postID: "320240243", publishedTime: "jieojfoeifj", postType: .text, postTitle: "재밋는 짤 .... jpg", boardTap: "자유/잡담", userID: "유저아이디", numberOfViews: 24, numberOfVoteUps: 10)
     
     private var heightConstraint: NSLayoutConstraint = NSLayoutConstraint()
     private var cellHeight: CGFloat = 56{
@@ -71,7 +71,7 @@ extension BoardTableView: UITableViewDataSource, UITableViewDelegate{
         cell.postTitle = boardSectionPostCellData[indexPath.item].postTitle
         cell.postType = boardSectionPostCellData[indexPath.item].postType
         cell.numberOfViews = boardSectionPostCellData[indexPath.item].numberOfViews
-        cell.numberOfRecommendation = boardSectionPostCellData[indexPath.item].numberOfRecommendation
+        cell.numberOfRecommendation = boardSectionPostCellData[indexPath.item].numberOfVoteUps
         cell.userID = boardSectionPostCellData[indexPath.item].userID
         cell.publishedTime = boardSectionPostCellData[indexPath.item].publishedTime
         cell.boardCategory = boardSectionPostCellData[indexPath.item].boardTap
@@ -100,13 +100,13 @@ class BoardTableViewCell: UITableViewCell{
     private let spaceInCell: CGFloat = 6
     
     
-    public var publishedTime: NSDate = NSDate(){
+    public var publishedTime: String = ""{
         didSet{
-            let timeString = publishedTime.description
-            let startIndex = timeString.index(timeString.startIndex, offsetBy: 11)
-            let endIndex = timeString.index(timeString.startIndex, offsetBy: 15)
-            let subString = String(timeString[startIndex...endIndex])
-            postTimeLabel.text = subString
+            let timeString = publishedTime
+//            let startIndex = timeString.index(timeString.startIndex, offsetBy: 11)
+//            let endIndex = timeString.index(timeString.startIndex, offsetBy: 15)
+//            let subString = String(timeString[startIndex...endIndex])
+            postTimeLabel.text = timeString
                 
         }
     }
