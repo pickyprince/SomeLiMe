@@ -1,18 +1,14 @@
 //
-//  HomeNavBar.swift
+//  BoardNavBar.swift
 //  Somlimee
 //
-//  Created by Chanhee on 2023/03/17.
+//  Created by Chanhee on 2023/04/22.
 //
 
 import UIKit
 import FirebaseAuth
-enum NavData{
-    static let title: String = "광장게시판"
-    static let dropDownList: [String] = ["A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장"]
-}
 
-class HomeNavBar: UIView {
+class BoardNavBar: UIView {
     
     
     let titleView = UIStackView()
@@ -33,7 +29,7 @@ class HomeNavBar: UIView {
     let dropDownTableContainer = UIVisualEffectView()
     let dropDownTable: NormalTableView = NormalTableView()
     
-    public weak var delegate: HomeViewController? {
+    weak var delegate: HomeViewController? {
         didSet{
             if let dele = delegate{
                 searchButton.addTarget(dele, action: #selector(dele.searchButtonTouchUp), for: .touchUpInside)

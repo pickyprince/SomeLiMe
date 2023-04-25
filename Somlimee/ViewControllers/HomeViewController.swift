@@ -213,7 +213,7 @@ class HomeViewController: UIViewController {
         
         //Router
         realTimeHotRankSectionView.detailButtonClicked = {
-            self.navigationController?.pushViewController(PersonalityTestViewController(), animated: true)
+            self.navigationController?.pushViewController(BoardViewController(), animated: true)
         }
         realTimeBoardRankSectionView.detailButtonClicked = {
             self.navigationController?.pushViewController(RealTimeHotDetailViewController(), animated: true)

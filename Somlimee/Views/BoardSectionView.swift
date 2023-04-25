@@ -42,7 +42,7 @@ class BoardSectionView: UIStackView{
     
     private let hotKeyWordsSection: LabelCollectionView = LabelCollectionView()
     
-    private let boardTableView: BoardTableView = BoardTableView()
+    private let boardTableView: HomeBoardTableView = HomeBoardTableView()
     override init(frame: CGRect) {
         super.init(frame: frame)
         boardTitleLabel.text = boardTitle

@@ -7,10 +7,6 @@
 
 import UIKit
 
-fileprivate enum NavData{
-    static let title: String = "광장게시판"
-    static let dropDownList: [String] = ["A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장"]
-}
 
 class SearchNavBar: UIView {
     
