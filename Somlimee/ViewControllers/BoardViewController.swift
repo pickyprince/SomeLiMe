@@ -37,35 +37,42 @@ class BoardViewController: UIViewController {
             self.view.layoutIfNeeded()
         }
     }
+    private var isLoading: Bool = false
     
     //MARK: - UI Components
+    let contentScrollView: UIScrollView = UIScrollView()
     let boardTableView: BoardTableView = BoardTableView()
     let boardNavBar: BoardNavBar = BoardNavBar()
     let boardTapView: BoardTapView = BoardTapView()
     let boardTitle: UILabel = UILabel()
     let boardDescription: UILabel = UILabel()
-    let tableHeader: UIStackView = UIStackView()
+    let contents: UIStackView = UIStackView()
     
     private func transAuto(){
+        contentScrollView.translatesAutoresizingMaskIntoConstraints = false
         boardTableView.translatesAutoresizingMaskIntoConstraints = false
         boardNavBar.translatesAutoresizingMaskIntoConstraints = false
         boardTapView.translatesAutoresizingMaskIntoConstraints = false
         boardTitle.translatesAutoresizingMaskIntoConstraints = false
         boardDescription.translatesAutoresizingMaskIntoConstraints = false
-        tableHeader.translatesAutoresizingMaskIntoConstraints = false
+        contents.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func addSubviews(){
-        view.addSubview(boardTableView)
+        view.addSubview(contentScrollView)
+        contentScrollView.addSubview(contents)
         view.addSubview(boardTapView)
         view.addSubview(boardNavBar)
-        tableHeader.addArrangedSubview(boardTitle)
-        tableHeader.addArrangedSubview(boardDescription)
+        contents.addArrangedSubview(boardTitle)
+        contents.addArrangedSubview(boardDescription)
+        contents.addArrangedSubview(boardTableView)
     }
     private func configure(){
-        boardTableView.didScrollToBottom = {
-            // Should Load Posts Data
-        }
+        contentScrollView.delegate = self
+        boardTableView.isScrollEnabled = false
+        contents.axis = .vertical
+        contents.distribution = .fill
+        contentScrollView.backgroundColor = .systemBackground
         boardTableView.didCellClicked = { str in
             // Should Navigate To PostVC
             print(str)
@@ -91,16 +98,21 @@ class BoardViewController: UIViewController {
             boardNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         NSLayoutConstraint.activate([
-            boardTableView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.17),
-            boardTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            boardTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            contentScrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 0.17),
+            contentScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         NSLayoutConstraint.activate([
             boardTitle.heightAnchor.constraint(equalToConstant: view.frame.height*0.05),
             boardDescription.heightAnchor.constraint(equalToConstant: view.frame.height*0.1)
         ])
         NSLayoutConstraint.activate([
-            tableHeader.widthAnchor.constraint(equalToConstant: view.frame.width)
+            contents.widthAnchor.constraint(equalToConstant: view.frame.width),
+            contents.topAnchor.constraint(equalTo: contentScrollView.contentLayoutGuide.topAnchor),
+            contents.leadingAnchor.constraint(equalTo: contentScrollView.contentLayoutGuide.leadingAnchor),
+            contents.trailingAnchor.constraint(equalTo: contentScrollView.contentLayoutGuide.trailingAnchor),
+            contents.bottomAnchor.constraint(equalTo: contentScrollView.contentLayoutGuide.bottomAnchor),
         ])
         NSLayoutConstraint.activate([
         ])
@@ -109,7 +121,7 @@ class BoardViewController: UIViewController {
         Task.init {
             do{
                 self.info = try await repository?.getBoardInfoData(name: boardName)
-                self.posts = try await repository?.getBoardPosts(name: boardName)
+                self.posts = try await repository?.getBoardPosts(name: boardName, start: "NaN")
                 //Relayout
             }catch{
                 print(">>>> BOARD VIEW ERROR: Could Not Load Data - \(error)")
@@ -130,3 +142,24 @@ class BoardViewController: UIViewController {
     }
     
 }
+
+extension BoardViewController: UIScrollViewDelegate{
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if isLoading{
+            return
+        }
+        if position > (boardTableView.contentSize.height - 100 - scrollView.frame.size.height) {
+            
+            // make isLoading true
+            isLoading = true
+            
+            // reload and append data
+            
+            print("bottom")
+        }
+    }
+}
+
+

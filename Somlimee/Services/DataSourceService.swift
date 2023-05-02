@@ -73,6 +73,32 @@ final class DataSourceService{
             throw DataSourceFailures.CouldNotFindDocument
         }
     }
+    func getBoardPosts(name: String, start: String) async throws -> [[String : Any]]?{
+        guard let db = RemoteDataSourceService.sharedInstance.database else{
+            print(">>>>> CouldNotFindRemoteDataBase")
+            throw DataSourceFailures.CouldNotFindRemoteDataBase
+        }
+        do {
+            var colRef: Query
+            if start == "NaN"{
+                colRef = db.collection("BoardInfo").document(name).collection("Posts").limit(to: 20)
+            }else{
+                colRef = db.collection("BoardInfo").document(name).collection("Posts").whereField("PublishedTime", isGreaterThanOrEqualTo: start).limit(to: 20)
+            }
+            let documents: QuerySnapshot
+            documents = try await colRef.getDocuments()
+            var data: [[String: Any]] = []
+            for document in documents.documents {
+                var temp = document.data()
+                temp["PostId"] = document.documentID
+                data.append(temp)
+            }
+            return data
+        }catch{
+            print(">>>>>> CouldNotFindDocument")
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+    }
     //MARK: - SEARCH VIEW REPOSITORY
     
     

@@ -9,10 +9,11 @@ import Foundation
 
 protocol BoardViewRepository{
     func getBoardInfoData(name: String) async throws -> BoardInfoData?
-    func getBoardPosts(name: String) async throws -> [BoardPostMetaData]?
+    func getBoardPosts(name: String, start: String) async throws -> [BoardPostMetaData]?
 }
 
 class BoardViewRepositoryImpl: BoardViewRepository{
+    
     func getBoardInfoData(name: String) async throws -> BoardInfoData? {
         guard let data = try await DataSourceService.sharedInstance.getBoardInfoData(name: name) else{
             throw DataSourceFailures.CouldNotFindDocument
@@ -33,9 +34,45 @@ class BoardViewRepositoryImpl: BoardViewRepository{
         return BoardInfoData(boardName: boardName, boardOwnerID: boardOwnerID, tapList: tapList, boardLevel: boardLevel, boardDescription: boardDescription, boardHotKeyword: boardHotKeyword)
     }
     
-    func getBoardPosts(name: String) async throws -> [BoardPostMetaData]? {
-        return nil
-    }
     
+    func getBoardPosts(name: String, start: String) async throws -> [BoardPostMetaData]? {
+        guard let dataList = try await DataSourceService.sharedInstance.getBoardPosts(name: name, start: start) else{
+            return nil
+        }
+        var result: [BoardPostMetaData] = []
+        for data in dataList{
+            
+            let boardName: String = name
+            
+            let postID: String = (data["PostId"] as? String) ?? ""
+            
+            let publishedTime: String = (data["PublishedTime"] as? String) ?? ""
+            
+            
+            let postTypeString: String = (data["PostType"] as? String) ?? ""
+            
+            let postTitle: String = (data["PostTitle"] as? String) ?? ""
+            
+            let boardTap: String = (data["BoardTap"] as? String) ?? ""
+            
+            let userID: String = (data["BoardDescription"] as? String) ?? ""
+            
+            let numberOfViews: Int = (data["BoardLevel"] as? Int) ?? 404
+            
+            let numberOfVoteUps: Int = (data["BoardLevel"] as? Int) ?? 404
+            var postType: PostType = PostType.text
+            switch postTypeString{
+            case "image":
+                postType = PostType.image
+            case "video":
+                postType = PostType.video
+            default:
+                postType = PostType.text
+            }
+            result.append(BoardPostMetaData(boardID: boardName, postID: postID, publishedTime: publishedTime, postType: postType, postTitle: postTitle, boardTap: boardTap, userID: userID, numberOfViews: numberOfViews, numberOfVoteUps: numberOfVoteUps))
+        }
+        
+        return result
+    }
     
 }

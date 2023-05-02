@@ -11,7 +11,6 @@ class BoardTableView: UITableView{
     
     //fixtures
     let fix = BoardPostMetaData(boardID: "2939481239", postID: "320240243", publishedTime: "jieojfoeifj", postType: .text, postTitle: "재밋는 짤 .... jpg", boardTap: "자유/잡담", userID: "유저아이디", numberOfViews: 24, numberOfVoteUps: 10)
-    var didScrollToBottom: (()->Void)?
     var didCellClicked: ((String)->Void)?
     private var heightConstraint: NSLayoutConstraint = NSLayoutConstraint()
     private var cellHeight: CGFloat = 56{
@@ -83,14 +82,6 @@ extension BoardTableView: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = cellForRow(at: indexPath) as! HomeBoardTableViewCell
         didCellClicked?(cell.postID)
-    }
-}
-extension BoardTableView: UIScrollViewDelegate{
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let position = scrollView.contentOffset.y
-        if position > scrollView.frame.height{
-                didScrollToBottom?()
-        }
     }
 }
 
