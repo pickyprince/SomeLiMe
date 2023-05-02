@@ -81,9 +81,9 @@ final class DataSourceService{
         do {
             var colRef: Query
             if start == "NaN"{
-                colRef = db.collection("BoardInfo").document(name).collection("Posts").limit(to: 20)
+                colRef = db.collection("BoardInfo").document(name).collection("Posts").order(by: "PublishedTime", descending: true).limit(to: 20)
             }else{
-                colRef = db.collection("BoardInfo").document(name).collection("Posts").whereField("PublishedTime", isGreaterThanOrEqualTo: start).limit(to: 20)
+                colRef = db.collection("BoardInfo").document(name).collection("Posts").whereField("PublishedTime", isGreaterThanOrEqualTo: start).order(by: "PublishedTime", descending: true).limit(to: 20)
             }
             let documents: QuerySnapshot
             documents = try await colRef.getDocuments()

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 protocol BoardViewRepository{
     func getBoardInfoData(name: String) async throws -> BoardInfoData?
@@ -45,9 +46,9 @@ class BoardViewRepositoryImpl: BoardViewRepository{
             let boardName: String = name
             
             let postID: String = (data["PostId"] as? String) ?? ""
+            let val = (data["PublishedTime"] as? Timestamp)?.dateValue()
             
-            let publishedTime: String = (data["PublishedTime"] as? String) ?? ""
-            
+            let publishedTime: String = String((val?.description as? String)?.prefix(10) ?? "NaN")
             
             let postTypeString: String = (data["PostType"] as? String) ?? ""
             
@@ -55,11 +56,11 @@ class BoardViewRepositoryImpl: BoardViewRepository{
             
             let boardTap: String = (data["BoardTap"] as? String) ?? ""
             
-            let userID: String = (data["BoardDescription"] as? String) ?? ""
+            let userID: String = (data["UserId"] as? String) ?? ""
             
-            let numberOfViews: Int = (data["BoardLevel"] as? Int) ?? 404
+            let numberOfViews: Int = (data["Views"] as? Int) ?? 404
             
-            let numberOfVoteUps: Int = (data["BoardLevel"] as? Int) ?? 404
+            let numberOfVoteUps: Int = (data["VoteUps"] as? Int) ?? 404
             var postType: PostType = PostType.text
             switch postTypeString{
             case "image":

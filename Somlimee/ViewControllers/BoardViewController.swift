@@ -32,18 +32,33 @@ class BoardViewController: UIViewController {
     var posts: [BoardPostMetaData]? {
         didSet{
             // should assign data to the BoardTableView
-            
+            boardTableView.boardSectionPostCellData = posts
             self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
         }
     }
-    private var isLoading: Bool = false
+    private var isLoading: Bool = false {
+        didSet{
+            if isLoading == false{
+                spinner.isHidden = true
+                spinner.stopAnimating()
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
+            }else{
+                spinner.isHidden = false
+                spinner.startAnimating()
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
     
     //MARK: - UI Components
     let contentScrollView: UIScrollView = UIScrollView()
     let boardTableView: BoardTableView = BoardTableView()
     let boardNavBar: BoardNavBar = BoardNavBar()
     let boardTapView: BoardTapView = BoardTapView()
+    let spinner: UIActivityIndicatorView = UIActivityIndicatorView()
     let boardTitle: UILabel = UILabel()
     let boardDescription: UILabel = UILabel()
     let contents: UIStackView = UIStackView()
@@ -56,6 +71,7 @@ class BoardViewController: UIViewController {
         boardTitle.translatesAutoresizingMaskIntoConstraints = false
         boardDescription.translatesAutoresizingMaskIntoConstraints = false
         contents.translatesAutoresizingMaskIntoConstraints = false
+        spinner.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func addSubviews(){
@@ -66,12 +82,14 @@ class BoardViewController: UIViewController {
         contents.addArrangedSubview(boardTitle)
         contents.addArrangedSubview(boardDescription)
         contents.addArrangedSubview(boardTableView)
+        contents.addArrangedSubview(spinner)
     }
     private func configure(){
         contentScrollView.delegate = self
         boardTableView.isScrollEnabled = false
         contents.axis = .vertical
         contents.distribution = .fill
+        view.backgroundColor = .systemBackground
         contentScrollView.backgroundColor = .systemBackground
         boardTableView.didCellClicked = { str in
             // Should Navigate To PostVC
@@ -82,7 +100,11 @@ class BoardViewController: UIViewController {
             let s: String = str ?? "Tap List Empty"
             print(s)
         }
-        
+        boardNavBar.onTouchUpBackButton = {
+            self.navigationController?.popViewController(animated: true)
+        }
+        boardTableView.boardSectionPostCellData = posts
+        spinner.isHidden = true
     }
     
     
@@ -128,6 +150,34 @@ class BoardViewController: UIViewController {
             }
         }
     }
+    private func loadMorePosts(){
+        isLoading = true
+        Task.init {
+            do{
+                guard let last = self.posts?.last else{
+                    guard let temp = try await repository?.getBoardPosts(name: self.boardName, start: "NaN")
+                    else{
+                        return
+                    }
+                    for post in temp{
+                        self.posts?.append(post)
+                    }
+                    return
+                }
+                guard let temp = try await repository?.getBoardPosts(name: self.boardName, start: last.publishedTime)
+                else{
+                    return
+                }
+                for post in temp{
+                    self.posts?.append(post)
+                }
+            }catch{
+                
+                print(">>>> GET BOARD POSTS ERROR: Could Not Load More Data - \(error)")
+            }
+        }
+        isLoading = false
+    }
     
     
     override func viewDidLoad() {
@@ -152,12 +202,11 @@ extension BoardViewController: UIScrollViewDelegate{
         }
         if position > (boardTableView.contentSize.height - 100 - scrollView.frame.size.height) {
             
-            // make isLoading true
-            isLoading = true
-            
             // reload and append data
             
-            print("bottom")
+            print("Loading")
+            loadMorePosts()
+            print("Done!")
         }
     }
 }
