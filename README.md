@@ -23,7 +23,7 @@ UIKit와 Firebase를 이용하여 현재 개발중이며, 남은 테스크는 �
 - [ ]  카테고리 요청 페이지
 - [ ]  검색화면 구현
 - [ ]  서치 엔진
-## 현재 구현한 화면 (UI개선중)
+## 현재 구현한 화면 예시
 <img width="335" alt="홈화면" src="https://user-images.githubusercontent.com/28824539/235846390-1cd1c38d-53da-4288-9fd4-0aae0699e0f6.png">
 <img width="361" alt="게시판 화면" src="https://user-images.githubusercontent.com/28824539/235846416-e36c5998-4492-4627-895c-9f780500908c.png">
 <img width="358" alt="드롭다운" src="https://user-images.githubusercontent.com/28824539/235846434-b1b5f3c0-4c4f-4576-beaf-10cfe17afc60.png">
