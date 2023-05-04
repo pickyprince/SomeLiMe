@@ -11,4 +11,5 @@ enum DataSourceFailures: Error{
     case CouldNotFindRemoteDataBase
     case CouldNotFindDocument
     case DocumentIsEmpty
+    case CouldNotWritePost
 }

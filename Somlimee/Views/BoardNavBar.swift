@@ -16,6 +16,7 @@ class BoardNavBar: UIView {
     let title = UILabel()
     let dropDownButton = UIButton()
     let backButton = UIButton()
+    let writeButton = UIButton()
     let blurEffect = UIBlurEffect(style: .regular)
     let container = UIVisualEffectView()
     let screenSize: CGRect = UIScreen.main.bounds
@@ -27,9 +28,13 @@ class BoardNavBar: UIView {
     let dropDownTableContainer = UIVisualEffectView()
     let dropDownTable: NormalTableView = NormalTableView()
     var onTouchUpBackButton: (()->Void)?
+    var onTouchUpWriteButton: (()->Void)?
     private var isDropDown: Bool = false
     @objc private func onTouchUpBack(){
         onTouchUpBackButton?()
+    }
+    @objc private func onTouchUpWrite(){
+        onTouchUpWriteButton?()
     }
     @objc private func dropDownButtonTouchUp(){
         if isDropDown{
@@ -92,6 +97,7 @@ class BoardNavBar: UIView {
         dropDownTableContainer.contentView.translatesAutoresizingMaskIntoConstraints = false
         dropDownTableContainer.translatesAutoresizingMaskIntoConstraints = false
         dropDownTable.translatesAutoresizingMaskIntoConstraints = false
+        writeButton.translatesAutoresizingMaskIntoConstraints = false
         
         //Data assignment
         dropDownTable.data = NavData.dropDownList
@@ -107,10 +113,9 @@ class BoardNavBar: UIView {
         dropDownButton.addTarget(self, action: #selector(dropDownButtonTouchUp), for: .touchUpInside)
         searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         searchButton.tintColor = .label
-        
-        //        if let dele = delegate {
-        //            searchButton.addTarget(self, action: #selector(dele.SearchButtonTouchUp), for: .touchUpInside)
-        //        }
+        writeButton.setTitle("글쓰기", for: .normal)
+        writeButton.setTitleColor(.label, for: .normal)
+        writeButton.tintColor = .label
         backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         backButton.tintColor = .label
         backButton.addTarget(self, action: #selector(onTouchUpBack), for: .touchUpInside)
@@ -126,6 +131,7 @@ class BoardNavBar: UIView {
         container.contentView.addSubview(backButton)
         dropDownTableContainer.contentView.addSubview(dropDownTable)
         buttonGroups.addArrangedSubview(searchButton)
+        buttonGroups.addArrangedSubview(writeButton)
         titleView.addArrangedSubview(title)
         titleView.addArrangedSubview(dropDownButton)
         titleView.distribution = .fill

@@ -11,9 +11,11 @@ import FirebaseFirestore
 protocol BoardViewRepository{
     func getBoardInfoData(name: String) async throws -> BoardInfoData?
     func getBoardPosts(name: String, start: String) async throws -> [BoardPostMetaData]?
+    func writeBoardPost(name: String, post: BoardPostContentData) async throws -> Void
 }
 
 class BoardViewRepositoryImpl: BoardViewRepository{
+  
     
     func getBoardInfoData(name: String) async throws -> BoardInfoData? {
         guard let data = try await DataSourceService.sharedInstance.getBoardInfoData(name: name) else{
@@ -75,5 +77,14 @@ class BoardViewRepositoryImpl: BoardViewRepository{
         
         return result
     }
+    
+    func writeBoardPost(name: String, post: BoardPostContentData) async throws {
+        do{
+            try await DataSourceService.sharedInstance.createPost(name: name, post: post)
+        }catch{
+            throw DataSourceFailures.CouldNotWritePost
+        }
+    }
+    
     
 }

@@ -136,6 +136,67 @@ final class DataSourceService{
     }
     
     
+    //MARK: - Board View Repository
+    
+    func createPost(name: String, post: BoardPostContentData) async throws -> Void{
+        
+        guard let db = RemoteDataSourceService.sharedInstance.database else{
+            print(">>>>> CouldNotFindRemoteDataBase")
+            throw DataSourceFailures.CouldNotFindRemoteDataBase
+        }
+        do {
+            var colRef = db.collection("BoardInfo").document(name).collection("Posts")
+            if post.boardPostImages.count > 0{
+                
+                let docRef = colRef.addDocument(data: [
+                    "BoardTap":post.boardPostTap,
+                    "CommentsNumber": 0,
+                    "PostTitle": post.boardPostTitle,
+                    "PostType": "image",
+                    "PublishedTime": FirebaseFirestore.Timestamp(date: Date.now),
+                    "ThumbnailURL": "https://eijofieojf/post1.img",
+                    "UserId": post.boardPostUserId,
+                    "Views": 0,
+                    "VoteUps": 0,
+                ])
+                try await docRef.collection("BoardPostsContents").document("Image").setData([
+                    "URLs": ["oeijfoef"]
+                ])
+                try await docRef.collection("BoardPostsContents").document("Paragraph").setData([
+                    "Text": post.boardPostParagraph
+                ])
+                try await docRef.collection("BoardPostsContents").document("Video").setData([
+                    "URLs": ["foiejof"]
+                ])
+                
+            }else{
+                
+                let docRef = colRef.addDocument(data: [
+                    "BoardTap": post.boardPostTap,
+                    "CommentsNumber": 0,
+                    "PostTitle": post.boardPostTitle,
+                    "PostType": "text",
+                    "PublishedTime": FirebaseFirestore.Timestamp(date: Date.now),
+                    "ThumbnailURL": "https://eijofieojf/post1.img",
+                    "UserId": post.boardPostUserId,
+                    "Views": 0,
+                    "VoteUps": 0,
+                ])
+                try await docRef.collection("BoardPostsContents").document("Image").setData([
+                    "URLs": ["oeijfoef"]
+                ])
+                try await docRef.collection("BoardPostsContents").document("Paragraph").setData([
+                    "Text": post.boardPostParagraph
+                ])
+                try await docRef.collection("BoardPostsContents").document("Video").setData([
+                    "URLs": ["foiejof"]
+                ])
+            }
+        }catch{
+            print(">>>>>> CouldNotFindDocument")
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+    }
     
     
     //MARK: - SEARCH VIEW REPOSITORY
@@ -150,4 +211,5 @@ final class DataSourceService{
     func getAppState()async throws -> [String : Any]?{
         return try await SQLiteDatabaseCommands.presentAppStatesData()
     }
+    
 }

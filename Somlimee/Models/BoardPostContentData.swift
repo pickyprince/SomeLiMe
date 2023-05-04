@@ -9,10 +9,9 @@ import Foundation
 import UIKit
 
 struct BoardPostContentData {
-    
-    let boardPostMetaData: BoardPostMetaData
-    
+    let boardPostTap: String
+    let boardPostUserId: String
+    let boardPostTitle: String
     let boardPostParagraph: String
     let boardPostImages: [UIImage]
-    let boardPostComments: [BoardPostCommentData]
 }
