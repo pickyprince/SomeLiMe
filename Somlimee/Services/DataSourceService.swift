@@ -7,11 +7,21 @@
 
 import Foundation
 import FirebaseFirestore
-
+import FirebaseAuth
 final class DataSourceService{
     
     static let sharedInstance = DataSourceService()
-    
+    //MARK: - SIGN UP
+    func updateUser(userInfo: [String: Any]) async throws -> Void {
+        guard let db = RemoteDataSourceService.sharedInstance.database else {
+            throw DataSourceFailures.CouldNotFindRemoteDataBase
+        }
+        guard let user = FirebaseAuth.Auth.auth().currentUser else{
+            throw UserLoginFailures.LoginFailed
+        }
+        let docRef = db.collection("Users").document(user.uid)
+        try await docRef.setData(userInfo)
+    }
     //MARK: - HOME VIEW REPOSITORY
     
     func getHotTrendData() async throws -> [String : Any]? {
@@ -58,47 +68,15 @@ final class DataSourceService{
         return nil
     }
     
-    func getBoardInfoData(name: String) async throws -> [String : Any]?{
-        guard let db = RemoteDataSourceService.sharedInstance.database else{
-            print(">>>>> CouldNotFindRemoteDataBase")
-            throw DataSourceFailures.CouldNotFindRemoteDataBase
-        }
+    func getBoardListData() async throws -> [String: Any]?{
         do {
-            let docRef = db.collection("BoardInfo").document(name)
-            let document: DocumentSnapshot
-            document = try await docRef.getDocument()
-            return document.data()
-        }catch{
-            print(">>>>>> CouldNotFindDocument")
-            throw DataSourceFailures.CouldNotFindDocument
+            return try await SQLiteDatabaseCommands.presentCategoryRows()
+        } catch {
+            print("Getting Category Failed: \(error)")
         }
+        return nil
     }
-    func getBoardPosts(name: String, start: String) async throws -> [[String : Any]]?{
-        guard let db = RemoteDataSourceService.sharedInstance.database else{
-            print(">>>>> CouldNotFindRemoteDataBase")
-            throw DataSourceFailures.CouldNotFindRemoteDataBase
-        }
-        do {
-            var colRef: Query
-            if start == "NaN"{
-                colRef = db.collection("BoardInfo").document(name).collection("Posts").order(by: "PublishedTime", descending: true).limit(to: 20)
-            }else{
-                colRef = db.collection("BoardInfo").document(name).collection("Posts").whereField("PublishedTime", isGreaterThanOrEqualTo: start).order(by: "PublishedTime", descending: true).limit(to: 20)
-            }
-            let documents: QuerySnapshot
-            documents = try await colRef.getDocuments()
-            var data: [[String: Any]] = []
-            for document in documents.documents {
-                var temp = document.data()
-                temp["PostId"] = document.documentID
-                data.append(temp)
-            }
-            return data
-        }catch{
-            print(">>>>>> CouldNotFindDocument")
-            throw DataSourceFailures.CouldNotFindDocument
-        }
-    }
+    
     //MARK: - SEARCH VIEW REPOSITORY
     
     
@@ -138,58 +116,134 @@ final class DataSourceService{
     
     //MARK: - Board View Repository
     
-    func createPost(name: String, post: BoardPostContentData) async throws -> Void{
+    func getBoardInfoData(boardName: String) async throws -> [String : Any]?{
+        guard let db = RemoteDataSourceService.sharedInstance.database else{
+            print(">>>>> CouldNotFindRemoteDataBase")
+            throw DataSourceFailures.CouldNotFindRemoteDataBase
+        }
+        do {
+            let docRef = db.collection("BoardInfo").document(boardName)
+            let document: DocumentSnapshot
+            document = try await docRef.getDocument()
+            return document.data()
+        }catch{
+            print(">>>>>> CouldNotFindDocument")
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+    }
+    
+    
+    func getBoardPostMetaList(boardName: String, startTime: String) async throws -> [[String : Any]]?{
+        guard let db = RemoteDataSourceService.sharedInstance.database else{
+            print(">>>>> CouldNotFindRemoteDataBase")
+            throw DataSourceFailures.CouldNotFindRemoteDataBase
+        }
+        do {
+            var colRef: Query
+            if startTime == "NaN"{
+                colRef = db.collection("BoardInfo").document(boardName).collection("Posts").order(by: "PublishedTime", descending: true).limit(to: 20)
+            }else{
+                colRef = db.collection("BoardInfo").document(boardName).collection("Posts").whereField("PublishedTime", isGreaterThanOrEqualTo: startTime).order(by: "PublishedTime", descending: true).limit(to: 20)
+            }
+            let documents: QuerySnapshot
+            documents = try await colRef.getDocuments()
+            var data: [[String: Any]] = []
+            for document in documents.documents {
+                var temp = document.data()
+                temp["PostId"] = document.documentID
+                data.append(temp)
+            }
+            return data
+        }catch{
+            print(">>>>>> CouldNotFindDocument")
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+    }
+    
+    func getBoardPostMeta(boardName: String, postId: String) async throws -> [String : Any]?{
+        guard let db = RemoteDataSourceService.sharedInstance.database else{
+            print(">>>>> CouldNotFindRemoteDataBase")
+            throw DataSourceFailures.CouldNotFindRemoteDataBase
+        }
+        do {
+            let docRef = db.collection("BoardInfo").document(boardName).collection("Posts").document(postId)
+            return try await docRef.getDocument().data()
+        }catch{
+            print(">>>>>> CouldNotFindDocument")
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+    }
+    func getBoardPostContent(boardName: String, postId: String) async throws -> [[String : Any]]?{
+        guard let db = RemoteDataSourceService.sharedInstance.database else{
+            print(">>>>> CouldNotFindRemoteDataBase")
+            throw DataSourceFailures.CouldNotFindRemoteDataBase
+        }
+        do {
+            var data: [[String:Any]] = []
+            let docRef = db.collection("BoardInfo").document(boardName).collection("Posts").document(postId).collection("BoardPostContents")
+            data.append(try await docRef.document("Paragraph").getDocument().data() ?? [:])
+            data.append(try await docRef.document("Image").getDocument().data() ?? [:])
+            data.append(try await docRef.document("Video").getDocument().data() ?? [:])
+            
+            return data
+        }catch{
+            print(">>>>>> CouldNotFindDocument")
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+    }
+    
+    func createPost(boardName: String, postData: BoardPostContentData) async throws -> Void{
         
         guard let db = RemoteDataSourceService.sharedInstance.database else{
             print(">>>>> CouldNotFindRemoteDataBase")
             throw DataSourceFailures.CouldNotFindRemoteDataBase
         }
         do {
-            var colRef = db.collection("BoardInfo").document(name).collection("Posts")
-            if post.boardPostImages.count > 0{
+            let colRef = db.collection("BoardInfo").document(boardName).collection("Posts")
+            if postData.boardPostImages.count > 0{
                 
                 let docRef = colRef.addDocument(data: [
-                    "BoardTap":post.boardPostTap,
+                    "BoardTap":postData.boardPostTap,
                     "CommentsNumber": 0,
-                    "PostTitle": post.boardPostTitle,
+                    "PostTitle": postData.boardPostTitle,
                     "PostType": "image",
                     "PublishedTime": FirebaseFirestore.Timestamp(date: Date.now),
                     "ThumbnailURL": "https://eijofieojf/post1.img",
-                    "UserId": post.boardPostUserId,
+                    "UserId": postData.boardPostUserId,
                     "Views": 0,
                     "VoteUps": 0,
                 ])
-                try await docRef.collection("BoardPostsContents").document("Image").setData([
-                    "URLs": ["oeijfoef"]
+                try await docRef.collection("BoardPostContents").document("Image").setData([
+                    "URLs": ["Not Implemented"]
                 ])
-                try await docRef.collection("BoardPostsContents").document("Paragraph").setData([
-                    "Text": post.boardPostParagraph
+                try await docRef.collection("BoardPostContents").document("Paragraph").setData([
+                    "Text": postData.boardPostParagraph
                 ])
-                try await docRef.collection("BoardPostsContents").document("Video").setData([
-                    "URLs": ["foiejof"]
+                try await docRef.collection("BoardPostContents").document("Video").setData([
+                    "URLs": ["Not Implemented"]
                 ])
                 
             }else{
                 
                 let docRef = colRef.addDocument(data: [
-                    "BoardTap": post.boardPostTap,
+                    "BoardTap": postData.boardPostTap,
                     "CommentsNumber": 0,
-                    "PostTitle": post.boardPostTitle,
+                    "PostTitle": postData.boardPostTitle,
                     "PostType": "text",
                     "PublishedTime": FirebaseFirestore.Timestamp(date: Date.now),
                     "ThumbnailURL": "https://eijofieojf/post1.img",
-                    "UserId": post.boardPostUserId,
+                    "UserId": postData.boardPostUserId,
                     "Views": 0,
                     "VoteUps": 0,
                 ])
-                try await docRef.collection("BoardPostsContents").document("Image").setData([
-                    "URLs": ["oeijfoef"]
+                try await docRef.collection("BoardPostContents").document("Image").setData([
+                    "URLs": ["Not Implemented"]
                 ])
-                try await docRef.collection("BoardPostsContents").document("Paragraph").setData([
-                    "Text": post.boardPostParagraph
+                try await docRef.collection("BoardPostContents").document("Paragraph").setData([
+                    "Text": postData.boardPostParagraph
                 ])
-                try await docRef.collection("BoardPostsContents").document("Video").setData([
-                    "URLs": ["foiejof"]
+                try await docRef.collection("BoardPostContents").document("Video").setData([
+                    "URLs": ["Not Implemented"]
                 ])
             }
         }catch{

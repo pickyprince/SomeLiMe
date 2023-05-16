@@ -7,14 +7,23 @@
 
 import UIKit
 import FirebaseAuth
-enum NavData{
-    static let title: String = "광장게시판"
-    static let dropDownList: [String] = ["A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장"]
-}
+
 
 class HomeNavBar: UIView {
-    
-    
+    var repository: HomeViewRepository?
+    var boardLists: [String]? {
+        didSet{
+            dropDownTable.data = boardLists ?? []
+            dropDownTable.reloadData()
+        }
+    }
+    var currentBoard: String? {
+        didSet{
+            title.text = currentBoard ?? "Loading..."
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+        }
+    }
     let titleView = UIStackView()
     let buttonGroups = UIStackView()
     let profileButton = UIButton()
@@ -32,6 +41,7 @@ class HomeNavBar: UIView {
     var multiplierOfDropDownTable: CGFloat = 0.18
     let dropDownTableContainer = UIVisualEffectView()
     let dropDownTable: NormalTableView = NormalTableView()
+    var dropDownTableClicked: ((String)->Void)?
     
     public weak var delegate: HomeViewController? {
         didSet{
@@ -42,43 +52,54 @@ class HomeNavBar: UIView {
             }
         }
     }
-    private var isDropDown: Bool = false
+    var isDropDown: Bool = false {
+        didSet{
+            if isDropDown{
+                
+                    UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn ,animations: {
+                        self.dropDownButton.transform = CGAffineTransform(rotationAngle: .pi)
+                        self.dropDownTableHeightConstraint.constant += self.screenSize.height * self.multiplierOfDropDownTable
+                        self.layoutIfNeeded()
+                    }, completion: { isComp in
+                        if isComp {
+                            self.viewHeightConstraint.isActive = false
+                            
+                            self.viewHeightConstraint = self.heightAnchor.constraint(equalToConstant: self.screenSize.height * (self.defaultMultiplierOfHeight+self.multiplierOfDropDownTable))
+                            
+                            self.viewHeightConstraint.isActive = true
+                        }
+                    })
+                    
+            }else{
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn ,animations: {
+                    self.dropDownButton.transform = CGAffineTransform(rotationAngle: 0)
+                    self.dropDownTableHeightConstraint.constant -= self.screenSize.height * self.multiplierOfDropDownTable
+                    self.layoutIfNeeded()
+                }, completion: { isComp in
+                    if isComp {
+                        self.viewHeightConstraint.isActive = false
+                        self.viewHeightConstraint = self.heightAnchor.constraint(equalToConstant: self.screenSize.height * self.defaultMultiplierOfHeight)
+                        self.viewHeightConstraint.isActive = true
+                    }
+                })
+            }
+        }
+    }
     
     @objc func dropDownButtonTouchUp(){
+        
         if isDropDown{
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn ,animations: {
-                self.dropDownButton.transform = CGAffineTransform(rotationAngle: 0)
-                self.dropDownTableHeightConstraint.constant -= self.screenSize.height * self.multiplierOfDropDownTable
-                self.layoutIfNeeded()
-            }, completion: { isComp in
-                if isComp {
-                    self.viewHeightConstraint.isActive = false
-                    self.viewHeightConstraint = self.heightAnchor.constraint(equalToConstant: self.screenSize.height * self.defaultMultiplierOfHeight)
-                    self.viewHeightConstraint.isActive = true
-                }
-            })
             isDropDown = false
         }else{
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn ,animations: {
-                self.dropDownButton.transform = CGAffineTransform(rotationAngle: .pi)
-                self.dropDownTableHeightConstraint.constant += self.screenSize.height * self.multiplierOfDropDownTable
-                self.layoutIfNeeded()
-            }, completion: { isComp in
-                if isComp {
-                    self.viewHeightConstraint.isActive = false
-                    
-                    self.viewHeightConstraint = self.heightAnchor.constraint(equalToConstant: self.screenSize.height * (self.defaultMultiplierOfHeight+self.multiplierOfDropDownTable))
-                    
-                    self.viewHeightConstraint.isActive = true
-                }
-            })
-            
             isDropDown = true
         }
+        
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        repository = HomeViewRepositoryImpl()
+        loadData()
         setup()
     }
     
@@ -86,7 +107,15 @@ class HomeNavBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    func loadData(){
+        Task.init {
+            do{
+                boardLists = try await repository?.getBoardListData() ?? [""]
+            }catch{
+                print("boardListGet Failed \(error)")
+            }
+        }
+    }
     func setup(){
         
         
@@ -115,7 +144,10 @@ class HomeNavBar: UIView {
         dropDownTable.translatesAutoresizingMaskIntoConstraints = false
         
         //Data assignment
-        dropDownTable.data = NavData.dropDownList
+        dropDownTable.data = boardLists ?? []
+        dropDownTable.onCellClicked = { name in
+            self.dropDownTableClicked?(name)
+        }
         viewHeightConstraint = self.heightAnchor.constraint(equalToConstant: screenSize.height * defaultMultiplierOfHeight)
         viewWidthConsstraint = self.widthAnchor.constraint(equalToConstant: screenSize.width)
         //UI configuration
@@ -136,7 +168,7 @@ class HomeNavBar: UIView {
         leftDrawerButton.tintColor = .label
         container.effect = blurEffect
         dropDownTableContainer.effect = blurEffect
-        title.text = NavData.title
+        title.text = currentBoard ?? "Loading"
         
         profileButton.widthAnchor.constraint(equalToConstant: searchButton.intrinsicContentSize.width + 10).isActive = true
         profileButton.heightAnchor.constraint(equalToConstant: searchButton.intrinsicContentSize.height + 10).isActive = true

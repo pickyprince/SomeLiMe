@@ -22,6 +22,23 @@ class BoardSectionView: UIStackView{
             layoutIfNeeded()
         }
     }
+    var tableData: [BoardPostMetaData]? {
+        didSet{
+            self.boardTableView.boardSectionPostCellData = tableData
+            boardTableView.reloadData()
+        }
+    }
+    var didPostClicked: ((String)->Void)? {
+        didSet{
+            
+            boardTableView.didCellClicked = didPostClicked
+        }
+    }
+    var onNavigateButtonClicked: (()->Void)?
+    
+    @objc private func moveToBoard(){
+        onNavigateButtonClicked?()
+    }
     private var boardTitle: String = ""
     
     private var hotKeywordsList: [String] = []
@@ -31,8 +48,9 @@ class BoardSectionView: UIStackView{
     private var boardDescription: String = ""
     
     private var boardLevel: Int = 0
+    
     //MARK: - UI Objects Declaration
-    private let boardTitleView: UIView = UIView()
+    private let boardTitleView: UIStackView = UIStackView()
     
     private let boardTitleLabel: UILabel = UILabel()
     
@@ -40,9 +58,12 @@ class BoardSectionView: UIStackView{
     
     private let boardSettingButton: UIButton = UIButton()
     
+    private let boardNavButton: UIButton = UIButton()
+    
     private let hotKeyWordsSection: LabelCollectionView = LabelCollectionView()
     
     private let boardTableView: HomeBoardTableView = HomeBoardTableView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         boardTitleLabel.text = boardTitle
@@ -57,17 +78,23 @@ class BoardSectionView: UIStackView{
         self.addArrangedSubview(boardTitleView)
         self.addArrangedSubview(hotKeyWordsSection)
         self.addArrangedSubview(boardTableView)
-        boardTitleView.addSubview(boardTitleLabel)
+        boardButtonGroup.distribution = .fillEqually
+        
+        boardTitleView.addArrangedSubview(boardTitleLabel)
+        boardTitleView.addArrangedSubview(boardButtonGroup)
+        boardTitleView.distribution = .equalSpacing
+        boardNavButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        boardNavButton.tintColor = .label
+        boardNavButton.addTarget(self, action: #selector(moveToBoard), for: .touchUpInside)
+        boardButtonGroup.addArrangedSubview(boardNavButton)
+        boardButtonGroup.addArrangedSubview(boardSettingButton)
+        boardSettingButton.setImage(UIImage(systemName: "gearshape.fill"), for: .normal)
+        boardSettingButton.tintColor = .label
+        boardTableView.didCellClicked = didPostClicked
         
         
         NSLayoutConstraint.activate([
             boardTableView.widthAnchor.constraint(equalTo: self.widthAnchor)
-        ])
-        NSLayoutConstraint.activate([
-            boardTitleLabel.topAnchor.constraint(equalTo: boardTitleView.topAnchor),
-            boardTitleLabel.bottomAnchor.constraint(equalTo: boardTitleView.bottomAnchor),
-            boardTitleLabel.leadingAnchor.constraint(equalTo: boardTitleView.leadingAnchor),
-            boardTitleLabel.trailingAnchor.constraint(equalTo: boardTitleView.trailingAnchor),
         ])
     }
     

@@ -9,4 +9,5 @@ import Foundation
 
 struct AppStates{
     let isFirstTimeLaunched: Bool
+    let isNeedToUpdateLocalDataSource: Bool
 }

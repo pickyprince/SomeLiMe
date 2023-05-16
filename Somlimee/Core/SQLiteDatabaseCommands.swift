@@ -11,8 +11,10 @@ import SQLite3
 class SQLiteDatabaseCommands{
     static var categoryTable = Table("Category")
     static var appStatesTable = Table("AppStates")
+    static var boardTable = Table("Board")
     //Expressions
     static let categoryName = Expression<String>("categoryName")
+    static let boardName = Expression<String>("boardName")
     static let stateName = Expression<String>("stateName")
     static let stateValue = Expression<Bool>("stateValue")
     //Ceate CategoryTable
@@ -27,6 +29,19 @@ class SQLiteDatabaseCommands{
             })
         }catch{
             throw SQLiteDatabaseFailures.CouldNotCreateCategoryTable
+        }
+    }
+    static func createBoardTable() async throws -> Void{
+        guard let database = LocalDataSourceService.sharedInstance.database else{
+            throw SQLiteDatabaseFailures.CouldNotConnectDatabase
+        }
+        // if not extists: true - will not create a table
+        do{
+            try database.run(boardTable.create(ifNotExists: true){ table in
+                table.column(boardName)
+            })
+        }catch{
+            throw SQLiteDatabaseFailures.CouldNotCreateBoardTable
         }
     }
     
@@ -81,6 +96,43 @@ class SQLiteDatabaseCommands{
             throw SQLiteDatabaseFailures.CouldNotPresentCategoryTable
         }
     }
+    static func insertBoardRow(_ value: String) async throws -> Void{
+        guard let database = LocalDataSourceService.sharedInstance.database else{
+            throw SQLiteDatabaseFailures.CouldNotConnectDatabase
+        }
+        do{
+            try database.run(boardTable.insert(boardName <- value))
+        }catch let Result.error(message, code, statement) where code == SQLITE_CONSTRAINT {
+            
+            print("Insert Row Failed: \(message), in \(String(describing: statement))")
+            throw SQLiteDatabaseFailures.CouldNotInsertBoardRow
+            
+        }catch let error{
+            
+            print("Insert Row Failed: \(error)")
+            throw SQLiteDatabaseFailures.CouldNotInsertBoardRow
+            
+        }
+    }
+    
+    static func presentBoardRows() async throws -> [String : Any]?{
+        guard let database = LocalDataSourceService.sharedInstance.database else{
+            throw SQLiteDatabaseFailures.CouldNotConnectDatabase
+        }
+        boardTable = boardTable.order(boardName.desc)
+        do {
+            var list: [String] = []
+            for category in try database.prepare(boardTable){
+                let name: String = category[boardName]
+                list.append(name)
+            }
+            return ["list": list]
+        } catch{
+            print("present Board Data error: \(error)")
+            throw SQLiteDatabaseFailures.CouldNotPresentBoardTable
+        }
+    }
+    
     static func insertAppStatesRow(name: String, bool: Bool) async throws -> Void{
         guard let database = LocalDataSourceService.sharedInstance.database else{
             throw SQLiteDatabaseFailures.CouldNotConnectDatabase
@@ -122,9 +174,15 @@ class SQLiteDatabaseCommands{
             throw SQLiteDatabaseFailures.CouldNotConnectDatabase
         }
         do {
+            
             let isFirstTimeLaunched = appStatesTable.filter(stateName == "isFirstTimeLaunched")
             try database.run(isFirstTimeLaunched.update(stateValue <- appStates.isFirstTimeLaunched))
+            
+            let isNeedToUpdateLDS = appStatesTable.filter(stateName == "isNeedToUpdateLocalDataSource")
+            try database.run(isNeedToUpdateLDS.update(stateValue <- appStates.isNeedToUpdateLocalDataSource))
+            
             //상태 추가시 여기에 추가
+            
         } catch{
             print("update appStates Data error: \(error)")
             throw SQLiteDatabaseFailures.CouldNotUpdateAppStatesTable

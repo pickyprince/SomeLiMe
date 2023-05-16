@@ -11,9 +11,19 @@ import Firebase
 
 final class UserSignUpWithEmailService{
     static let sharedInstance = UserSignUpWithEmailService()
-    internal func createUser(Email: String, PW: String) async throws -> Void{
+    internal func createUser(Email: String, PW: String, userInfo: ProfileData) async throws -> Void{
         do{
             try await FirebaseAuth.Auth.auth().createUser(withEmail: Email, password: PW)
+            try await DataSourceService.sharedInstance.updateUser(userInfo: [
+                "UserName": userInfo.userName,
+                "ProfileImageURL": "", //Later Modify
+                "TotalUps": userInfo.totalUps,
+                "ReceivedUps": userInfo.receivedUps,
+                "Points": userInfo.points,
+                "DaysOfActive": userInfo.daysOfActive,
+                "Badges": userInfo.badges,
+                "PersonalityTestResult": [:],
+            ])
         }catch{
             print("CouldNotCreatUser")
             throw UserSignUpFailures.CouldNotCreatUser

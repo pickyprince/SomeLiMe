@@ -20,10 +20,6 @@ fileprivate enum HomeViewStaticData {
     static let categoryHeader: String = "카테고리"
     static let categoryButtonTitle: String = "Req"
     
-    static let dropDownList: [String] = ["A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장", "A타입 광장", "B타입 광장","C타입 광장"]
-    
-    static let boardTitle: String = "광장게시판"
-    
 }
 
 class HomeViewController: UIViewController {
@@ -138,10 +134,8 @@ class HomeViewController: UIViewController {
                 realTimeBoardRankSectionView.data = try await repository?.getHotBoardRankingData()?.realTimeBoardRanking ?? []
                 
                 categorySectionView.data = try await repository?.getCategoryData()?.list ?? []
-                
-                currentCategory = "유머"
                 boardSectionView.data = try await repository?.getBoardInfoData(name: currentCategory)
-                
+                boardSectionView.tableData = try await repository?.getBoardPostMetaList(boardName: currentCategory, startTime: "NaN")
                 print(">>>> LOADING HOMEVIEW RT DATA SUCCEEDED...")
                 
             } catch {
@@ -187,12 +181,23 @@ class HomeViewController: UIViewController {
             Task.init {
                 do{
                     self.boardSectionView.data = try await self.repository?.getBoardInfoData(name: self.currentCategory)
+                    self.boardSectionView.tableData = try await self.repository?.getBoardPostMetaList(boardName: self.currentCategory, startTime: "NaN")
+                    
                 }catch{
                     print(">>>> ERROR: \(error)")
                     self.boardSectionView.data = BoardInfoData(boardName: "ERROR", boardOwnerID: "", tapList: [], boardLevel: 404, boardDescription: "ERROR", boardHotKeyword: ["ERROR"])
+                    self.boardSectionView.tableData = []
+                    
                 }
             }
             print(">>>> LOADING HOMEVIEW RT DATA SUCCEEDED...")
+        }
+        navBar.dropDownTableClicked = { name in
+            let boardV = BoardViewController()
+            boardV.boardName = name
+            boardV.boardNavBar.title.text = name
+            self.navBar.isDropDown = false
+            self.navigationController?.pushViewController(boardV, animated: true)
         }
         
         //Navigation Disable
@@ -208,17 +213,28 @@ class HomeViewController: UIViewController {
         contentView.spacing = 15
         contentView.distribution = .fill
         navBar.delegate = self
+        navBar.title.text = "SomLiMe"
         fogView.addTarget(self, action: #selector(fogTouchUP), for: .touchUpInside)
         
         
         //Router
         realTimeHotRankSectionView.detailButtonClicked = {
-            self.navigationController?.pushViewController(BoardPostWriteViewController(boardName: "유머"), animated: true)
+            self.navigationController?.pushViewController(BoardPostWriteViewController(boardName: self.currentCategory), animated: true)
         }
         realTimeBoardRankSectionView.detailButtonClicked = {
             self.navigationController?.pushViewController(RealTimeHotDetailViewController(), animated: true)
         }
-        
+        boardSectionView.didPostClicked = { str in
+            let boardV = BoardPostViewController()
+            boardV.boardName = self.currentCategory
+            boardV.postId = str
+            self.navigationController?.pushViewController(boardV, animated: true)
+        }
+        boardSectionView.onNavigateButtonClicked = {
+            let boardV = BoardViewController()
+            boardV.boardName = self.currentCategory
+            self.navigationController?.pushViewController(boardV, animated: true)
+        }
         //ADD SUBVIEWS
         view.addSubview(scrollView)
         view.addSubview(navBar)

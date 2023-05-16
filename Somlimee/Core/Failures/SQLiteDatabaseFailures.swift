@@ -16,4 +16,7 @@ enum SQLiteDatabaseFailures: Error{
     case CouldNotInsertAppStatesRow
     case CouldNotPresentAppStatesTable
     case CouldNotUpdateAppStatesTable
+    case CouldNotCreateBoardTable
+    case CouldNotInsertBoardRow
+    case CouldNotPresentBoardTable
 }

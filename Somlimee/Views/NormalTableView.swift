@@ -8,8 +8,8 @@
 import UIKit
 
 class NormalTableView: UITableView {
-    public var data: [String] = []
-    
+    var data: [String] = []
+    var onCellClicked: ((String)->Void)?
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
         
@@ -34,6 +34,9 @@ extension NormalTableView: UITableViewDelegate, UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        onCellClicked?(data[indexPath.item])
     }
     
 }

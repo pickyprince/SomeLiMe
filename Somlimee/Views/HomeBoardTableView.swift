@@ -10,32 +10,30 @@ import UIKit
 class HomeBoardTableView: UITableView{
     
     //fixtures
-    let fix = BoardPostMetaData(boardID: "2939481239", postID: "320240243", publishedTime: "jieojfoeifj", postType: .text, postTitle: "재밋는 짤 .... jpg", boardTap: "자유/잡담", userID: "유저아이디", numberOfViews: 24, numberOfVoteUps: 10)
     
     private var heightConstraint: NSLayoutConstraint = NSLayoutConstraint()
     private var cellHeight: CGFloat = 56{
         didSet{
             heightConstraint.isActive = false
-            heightConstraint = self.heightAnchor.constraint(equalToConstant: CGFloat(boardSectionPostCellData.count) * cellHeight)
+            heightConstraint = self.heightAnchor.constraint(equalToConstant: CGFloat(boardSectionPostCellData?.count ?? 0) * cellHeight)
             heightConstraint.isActive = true
         }
     }
     
     private let topBottomInsets: CGFloat = 10
-    public var boardSectionPostCellData: [BoardPostMetaData] = [] {
+    public var boardSectionPostCellData: [BoardPostMetaData]?{
         didSet{
-            
-                heightConstraint.isActive = false
-                heightConstraint = self.heightAnchor.constraint(equalToConstant: CGFloat(boardSectionPostCellData.count) * cellHeight)
-                heightConstraint.isActive = true
+            self.reloadData()
+            heightConstraint.isActive = false
+            heightConstraint = self.heightAnchor.constraint(equalToConstant: CGFloat(boardSectionPostCellData?.count ?? 0) * cellHeight)
+            heightConstraint.isActive = true
         }
     }
     
     
+    var didCellClicked: ((String)->Void)?
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
-        
-        boardSectionPostCellData = [fix, fix, fix,fix,fix,fix,fix,fix,fix,fix,fix,fix]
         
         self.translatesAutoresizingMaskIntoConstraints = false
         
@@ -52,7 +50,7 @@ class HomeBoardTableView: UITableView{
         let image = UIImageView(image: UIImage(systemName: "person.fill"))
         cellHeight = (label.intrinsicContentSize.height + image.intrinsicContentSize.height) + topBottomInsets
         
-        heightConstraint = self.heightAnchor.constraint(equalToConstant: CGFloat(boardSectionPostCellData.count) * cellHeight)
+        heightConstraint = self.heightAnchor.constraint(equalToConstant: CGFloat(boardSectionPostCellData?.count ?? 0) * cellHeight)
         heightConstraint.isActive = true
         
     }
@@ -63,23 +61,30 @@ class HomeBoardTableView: UITableView{
 }
 extension HomeBoardTableView: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return boardSectionPostCellData.count
+        return boardSectionPostCellData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.dequeueReusableCell(withIdentifier: String(describing: HomeBoardTableViewCell.self), for: indexPath) as! HomeBoardTableViewCell
-        cell.postTitle = boardSectionPostCellData[indexPath.item].postTitle
-        cell.postType = boardSectionPostCellData[indexPath.item].postType
-        cell.numberOfViews = boardSectionPostCellData[indexPath.item].numberOfViews
-        cell.numberOfRecommendation = boardSectionPostCellData[indexPath.item].numberOfVoteUps
-        cell.userID = boardSectionPostCellData[indexPath.item].userID
-        cell.publishedTime = boardSectionPostCellData[indexPath.item].publishedTime
-        cell.boardCategory = boardSectionPostCellData[indexPath.item].boardTap
+        cell.postTitle = boardSectionPostCellData?[indexPath.item].postTitle ?? ""
+        cell.postType = boardSectionPostCellData?[indexPath.item].postType ?? PostType.text
+        cell.numberOfViews = boardSectionPostCellData?[indexPath.item].numberOfViews ?? 0
+        cell.numberOfRecommendation = boardSectionPostCellData?[indexPath.item].numberOfVoteUps ?? 0
+        cell.userID = boardSectionPostCellData?[indexPath.item].userID ?? ""
+        cell.publishedTime = boardSectionPostCellData?[indexPath.item].publishedTime ?? ""
+        cell.boardCategory = boardSectionPostCellData?[indexPath.item].boardTap ?? ""
+        cell.boardID = boardSectionPostCellData?[indexPath.item].boardID ?? ""
+        cell.postID = boardSectionPostCellData?[indexPath.item].postID ?? ""
         
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = cellForRow(at: indexPath) as! HomeBoardTableViewCell
+        didCellClicked?(cell.postID ?? "")
     }
     
     
@@ -152,16 +157,8 @@ class HomeBoardTableViewCell: UITableViewCell{
             recommendationLabel.text = "추천 \(numberOfRecommendation)"
         }
     }
-    public var boardID: Int = 0 {
-        didSet{
-            
-        }
-    }
-    public var postID: String = "" {
-        didSet{
-            
-        }
-    }
+    public var boardID: String?
+    public var postID: String?
     
     private func configure(){
         

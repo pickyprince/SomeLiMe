@@ -13,6 +13,7 @@ class BoardViewController: UIViewController {
     var repository: BoardViewRepository?
     var boardName: String = "유머" {
         didSet{
+            boardNavBar.title.text = boardName
             loadData()
         }
     }
@@ -52,7 +53,6 @@ class BoardViewController: UIViewController {
             }
         }
     }
-    
     //MARK: - UI Components
     let contentScrollView: UIScrollView = UIScrollView()
     let boardTableView: BoardTableView = BoardTableView()
@@ -93,7 +93,10 @@ class BoardViewController: UIViewController {
         contentScrollView.backgroundColor = .systemBackground
         boardTableView.didCellClicked = { str in
             // Should Navigate To PostVC
-            print(str)
+            let v = BoardPostViewController()
+            v.boardName = self.boardName
+            v.postId = str
+            self.navigationController?.pushViewController(v, animated: true)
         }
         boardTapView.cellClicked = { str in
             // Should Filter Posts According to the taps
@@ -103,8 +106,12 @@ class BoardViewController: UIViewController {
         boardNavBar.onTouchUpBackButton = {
             self.navigationController?.popViewController(animated: true)
         }
+        boardNavBar.onTouchUpWriteButton = {
+            self.navigationController?.pushViewController(BoardPostWriteViewController(boardName: self.boardName), animated: true)
+        }
         boardTableView.boardSectionPostCellData = posts
         spinner.isHidden = true
+        
     }
     
     
@@ -142,8 +149,8 @@ class BoardViewController: UIViewController {
     private func loadData(){
         Task.init {
             do{
-                self.info = try await repository?.getBoardInfoData(name: boardName)
-                self.posts = try await repository?.getBoardPosts(name: boardName, start: "NaN")
+                self.info = try await repository?.getBoardInfoData(boardName: boardName)
+                self.posts = try await repository?.getBoardPostMetaList(boardName: boardName, startTime: "NaN")
                 //Relayout
             }catch{
                 print(">>>> BOARD VIEW ERROR: Could Not Load Data - \(error)")
@@ -155,7 +162,7 @@ class BoardViewController: UIViewController {
         Task.init {
             do{
                 guard let last = self.posts?.last else{
-                    guard let temp = try await repository?.getBoardPosts(name: self.boardName, start: "NaN")
+                    guard let temp = try await repository?.getBoardPostMetaList(boardName: boardName, startTime: "NaN")
                     else{
                         return
                     }
@@ -164,7 +171,7 @@ class BoardViewController: UIViewController {
                     }
                     return
                 }
-                guard let temp = try await repository?.getBoardPosts(name: self.boardName, start: last.publishedTime)
+                guard let temp = try await repository?.getBoardPostMetaList(boardName: boardName, startTime: last.publishedTime)
                 else{
                     return
                 }

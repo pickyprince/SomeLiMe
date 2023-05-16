@@ -70,6 +70,8 @@ extension BoardTableView: UITableViewDataSource, UITableViewDelegate{
         cell.userID = boardSectionPostCellData?[indexPath.item].userID ?? ""
         cell.publishedTime = boardSectionPostCellData?[indexPath.item].publishedTime ?? ""
         cell.boardCategory = boardSectionPostCellData?[indexPath.item].boardTap ?? ""
+        cell.boardID = boardSectionPostCellData?[indexPath.item].boardID ?? ""
+        cell.postID = boardSectionPostCellData?[indexPath.item].postID ?? ""
         
         return cell
     }
@@ -78,7 +80,7 @@ extension BoardTableView: UITableViewDataSource, UITableViewDelegate{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = cellForRow(at: indexPath) as! HomeBoardTableViewCell
-        didCellClicked?(cell.postID)
+        didCellClicked?(cell.postID ?? "")
     }
 }
 

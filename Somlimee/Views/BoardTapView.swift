@@ -10,10 +10,10 @@ import UIKit
 class BoardTapView: UIView {
     
     // MARK: - Contents Data
-    public var tapList: [String] = ["ERROR"] {
+    public var tapList: [String]?{
         didSet{
             collectionView.reloadData()
-            collectionView.selectItem(at: IndexPath(item: 1, section: 0), animated: true, scrollPosition: .init())
+            collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .init())
         }
     }
     // MARK: - UI Objects
@@ -69,13 +69,13 @@ extension BoardTapView: UICollectionViewDataSource, UICollectionViewDelegate{
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tapList.count
+        return tapList?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! BoardTapViewCell
         cell.index = indexPath.item
-        cell.text = tapList[indexPath.item]
+        cell.text = tapList?[indexPath.item] ?? ""
         return cell
     }
     
@@ -88,7 +88,7 @@ extension BoardTapView: UICollectionViewDelegateFlowLayout{
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let button = UIButton()
-        button.setTitle(tapList[indexPath.item], for: .normal)
+        button.setTitle(tapList?[indexPath.item] ?? "", for: .normal)
         return CGSize(width: (button.intrinsicContentSize.width + 10), height: button.intrinsicContentSize.height)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

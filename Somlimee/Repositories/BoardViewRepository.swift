@@ -9,20 +9,22 @@ import Foundation
 import FirebaseFirestore
 
 protocol BoardViewRepository{
-    func getBoardInfoData(name: String) async throws -> BoardInfoData?
-    func getBoardPosts(name: String, start: String) async throws -> [BoardPostMetaData]?
-    func writeBoardPost(name: String, post: BoardPostContentData) async throws -> Void
+    func getBoardInfoData(boardName: String) async throws -> BoardInfoData?
+    func getBoardPostMetaList(boardName: String, startTime: String) async throws -> [BoardPostMetaData]?
+    func writeBoardPost(boardName: String, postData: BoardPostContentData) async throws -> Void
+    func getBoardPostMeta(boardName: String, postId: String) async throws -> BoardPostMetaData?
+    func getBoardPostContent(boardName: String, postId: String) async throws -> BoardPostContentData?
 }
 
 class BoardViewRepositoryImpl: BoardViewRepository{
-  
     
-    func getBoardInfoData(name: String) async throws -> BoardInfoData? {
-        guard let data = try await DataSourceService.sharedInstance.getBoardInfoData(name: name) else{
+    
+    func getBoardInfoData(boardName: String) async throws -> BoardInfoData? {
+        guard let data = try await DataSourceService.sharedInstance.getBoardInfoData(boardName: boardName) else{
             throw DataSourceFailures.CouldNotFindDocument
         }
         
-        let boardName: String = name
+        let boardName: String = boardName
         
         let boardOwnerID: String = (data["BoardOwnerID"] as? String) ?? ""
         
@@ -38,14 +40,14 @@ class BoardViewRepositoryImpl: BoardViewRepository{
     }
     
     
-    func getBoardPosts(name: String, start: String) async throws -> [BoardPostMetaData]? {
-        guard let dataList = try await DataSourceService.sharedInstance.getBoardPosts(name: name, start: start) else{
+    func getBoardPostMetaList(boardName: String, startTime: String)async throws -> [BoardPostMetaData]? {
+        guard let dataList = try await DataSourceService.sharedInstance.getBoardPostMetaList(boardName: boardName, startTime: startTime) else{
             return nil
         }
         var result: [BoardPostMetaData] = []
         for data in dataList{
             
-            let boardName: String = name
+            let boardName: String = boardName
             
             let postID: String = (data["PostId"] as? String) ?? ""
             let val = (data["PublishedTime"] as? Timestamp)?.dateValue()
@@ -78,12 +80,64 @@ class BoardViewRepositoryImpl: BoardViewRepository{
         return result
     }
     
-    func writeBoardPost(name: String, post: BoardPostContentData) async throws {
+    func writeBoardPost(boardName: String, postData: BoardPostContentData) async throws -> Void {
         do{
-            try await DataSourceService.sharedInstance.createPost(name: name, post: post)
+            try await DataSourceService.sharedInstance.createPost(boardName: boardName, postData: postData)
         }catch{
             throw DataSourceFailures.CouldNotWritePost
         }
+    }
+    
+    func getBoardPostMeta(boardName: String, postId: String) async throws -> BoardPostMetaData? {
+        guard let data = try await DataSourceService.sharedInstance.getBoardPostMeta(boardName: boardName, postId: postId) else{
+            return nil
+        }
+        let boardName: String = boardName
+        
+        let postID: String = (data["PostId"] as? String) ?? ""
+        let val = (data["PublishedTime"] as? Timestamp)?.dateValue()
+        
+        let publishedTime: String = String((val?.description as? String)?.prefix(10) ?? "NaN")
+        
+        let postTypeString: String = (data["PostType"] as? String) ?? ""
+        
+        let postTitle: String = (data["PostTitle"] as? String) ?? ""
+        
+        let boardTap: String = (data["BoardTap"] as? String) ?? ""
+        
+        let userID: String = (data["UserId"] as? String) ?? ""
+        
+        let numberOfViews: Int = (data["Views"] as? Int) ?? 404
+        
+        let numberOfVoteUps: Int = (data["VoteUps"] as? Int) ?? 404
+        var postType: PostType = PostType.text
+        switch postTypeString{
+        case "image":
+            postType = PostType.image
+        case "video":
+            postType = PostType.video
+        default:
+            postType = PostType.text
+        }
+        return BoardPostMetaData(boardID: boardName, postID: postID, publishedTime: publishedTime, postType: postType, postTitle: postTitle, boardTap: boardTap, userID: userID, numberOfViews: numberOfViews, numberOfVoteUps: numberOfVoteUps)
+        
+        
+    }
+    func getBoardPostContent(boardName: String, postId: String) async throws -> BoardPostContentData? {
+        guard let data = try await DataSourceService.sharedInstance.getBoardPostContent(boardName: boardName, postId: postId) else{
+            return nil
+        }
+        
+        guard let meta = try await DataSourceService.sharedInstance.getBoardPostMeta(boardName: boardName, postId: postId) else{
+            return nil
+        }
+        let urls: [String] = (data[1]["URLs"] as? [String]) ?? []
+        let boardPostTap = (meta["BoardTap"] as? String) ?? ""
+        let boardPostUserId = (meta["userId"] as? String) ?? ""
+        let boardPostTitle = (meta["PostTitle"] as? String) ?? ""
+        print(">>>> \(data[0])")
+        let boardPostParagraph = (data[0]["Text"] as? String) ?? ""
+        return BoardPostContentData(boardPostTap: boardPostTap, boardPostUserId: boardPostUserId, boardPostTitle: boardPostTitle, boardPostParagraph: boardPostParagraph, boardPostImages: [])
     }
     
     

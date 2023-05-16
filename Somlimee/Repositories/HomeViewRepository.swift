@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 protocol HomeViewRepository{
     
@@ -13,13 +14,58 @@ protocol HomeViewRepository{
     func getHotTrendData() async throws -> HotTrendData?
     func getHotBoardRankingData() async throws -> HotBaoardRankingData?
     func getCategoryData() async throws -> CategoryData?
+    func getBoardListData() async throws -> [String]?
     func getBoardInfoData(name: String) async throws -> BoardInfoData?
+    func getBoardPostMetaList(boardName: String, startTime: String) async throws -> [BoardPostMetaData]?
     
 }
 
 final class HomeViewRepositoryImpl: HomeViewRepository{
-    
-    
+    func getBoardListData() async throws -> [String]? {
+        guard let dataList = try await DataSourceService.sharedInstance.getBoardListData()?["list"] as? [String]  else{
+            return nil
+        }
+        return dataList
+    }
+    func getBoardPostMetaList(boardName: String, startTime: String)async throws -> [BoardPostMetaData]? {
+        guard let dataList = try await DataSourceService.sharedInstance.getBoardPostMetaList(boardName: boardName, startTime: startTime) else{
+            return nil
+        }
+        var result: [BoardPostMetaData] = []
+        for data in dataList{
+            
+            let boardName: String = boardName
+            
+            let postID: String = (data["PostId"] as? String) ?? ""
+            let val = (data["PublishedTime"] as? Timestamp)?.dateValue()
+            
+            let publishedTime: String = String((val?.description as? String)?.prefix(10) ?? "NaN")
+            
+            let postTypeString: String = (data["PostType"] as? String) ?? ""
+            
+            let postTitle: String = (data["PostTitle"] as? String) ?? ""
+            
+            let boardTap: String = (data["BoardTap"] as? String) ?? ""
+            
+            let userID: String = (data["UserId"] as? String) ?? ""
+            
+            let numberOfViews: Int = (data["Views"] as? Int) ?? 404
+            
+            let numberOfVoteUps: Int = (data["VoteUps"] as? Int) ?? 404
+            var postType: PostType = PostType.text
+            switch postTypeString{
+            case "image":
+                postType = PostType.image
+            case "video":
+                postType = PostType.video
+            default:
+                postType = PostType.text
+            }
+            result.append(BoardPostMetaData(boardID: boardName, postID: postID, publishedTime: publishedTime, postType: postType, postTitle: postTitle, boardTap: boardTap, userID: userID, numberOfViews: numberOfViews, numberOfVoteUps: numberOfVoteUps))
+        }
+        
+        return result
+    }
     func getHotTrendData() async throws -> HotTrendData? {
         
         let rawData = try await DataSourceService.sharedInstance.getHotTrendData()
@@ -59,7 +105,7 @@ final class HomeViewRepositoryImpl: HomeViewRepository{
     
     
     func getBoardInfoData(name: String) async throws -> BoardInfoData? {
-        let data = try await DataSourceService.sharedInstance.getBoardInfoData(name: "Vh0eyDgLKArtsRSswXti")
+        let data = try await DataSourceService.sharedInstance.getBoardInfoData(boardName: name)
         guard let boardOwnerID = data?["BoardOwnerId"] else{
             throw DataSourceFailures.CouldNotFindDocument
         }

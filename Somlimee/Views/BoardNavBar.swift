@@ -9,7 +9,20 @@ import UIKit
 
 class BoardNavBar: UIView {
     
-    
+    var repository: HomeViewRepository?
+    var boardLists: [String]? {
+        didSet{
+            dropDownTable.data = boardLists ?? []
+            dropDownTable.reloadData()
+        }
+    }
+    var currentBoard: String? = "SomLiMe"{
+        didSet{
+            title.text = currentBoard ?? "Loading..."
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+        }
+    }
     let titleView = UIStackView()
     let buttonGroups = UIStackView()
     let searchButton = UIButton()
@@ -27,9 +40,43 @@ class BoardNavBar: UIView {
     var multiplierOfDropDownTable: CGFloat = 0.18
     let dropDownTableContainer = UIVisualEffectView()
     let dropDownTable: NormalTableView = NormalTableView()
+    var onTouchUpDropDownNav: (()->Void)?
     var onTouchUpBackButton: (()->Void)?
     var onTouchUpWriteButton: (()->Void)?
-    private var isDropDown: Bool = false
+    private var isDropDown: Bool = false {
+        didSet{
+            if isDropDown{
+                
+                    UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn ,animations: {
+                        self.dropDownButton.transform = CGAffineTransform(rotationAngle: .pi)
+                        self.dropDownTableHeightConstraint.constant += self.screenSize.height * self.multiplierOfDropDownTable
+                        self.layoutIfNeeded()
+                    }, completion: { isComp in
+                        if isComp {
+                            self.viewHeightConstraint.isActive = false
+                            
+                            self.viewHeightConstraint = self.heightAnchor.constraint(equalToConstant: self.screenSize.height * (self.defaultMultiplierOfHeight+self.multiplierOfDropDownTable))
+                            
+                            self.viewHeightConstraint.isActive = true
+                        }
+                    })
+                    
+            }else{
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn ,animations: {
+                    self.dropDownButton.transform = CGAffineTransform(rotationAngle: 0)
+                    self.dropDownTableHeightConstraint.constant -= self.screenSize.height * self.multiplierOfDropDownTable
+                    self.layoutIfNeeded()
+                }, completion: { isComp in
+                    if isComp {
+                        self.viewHeightConstraint.isActive = false
+                        self.viewHeightConstraint = self.heightAnchor.constraint(equalToConstant: self.screenSize.height * self.defaultMultiplierOfHeight)
+                        self.viewHeightConstraint.isActive = true
+                    }
+                })
+            }
+        
+        }
+    }
     @objc private func onTouchUpBack(){
         onTouchUpBackButton?()
     }
@@ -38,39 +85,25 @@ class BoardNavBar: UIView {
     }
     @objc private func dropDownButtonTouchUp(){
         if isDropDown{
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn ,animations: {
-                self.dropDownButton.transform = CGAffineTransform(rotationAngle: 0)
-                self.dropDownTableHeightConstraint.constant -= self.screenSize.height * self.multiplierOfDropDownTable
-                self.layoutIfNeeded()
-            }, completion: { isComp in
-                if isComp {
-                    self.viewHeightConstraint.isActive = false
-                    self.viewHeightConstraint = self.heightAnchor.constraint(equalToConstant: self.screenSize.height * self.defaultMultiplierOfHeight)
-                    self.viewHeightConstraint.isActive = true
-                }
-            })
             isDropDown = false
         }else{
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn ,animations: {
-                self.dropDownButton.transform = CGAffineTransform(rotationAngle: .pi)
-                self.dropDownTableHeightConstraint.constant += self.screenSize.height * self.multiplierOfDropDownTable
-                self.layoutIfNeeded()
-            }, completion: { isComp in
-                if isComp {
-                    self.viewHeightConstraint.isActive = false
-                    
-                    self.viewHeightConstraint = self.heightAnchor.constraint(equalToConstant: self.screenSize.height * (self.defaultMultiplierOfHeight+self.multiplierOfDropDownTable))
-                    
-                    self.viewHeightConstraint.isActive = true
-                }
-            })
-            
             isDropDown = true
         }
     }
     
+    func loadData(){
+        Task.init {
+            do{
+                boardLists = try await repository?.getBoardListData() ?? [""]
+            }catch{
+                print("boardListGet Failed \(error)")
+            }
+        }
+    }
     override init(frame: CGRect) {
         super.init(frame: frame)
+        repository = HomeViewRepositoryImpl()
+        loadData()
         setup()
     }
     
@@ -100,7 +133,6 @@ class BoardNavBar: UIView {
         writeButton.translatesAutoresizingMaskIntoConstraints = false
         
         //Data assignment
-        dropDownTable.data = NavData.dropDownList
         viewHeightConstraint = self.heightAnchor.constraint(equalToConstant: screenSize.height * defaultMultiplierOfHeight)
         viewWidthConsstraint = self.widthAnchor.constraint(equalToConstant: screenSize.width)
         //UI configuration
@@ -116,12 +148,12 @@ class BoardNavBar: UIView {
         writeButton.setTitle("글쓰기", for: .normal)
         writeButton.setTitleColor(.label, for: .normal)
         writeButton.tintColor = .label
+        writeButton.addTarget(self, action: #selector(onTouchUpWrite), for: .touchUpInside)
         backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         backButton.tintColor = .label
         backButton.addTarget(self, action: #selector(onTouchUpBack), for: .touchUpInside)
         container.effect = blurEffect
         dropDownTableContainer.effect = blurEffect
-        title.text = NavData.title
         
         
         self.addSubview(container)

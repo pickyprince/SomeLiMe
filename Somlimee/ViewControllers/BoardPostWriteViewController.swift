@@ -24,7 +24,12 @@ class BoardPostWriteViewController: UIViewController {
     
     private func loadData(){
         Task.init {
-            boardTapView.tapList = try await repository?.getBoardInfoData(name: boardName)?.tapList ?? []
+            boardTapView.tapList = try await repository?.getBoardInfoData(boardName: boardName)?.tapList ?? []
+            guard let elems = boardTapView.tapList else {
+                return
+            }
+            pickedTap = elems[0]
+            
         }
     }
     private func transAutoMask(){
@@ -50,9 +55,15 @@ class BoardPostWriteViewController: UIViewController {
             print(">>>> 업로드 중")
             Task.init {
                 do{
-                    let post = BoardPostContentData(boardPostTap: self.pickedTap ?? "", boardPostUserId: FirebaseAuth.Auth.auth().currentUser?.uid ?? "", boardPostTitle: self.titleView.text ?? "", boardPostParagraph: self.contentView.text ?? "", boardPostImages: [])
-                    print("post \(post.boardPostTap)    \(post.boardPostTitle)    \(post.boardPostParagraph)")
-                    try await self.repository?.writeBoardPost(name: self.boardName, post: post)
+                    guard let user = FirebaseAuth.Auth.auth().currentUser else{
+                        throw UserLoginFailures.LoginFailed
+                    }
+                    
+                    let post = BoardPostContentData(boardPostTap: self.pickedTap ?? "", boardPostUserId: user.uid, boardPostTitle: self.titleView.text ?? "", boardPostParagraph: self.contentView.text ?? "", boardPostImages: [])
+                    
+                    print(">>>> 포스트 오브젝트 생성... \n\t상세설명: \n\tUser ID -> \(post.boardPostUserId)\n\tBoard Post Title -> \(post.boardPostTitle)\n\tBoard Tap List -> \(post.boardPostTap)\n\tBoard Post Paragraph -> \(post.boardPostParagraph)\n\tBoard Post Image URLs -> \(post.boardPostImages)")
+                    
+                    try await self.repository?.writeBoardPost(boardName: self.boardName, postData:   post)
                     
                     print(">>>> 업로드 성공")
                 }catch{
@@ -61,6 +72,7 @@ class BoardPostWriteViewController: UIViewController {
             }
             //navigate to the BoardView
             self.navigationController?.popViewController(animated: true)
+            self.navigationController?.viewControllers.last?.view.setNeedsLayout()
         }
         navBar.onTouchUpBackButton = {
             self.navigationController?.popViewController(animated: true)

@@ -19,4 +19,5 @@ func appStatesInit()async throws -> Void{
         }
     }
     try await SQLiteDatabaseCommands.insertAppStatesRow(name: "isFirstTimeLaunched", bool: true)
+    try await SQLiteDatabaseCommands.insertAppStatesRow(name: "isNeedToUpdateLocalDataSource", bool: false)
 }
