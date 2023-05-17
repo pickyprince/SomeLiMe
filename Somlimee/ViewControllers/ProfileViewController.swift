@@ -38,7 +38,7 @@ class ProfileViewController: UIViewController {
     var defaultFont: UIFont = UIFont()
     
     private func createPostListItem(){
-        for data in loadedData.recentPostList{
+        for data in loadedData.recentPostList ?? []{
             let postItemContainer = UIView()
             postItemContainer.translatesAutoresizingMaskIntoConstraints = false
             let date = UILabel()

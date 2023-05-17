@@ -13,6 +13,7 @@ class PersonalityTestResultViewController: UIViewController{
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        navigationController?.popToRootViewController(animated: true)
     }
 }
 

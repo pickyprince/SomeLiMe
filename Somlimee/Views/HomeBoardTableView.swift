@@ -70,7 +70,15 @@ extension HomeBoardTableView: UITableViewDataSource, UITableViewDelegate{
         cell.postType = boardSectionPostCellData?[indexPath.item].postType ?? PostType.text
         cell.numberOfViews = boardSectionPostCellData?[indexPath.item].numberOfViews ?? 0
         cell.numberOfRecommendation = boardSectionPostCellData?[indexPath.item].numberOfVoteUps ?? 0
-        cell.userID = boardSectionPostCellData?[indexPath.item].userID ?? ""
+        
+        Task.init {
+            do{
+                let userName = try await userNameParser(uid: boardSectionPostCellData?[indexPath.item].userID ?? "")
+                cell.userID = userName ?? "ERROR"
+            }catch{
+                cell.userID = "ERROR: \(error)"
+            }
+        }
         cell.publishedTime = boardSectionPostCellData?[indexPath.item].publishedTime ?? ""
         cell.boardCategory = boardSectionPostCellData?[indexPath.item].boardTap ?? ""
         cell.boardID = boardSectionPostCellData?[indexPath.item].boardID ?? ""

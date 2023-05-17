@@ -63,6 +63,15 @@ class BoardViewController: UIViewController {
     let boardDescription: UILabel = UILabel()
     let contents: UIStackView = UIStackView()
     
+    
+    @objc func handleRefreshControl() {
+        // Update your content…
+        loadData()
+        // Dismiss the refresh control.
+        DispatchQueue.main.async {
+            self.contentScrollView.refreshControl?.endRefreshing()
+        }
+    }
     private func transAuto(){
         contentScrollView.translatesAutoresizingMaskIntoConstraints = false
         boardTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -85,6 +94,12 @@ class BoardViewController: UIViewController {
         contents.addArrangedSubview(spinner)
     }
     private func configure(){
+        
+        let refresh: UIRefreshControl = UIRefreshControl()
+        self.contentScrollView.refreshControl = refresh
+        self.contentScrollView.refreshControl?.addTarget(self, action:
+                                                    #selector(handleRefreshControl),
+                                                  for: .valueChanged)
         contentScrollView.delegate = self
         boardTableView.isScrollEnabled = false
         contents.axis = .vertical

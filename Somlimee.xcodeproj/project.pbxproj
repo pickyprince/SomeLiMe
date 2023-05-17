@@ -69,6 +69,7 @@
 		CE2DD9F72A03B84D002AF99B /* BoardPostWriteNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9F62A03B84D002AF99B /* BoardPostWriteNavBar.swift */; };
 		CE2DD9F92A04EA18002AF99B /* BoardPostCommentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9F82A04EA18002AF99B /* BoardPostCommentData.swift */; };
 		CE2DD9FB2A068997002AF99B /* BoardPostNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9FA2A068997002AF99B /* BoardPostNavBar.swift */; };
+		CE2DDA002A14BC6F002AF99B /* userNameParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9FF2A14BC6F002AF99B /* userNameParser.swift */; };
 		CE4F263B29B4D07F0037AA30 /* LabelCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */; };
 		CE4F264029BA0A060037AA30 /* CategorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */; };
 		CE7A7A0F29A87B4B00DDE8A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */; };
@@ -143,6 +144,7 @@
 		CE2DD9F62A03B84D002AF99B /* BoardPostWriteNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPostWriteNavBar.swift; sourceTree = "<group>"; };
 		CE2DD9F82A04EA18002AF99B /* BoardPostCommentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPostCommentData.swift; sourceTree = "<group>"; };
 		CE2DD9FA2A068997002AF99B /* BoardPostNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPostNavBar.swift; sourceTree = "<group>"; };
+		CE2DD9FF2A14BC6F002AF99B /* userNameParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userNameParser.swift; sourceTree = "<group>"; };
 		CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionView.swift; sourceTree = "<group>"; };
 		CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySectionView.swift; sourceTree = "<group>"; };
 		CE7A7A0B29A87B4B00DDE8A5 /* Somlimee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Somlimee.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -197,6 +199,7 @@
 		CE2DD99C29D2DE96002AF99B /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				CE2DD9FE2A14BC27002AF99B /* Utils */,
 				CE2DD9B929D7FFC6002AF99B /* Failures */,
 				CE2DD99D29D2DEA2002AF99B /* Functions */,
 				CE2DD9BE29D8264E002AF99B /* SQLiteDatabaseCommands.swift */,
@@ -225,6 +228,14 @@
 				CE2DD9EC29F100BA002AF99B /* SQLiteDatabaseFailures.swift */,
 			);
 			path = Failures;
+			sourceTree = "<group>";
+		};
+		CE2DD9FE2A14BC27002AF99B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CE2DD9FF2A14BC6F002AF99B /* userNameParser.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		CE4F263729B489320037AA30 /* ViewControllers */ = {
@@ -491,6 +502,7 @@
 				CE2DD9ED29F100BA002AF99B /* SQLiteDatabaseFailures.swift in Sources */,
 				CE2DD9FB2A068997002AF99B /* BoardPostNavBar.swift in Sources */,
 				CE2DD97E29CC2717002AF99B /* ProfileViewController.swift in Sources */,
+				CE2DDA002A14BC6F002AF99B /* userNameParser.swift in Sources */,
 				CE2DD9CD29DA9AED002AF99B /* SignUpViewController.swift in Sources */,
 				CE2DD9DF29DC7057002AF99B /* BoardViewController.swift in Sources */,
 				CE2DD99329D2D711002AF99B /* LocalDataSourceService.swift in Sources */,

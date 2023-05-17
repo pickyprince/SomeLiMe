@@ -97,7 +97,7 @@ class BoardViewRepositoryImpl: BoardViewRepository{
         let postID: String = (data["PostId"] as? String) ?? ""
         let val = (data["PublishedTime"] as? Timestamp)?.dateValue()
         
-        let publishedTime: String = String((val?.description as? String)?.prefix(10) ?? "NaN")
+        let publishedTime: String = String((val?.description as? String)?.prefix(16) ?? "NaN")
         
         let postTypeString: String = (data["PostType"] as? String) ?? ""
         

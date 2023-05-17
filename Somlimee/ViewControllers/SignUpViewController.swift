@@ -21,7 +21,7 @@ class SignUpViewController: UIViewController {
         Task.init {
             do{
                 print("Creating User")
-                try await UserSignUpWithEmailService.sharedInstance.createUser(Email: id, PW: pw)
+                try await UserSignUpWithEmailService.sharedInstance.createUser(Email: id, PW: pw, userInfo: ProfileData(userName: "안녕하세용", profileImage: nil, totalUps: 0, receivedUps: 0, points: 0, daysOfActive: 0, badges: [], personalityTestResult: PersonalityTestResultData(fire: 10, water: 10, air: 10, earth: 10), recentPostsNumber: 0, recentPostList: nil))
                 print("Created User Successfully")
                 navigationController?.pushViewController(VerifyEmailViewController(), animated: true)
             }catch UserSignUpFailures.CouldNotCreatUser{
