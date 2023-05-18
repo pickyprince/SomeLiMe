@@ -40,10 +40,11 @@ class BoardNavBar: UIView {
     var multiplierOfDropDownTable: CGFloat = 0.18
     let dropDownTableContainer = UIVisualEffectView()
     let dropDownTable: NormalTableView = NormalTableView()
+    var dropDownTableClicked: ((String)->Void)?
     var onTouchUpDropDownNav: (()->Void)?
     var onTouchUpBackButton: (()->Void)?
     var onTouchUpWriteButton: (()->Void)?
-    private var isDropDown: Bool = false {
+    var isDropDown: Bool = false {
         didSet{
             if isDropDown{
                 
@@ -154,7 +155,9 @@ class BoardNavBar: UIView {
         backButton.addTarget(self, action: #selector(onTouchUpBack), for: .touchUpInside)
         container.effect = blurEffect
         dropDownTableContainer.effect = blurEffect
-        
+        dropDownTable.onCellClicked = { name in
+            self.dropDownTableClicked?(name)
+        }
         
         self.addSubview(container)
         self.addSubview(dropDownTableContainer)

@@ -124,6 +124,16 @@ class BoardViewController: UIViewController {
         boardNavBar.onTouchUpWriteButton = {
             self.navigationController?.pushViewController(BoardPostWriteViewController(boardName: self.boardName), animated: true)
         }
+        boardNavBar.dropDownTableClicked = { name in
+            let boardV = BoardViewController()
+            boardV.boardName = name
+            boardV.boardNavBar.title.text = name
+            self.boardNavBar.isDropDown = false
+            var newList = self.navigationController?.viewControllers
+            newList?.popLast()
+            newList?.append(boardV)
+            self.navigationController?.setViewControllers(newList ?? [boardV], animated: false)
+        }
         boardTableView.boardSectionPostCellData = posts
         spinner.isHidden = true
         
@@ -217,20 +227,20 @@ class BoardViewController: UIViewController {
 
 extension BoardViewController: UIScrollViewDelegate{
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let position = scrollView.contentOffset.y
-        if isLoading{
-            return
-        }
-        if position > (boardTableView.contentSize.height - 100 - scrollView.frame.size.height) {
-            
-            // reload and append data
-            
-            print("Loading")
-            loadMorePosts()
-            print("Done!")
-        }
-    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let position = scrollView.contentOffset.y
+//        if isLoading{
+//            return
+//        }
+//        if position > (boardTableView.contentSize.height - 100 - scrollView.frame.size.height) {
+//
+//            // reload and append data
+//
+//            print("Loading")
+//            loadMorePosts()
+//            print("Done!")
+//        }
+//    }
 }
 
 
