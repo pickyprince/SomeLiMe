@@ -76,7 +76,22 @@ final class DataSourceService{
         }
         return nil
     }
-    
+    //MARK: - PROFILE VIEW REPOSITORY
+    func getUserData(uid: String) async throws -> [String: Any]?{
+        guard let db = RemoteDataSourceService.sharedInstance.database else{
+            print("CouldNotFindRemoteDataBase")
+            throw DataSourceFailures.CouldNotFindRemoteDataBase
+        }
+        let docRef = db.collection("Users").document(uid)
+        let document: DocumentSnapshot
+        do {
+            document = try await docRef.getDocument()
+        }catch{
+            print("CouldNotFindDocument")
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+        return document.data()
+    }
     //MARK: - SEARCH VIEW REPOSITORY
     
     

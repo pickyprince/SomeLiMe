@@ -11,10 +11,37 @@ import FirebaseAuth
 
 class ProfileViewController: UIViewController {
     
-    //MARK: - Data
-    let loadedData: ProfileData = ProfileData(userName: "sadFrog1233", profileImage: UIImage(named: "sadfrog"), totalUps: 10, receivedUps: 13, points: 1000, daysOfActive: 138, badges: ["First Follower"], personalityTestResult: PersonalityTestResultData(fire: 0, water: 0, air: 0, earth: 0), recentPostsNumber: 30, recentPostList: [["title": "asdfasdf", "date": NSDate()], ["title": "asdfadf", "date": NSDate()]])
+    //MARK: - Computed Properties
     
-    //MARK: - Props
+    var profile: ProfileData? {
+        didSet{
+            
+            userNameLabel.text = profile?.userName
+            
+            giveUpsLabel.text = "준 추천수 \((profile?.totalUps ?? 0).description)"
+            
+            receivedUpsLabel.text = "받은 추천수 \((profile?.receivedUps ?? 0).description)"
+            
+            activeLabel.text = "활동 일 수 \((profile?.daysOfActive ?? 0).description)"
+            
+            pointsLabel.text = "포인트 \((profile?.points ?? 0).description)"
+            
+            recentPostsNumberLabel.text = 0.description
+            
+            view.setNeedsLayout()
+            
+            view.layoutIfNeeded()
+        }
+    }
+    
+    var repository: ProfileViewRepository? {
+        didSet{
+            loadData()
+        }
+    }
+    
+    //MARK: - UI Components
+    
     let profileImageView: UIImageView = UIImageView()
     let userNameLabel: UILabel = UILabel()
     let profileSettingButton: UIButton = UIButton()
@@ -36,9 +63,11 @@ class ProfileViewController: UIViewController {
     var isAlarmSet: Bool = false
     let mailButton: UIButton = UIButton()
     var defaultFont: UIFont = UIFont()
+    let loginButton: UIButton = UIButton()
+    let verifyEmailButton: UIButton = UIButton()
     
     private func createPostListItem(){
-        for data in loadedData.recentPostList ?? []{
+        for data in [[:]]{
             let postItemContainer = UIView()
             postItemContainer.translatesAutoresizingMaskIntoConstraints = false
             let date = UILabel()
@@ -71,19 +100,19 @@ class ProfileViewController: UIViewController {
         }
         
     }
+    
     @objc func profileSettingButtonTouchUp(){
         print("profile button clicked")
-            do { try UserLoginService.sharedInstance.logOut()
-            } catch{
-                print("logout error")
-            }
-        
-        
+        do { try UserLoginService.sharedInstance.logOut()
+        } catch{
+            print("logout error")
+        }
     }
     
     @objc func testResultDetailButtonTouchUp(){
         print("test result detail button clicked")
     }
+    
     @objc func recentPostDetailButtonTouchUp(){
         print("recent post detail button clicked")
     }
@@ -100,33 +129,36 @@ class ProfileViewController: UIViewController {
             alarmButton.layoutIfNeeded()
         }
         print("alarmButton button clicked")
-        
     }
+    
     @objc func mailButtonTouchUp(){
-        
         print("alarmButton button clicked")
     }
-    
-    //    private func loadData(){
-    //        self.view.loadedData = Repository.userProfileData
-    //    }
-    
-    
-    // Not Logged In Props
-    let loginButton: UIButton = UIButton()
-    let verifyEmailButton: UIButton = UIButton()
-    
-    var navigateToLogin: (()->())?
     
     @objc func navigateToLoginView(){
         navigateToLogin?()
     }
-    var navigateToVerifyEmail: (()->())?
     
     @objc func navigateToVerifyEmailView(){
         navigateToVerifyEmail?()
     }
     
+    //MARK: - Delegate Properties (Undefined)
+    var navigateToLogin: (()->())?
+    var navigateToVerifyEmail: (()->())?
+    
+    
+    func loadData(){
+        Task.init {
+            do{
+                self.profile = try await repository?.getUserData(uid: FirebaseAuth.Auth.auth().currentUser?.uid ?? "")
+                
+            }catch{
+                print("ERROR: \(error)")
+            }
+        }
+        
+    }
     private func configureUI(){
         
         //ADD SUBVIEWS
@@ -191,17 +223,13 @@ class ProfileViewController: UIViewController {
         
         defaultFont = UIFont.systemFont(ofSize: 13)
         profileImageView.image = UIImage(systemName: "person.fill")
-        userNameLabel.text = loadedData.userName
         profileSettingButton.setImage(UIImage(systemName: "gearshape.fill"), for: .normal)
         profileSettingButton.tintColor = .label
         profileSettingButton.addTarget(self, action: #selector(profileSettingButtonTouchUp), for: .touchUpInside)
-        giveUpsLabel.text = "준 추천수 \(loadedData.totalUps)"
+        
         giveUpsLabel.font = defaultFont
-        receivedUpsLabel.text = "받은 추천수 \(loadedData.receivedUps)"
         receivedUpsLabel.font = defaultFont
-        pointsLabel.text = "포인트 \(loadedData.points)"
         pointsLabel.font = defaultFont
-        activeLabel.text = "활동 일 수 \(loadedData.daysOfActive)"
         activeLabel.font = defaultFont
         badgeView.backgroundColor = .orange
         testResultContainer.backgroundColor = .systemGray5
@@ -213,7 +241,6 @@ class ProfileViewController: UIViewController {
         testResultDetailButton.addTarget(self, action: #selector(testResultDetailButtonTouchUp), for: .touchUpInside)
         testResultChartView.backgroundColor = .gray
         recentPostsLabel.text = "최근 작성글"
-        recentPostsNumberLabel.text = loadedData.recentPostsNumber.description
         createPostListItem()
         recentPostsListContainer.axis = .vertical
         recentPostsListContainer.distribution = .fillEqually
@@ -336,8 +363,8 @@ class ProfileViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        repository = ProfileViewRepositoryImpl()
         FirebaseAuth.Auth.auth().addStateDidChangeListener({ auth, user in
-            
             if user == nil {
                 self.loginButton.isHidden = false
                 self.verifyEmailButton.isHidden = true
@@ -346,7 +373,7 @@ class ProfileViewController: UIViewController {
                 self.profileSettingButton.isHidden = true
                 self.receivedUpsLabel.isHidden = true
                 
-                self.giveUpsLabel.isHidden = false
+                self.giveUpsLabel.isHidden = true
                 self.pointsLabel.isHidden = true
                 self.activeLabel.isHidden = true
                 self.badgeView.isHidden = true
@@ -357,6 +384,7 @@ class ProfileViewController: UIViewController {
                 self.recentPostsDetailButton.isHidden = true
                 self.bottomButtonGroup.isHidden = true
             }else{
+                self.loadData()
                 self.loginButton.isHidden = true
                 self.profileImageView.isHidden = false
                 self.userNameLabel.isHidden = false
@@ -383,7 +411,6 @@ class ProfileViewController: UIViewController {
                 }
             }
         })
-        //        loadData()
         configureUI()
         setUpLayout()
         

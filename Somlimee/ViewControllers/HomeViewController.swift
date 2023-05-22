@@ -43,11 +43,11 @@ class HomeViewController: UIViewController {
     
     var scrollViewTopConstraint: NSLayoutConstraint?
     //call back functions
-    public var sideMenuTouched: (()->())?
+    var sideMenuTouched: (()->())?
     
-    public var profileTouched: (()->())?
+    var profileTouched: (()->())?
     
-    public var fogTouched: (()->())?
+    var fogTouched: (()->())?
     
     let fogView: UIButton = {
         let view = UIButton(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
@@ -134,8 +134,11 @@ class HomeViewController: UIViewController {
                 realTimeBoardRankSectionView.data = try await repository?.getHotBoardRankingData()?.realTimeBoardRanking ?? []
                 
                 categorySectionView.data = try await repository?.getCategoryData()?.list ?? []
+                
                 boardSectionView.data = try await repository?.getBoardInfoData(name: currentCategory)
+                
                 boardSectionView.tableData = try await repository?.getBoardPostMetaList(boardName: currentCategory, startTime: "NaN")
+                
                 print(">>>> LOADING HOMEVIEW RT DATA SUCCEEDED...")
                 
             } catch {

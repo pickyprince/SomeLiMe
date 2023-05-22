@@ -16,6 +16,4 @@ struct ProfileData {
     let daysOfActive: Int
     let badges: [String]
     let personalityTestResult: PersonalityTestResultData
-    let recentPostsNumber: Int
-    let recentPostList: [[String: Any]]?
 }

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import FirebaseAuth
 class BoardViewController: UIViewController {
     
     //MARK: - DATA
@@ -219,6 +219,9 @@ class BoardViewController: UIViewController {
         transAuto()
         addSubviews()
         configure()
+        if FirebaseAuth.Auth.auth().currentUser == nil{
+            boardNavBar.writeButton.isHidden = true
+        }
         layout()
         
     }

@@ -125,4 +125,6 @@ final class HomeViewRepositoryImpl: HomeViewRepository{
         }
         return BoardInfoData(boardName: name, boardOwnerID: boardOwnerID as! String, tapList: boardTapList as! [String], boardLevel: boardLevel as! Int, boardDescription: boardDescription as! String, boardHotKeyword: boardHotKeyword as! [String])
     }
+    
+    
 }

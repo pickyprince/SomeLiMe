@@ -22,7 +22,12 @@ final class UserSignUpWithEmailService{
                 "Points": userInfo.points,
                 "DaysOfActive": userInfo.daysOfActive,
                 "Badges": userInfo.badges,
-                "PersonalityTestResult": [:],
+                "PersonalityTestResult": [
+                    userInfo.personalityTestResult.fire,
+                    userInfo.personalityTestResult.water,
+                    userInfo.personalityTestResult.air,
+                    userInfo.personalityTestResult.earth
+                ]
             ])
         }catch{
             print("CouldNotCreatUser")
@@ -32,7 +37,7 @@ final class UserSignUpWithEmailService{
     internal func verifyEmail() async throws -> Void{
         
         guard let user = FirebaseAuth.Auth.auth().currentUser else{
-                print("UserDoesNotExist")
+            print("UserDoesNotExist")
             throw UserSignUpFailures.UserDoesNotExist
         }
         if user.isEmailVerified {
@@ -43,7 +48,7 @@ final class UserSignUpWithEmailService{
         do{
             try await user.sendEmailVerification()
         }catch{
-                print("CouldNotSendVerificationEmail")
+            print("CouldNotSendVerificationEmail")
             throw UserSignUpFailures.CouldNotSendVerificationEmail
         }
     }
