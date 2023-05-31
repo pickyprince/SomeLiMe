@@ -13,6 +13,9 @@ func userNameParser(uid: String) async throws -> String? {
     guard let db = RemoteDataSourceService.sharedInstance.database else {
         throw DataSourceFailures.CouldNotFindRemoteDataBase
     }
+    guard uid != "" else{
+        return "ERROR"
+    }
     guard let data = try await db.collection("Users").document(uid).getDocument().data() else{
         throw DataSourceFailures.CouldNotFindDocument
     }

@@ -9,31 +9,31 @@ import UIKit
 import FirebaseAuth
 
 fileprivate enum HomeViewStaticData {
-    static let realTimeHotHeader: String = "실시간 HOT 트렌드"
-    static let realTimeHotButtonTitle: String = ""
-    static let realTimeHotButtonImage: UIImage? = UIImage(systemName: "chevron.right")
     
-    static let realTimeBoardHeader: String = "게시판 순위"
-    static let realTimeBoardButtonTitle: String = ""
-    static let realTimeBoardButtonImage: UIImage? = UIImage(systemName: "chevron.right")
-    
-    static let categoryHeader: String = "카테고리"
-    static let categoryButtonTitle: String = "Req"
     
 }
 
 class HomeViewController: UIViewController {
-    var repository: HomeViewRepository? = nil
+    
+    //Base
+    var repository: HomeViewRepository?
     
     let scrollView: UIScrollView = UIScrollView()
     
     let contentView: UIStackView = UIStackView()
     
-    let realTimeHotRankSectionView: LabelCollectionView = LabelCollectionView()
+    // MyLimeVIew
+    let myLimeRoomView: MyLimeRoomNotLoggedView = MyLimeRoomNotLoggedView()
     
-    let realTimeBoardRankSectionView: LabelCollectionView = LabelCollectionView()
+    //Lime Trends Section
+    let limeTrendsContainer: UIStackView = UIStackView()
     
-    let boardSectionView: BoardSectionView = BoardSectionView()
+    let limeTrendTitle: UILabel = UILabel()
+    
+//    let limeTrendCollectionView: LimeTrendCollectionView = LimeTrendCollectionView()
+    
+    
+    let limesToday: BoardSectionView = BoardSectionView()
     
     let navBar: HomeNavBar = HomeNavBar()
     
@@ -129,15 +129,7 @@ class HomeViewController: UIViewController {
         Task.init {
             do{
                 
-                realTimeHotRankSectionView.data = try await repository?.getHotTrendData()?.realTimeHotRanking ?? []
-                
-                realTimeBoardRankSectionView.data = try await repository?.getHotBoardRankingData()?.realTimeBoardRanking ?? []
-                
                 categorySectionView.data = try await repository?.getCategoryData()?.list ?? []
-                
-                boardSectionView.data = try await repository?.getBoardInfoData(name: currentCategory)
-                
-                boardSectionView.tableData = try await repository?.getBoardPostMetaList(boardName: currentCategory, startTime: "NaN")
                 
                 print(">>>> LOADING HOMEVIEW RT DATA SUCCEEDED...")
                 
@@ -161,35 +153,22 @@ class HomeViewController: UIViewController {
                                                   for: .valueChanged)
         self.scrollView.delegate = self
         //DATA ASSIGNMENT
-        realTimeHotRankSectionView.titleLabelString = HomeViewStaticData.realTimeHotHeader
-        realTimeHotRankSectionView.buttonTitleString = HomeViewStaticData.realTimeHotButtonTitle
-        realTimeHotRankSectionView.buttonImage = HomeViewStaticData.realTimeHotButtonImage
-        realTimeHotRankSectionView.cellClicked = { str in
-            print("cell clicked \(str ?? "")")
-        }
         
-        realTimeBoardRankSectionView.titleLabelString = HomeViewStaticData.realTimeBoardHeader
-        realTimeBoardRankSectionView.buttonTitleString = HomeViewStaticData.realTimeBoardButtonTitle
-        realTimeBoardRankSectionView.buttonImage = HomeViewStaticData.realTimeBoardButtonImage
-        realTimeBoardRankSectionView.cellClicked = { str in
-            
-            print("cell clicked \(str ?? "")")
-        }
-        categorySectionView.titleString = HomeViewStaticData.categoryHeader
-        categorySectionView.buttonTitleString = HomeViewStaticData.categoryButtonTitle
+//        categorySectionView.titleString = "광장"
+//        categorySectionView.buttonTitleString = HomeViewStaticData.categoryButtonTitle
         categorySectionView.cellClicked = { str in
             
             print("cell clicked \(str ?? "")")
             self.currentCategory = str ?? ""
             Task.init {
                 do{
-                    self.boardSectionView.data = try await self.repository?.getBoardInfoData(name: self.currentCategory)
-                    self.boardSectionView.tableData = try await self.repository?.getBoardPostMetaList(boardName: self.currentCategory, startTime: "NaN")
+                    self.limesToday.data = try await self.repository?.getBoardInfoData(name: self.currentCategory)
+                    self.limesToday.tableData = try await self.repository?.getBoardPostMetaList(boardName: self.currentCategory, startTime: "NaN")
                     
                 }catch{
                     print(">>>> ERROR: \(error)")
-                    self.boardSectionView.data = BoardInfoData(boardName: "ERROR", boardOwnerID: "", tapList: [], boardLevel: 404, boardDescription: "ERROR", boardHotKeyword: ["ERROR"])
-                    self.boardSectionView.tableData = []
+                    self.limesToday.data = BoardInfoData(boardName: "ERROR", boardOwnerID: "", tapList: [], boardLevel: 404, boardDescription: "ERROR", boardHotKeyword: ["ERROR"])
+                    self.limesToday.tableData = []
                     
                 }
             }
@@ -221,19 +200,13 @@ class HomeViewController: UIViewController {
         
         
         //Router
-        realTimeHotRankSectionView.detailButtonClicked = {
-            self.navigationController?.pushViewController(BoardPostWriteViewController(boardName: self.currentCategory), animated: true)
-        }
-        realTimeBoardRankSectionView.detailButtonClicked = {
-            self.navigationController?.pushViewController(RealTimeHotDetailViewController(), animated: true)
-        }
-        boardSectionView.didPostClicked = { str in
+        limesToday.didPostClicked = { str in
             let boardV = BoardPostViewController()
             boardV.boardName = self.currentCategory
             boardV.postId = str
             self.navigationController?.pushViewController(boardV, animated: true)
         }
-        boardSectionView.onNavigateButtonClicked = {
+        limesToday.onNavigateButtonClicked = {
             let boardV = BoardViewController()
             boardV.boardName = self.currentCategory
             self.navigationController?.pushViewController(boardV, animated: true)
@@ -243,10 +216,9 @@ class HomeViewController: UIViewController {
         view.addSubview(navBar)
         scrollView.addSubview(contentView)
         contentView.addArrangedSubview(emptyViewBoxForNavigationSpace)
-        contentView.addArrangedSubview(realTimeHotRankSectionView)
-        contentView.addArrangedSubview(realTimeBoardRankSectionView)
+        contentView.addArrangedSubview(myLimeRoomView)
         contentView.addArrangedSubview(categorySectionView)
-        contentView.addArrangedSubview(boardSectionView)
+        contentView.addArrangedSubview(limesToday)
         
         
     }
@@ -254,15 +226,15 @@ class HomeViewController: UIViewController {
     // MARK: - UI Layout Setup
     func setupLayout(){
         
-        emptyViewBoxForNavigationSpace.heightAnchor.constraint(equalToConstant: self.view.frame.height*0.05 - contentView.spacing).isActive = true
-        
         NSLayoutConstraint.activate([
             navBar.topAnchor.constraint(equalTo: self.view.topAnchor),
             navBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             navBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
         
-        self.scrollViewTopConstraint = scrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 10)
+        emptyViewBoxForNavigationSpace.heightAnchor.constraint(equalTo: navBar.heightAnchor, multiplier: 0.5).isActive = true
+        
+        self.scrollViewTopConstraint = scrollView.topAnchor.constraint(equalTo: self.view.topAnchor)
         NSLayoutConstraint.activate([
             scrollViewTopConstraint!,
             scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -10),

@@ -82,6 +82,9 @@ final class DataSourceService{
             print("CouldNotFindRemoteDataBase")
             throw DataSourceFailures.CouldNotFindRemoteDataBase
         }
+        guard uid != "" else{
+            return nil
+        }
         let docRef = db.collection("Users").document(uid)
         let document: DocumentSnapshot
         do {
@@ -137,6 +140,9 @@ final class DataSourceService{
             throw DataSourceFailures.CouldNotFindRemoteDataBase
         }
         do {
+            guard boardName != "" else{
+                return nil
+            }
             let docRef = db.collection("BoardInfo").document(boardName)
             let document: DocumentSnapshot
             document = try await docRef.getDocument()
@@ -155,6 +161,14 @@ final class DataSourceService{
         }
         do {
             var colRef: Query
+            
+                guard boardName != "" else{
+                    return nil
+                }
+            
+                guard startTime != "" else{
+                    return nil
+                }
             if startTime == "NaN"{
                 colRef = db.collection("BoardInfo").document(boardName).collection("Posts").order(by: "PublishedTime", descending: true).limit(to: 20)
             }else{
@@ -180,7 +194,13 @@ final class DataSourceService{
             print(">>>>> CouldNotFindRemoteDataBase")
             throw DataSourceFailures.CouldNotFindRemoteDataBase
         }
+        
+            guard boardName != "" else{
+                return nil
+            }
+        
         do {
+            
             let docRef = db.collection("BoardInfo").document(boardName).collection("Posts").document(postId)
             return try await docRef.getDocument().data()
         }catch{
@@ -193,6 +213,15 @@ final class DataSourceService{
             print(">>>>> CouldNotFindRemoteDataBase")
             throw DataSourceFailures.CouldNotFindRemoteDataBase
         }
+        
+            guard boardName != "" else{
+                return nil
+            }
+        
+            guard postId != "" else{
+                return nil
+            }
+        
         do {
             var data: [[String:Any]] = []
             let docRef = db.collection("BoardInfo").document(boardName).collection("Posts").document(postId).collection("BoardPostContents")
@@ -208,6 +237,10 @@ final class DataSourceService{
     }
     
     func createPost(boardName: String, postData: BoardPostContentData) async throws -> Void{
+        
+            guard boardName != "" else{
+                return
+            }
         
         guard let db = RemoteDataSourceService.sharedInstance.database else{
             print(">>>>> CouldNotFindRemoteDataBase")

@@ -71,6 +71,31 @@
 		CE2DD9FB2A068997002AF99B /* BoardPostNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9FA2A068997002AF99B /* BoardPostNavBar.swift */; };
 		CE2DDA002A14BC6F002AF99B /* userNameParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD9FF2A14BC6F002AF99B /* userNameParser.swift */; };
 		CE2DDA022A1B50EE002AF99B /* ProfileViewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA012A1B50EE002AF99B /* ProfileViewRepository.swift */; };
+		CE2DDA042A2710FC002AF99B /* MyLimeRoomNotLoggedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA032A2710FC002AF99B /* MyLimeRoomNotLoggedView.swift */; };
+		CE2DDA072A27180D002AF99B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA062A27180D002AF99B /* LoadingView.swift */; };
+		CE2DDA0A2A271AAE002AF99B /* SomLimeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA092A271AAE002AF99B /* SomLimeColors.swift */; };
+		CE2DDA222A27374C002AF99B /* SpoqaHanSansNeo-Medium.woff in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA0D2A27374C002AF99B /* SpoqaHanSansNeo-Medium.woff */; };
+		CE2DDA232A27374C002AF99B /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA0E2A27374C002AF99B /* LICENSE */; };
+		CE2DDA242A27374C002AF99B /* SpoqaHanSansNeo-Bold.woff in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA0F2A27374C002AF99B /* SpoqaHanSansNeo-Bold.woff */; };
+		CE2DDA252A27374C002AF99B /* SpoqaHanSansNeo-Regular.woff in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA102A27374C002AF99B /* SpoqaHanSansNeo-Regular.woff */; };
+		CE2DDA262A27374C002AF99B /* SpoqaHanSansNeo-Light.eot in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA112A27374C002AF99B /* SpoqaHanSansNeo-Light.eot */; };
+		CE2DDA272A27374C002AF99B /* SpoqaHanSansNeo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA122A27374C002AF99B /* SpoqaHanSansNeo-Regular.ttf */; };
+		CE2DDA282A27374C002AF99B /* SpoqaHanSansNeo-Light.woff in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA132A27374C002AF99B /* SpoqaHanSansNeo-Light.woff */; };
+		CE2DDA292A27374C002AF99B /* SpoqaHanSansNeo-Bold.eot in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA142A27374C002AF99B /* SpoqaHanSansNeo-Bold.eot */; };
+		CE2DDA2A2A27374C002AF99B /* SpoqaHanSansNeo-Thin.eot in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA152A27374C002AF99B /* SpoqaHanSansNeo-Thin.eot */; };
+		CE2DDA2B2A27374C002AF99B /* SpoqaHanSansNeo-Medium.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA162A27374C002AF99B /* SpoqaHanSansNeo-Medium.woff2 */; };
+		CE2DDA2C2A27374C002AF99B /* SpoqaHanSansNeo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA172A27374C002AF99B /* SpoqaHanSansNeo-Medium.ttf */; };
+		CE2DDA2D2A27374C002AF99B /* SpoqaHanSansNeo-Light.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA182A27374C002AF99B /* SpoqaHanSansNeo-Light.woff2 */; };
+		CE2DDA2E2A27374C002AF99B /* SpoqaHanSansNeo-Thin.woff in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA192A27374C002AF99B /* SpoqaHanSansNeo-Thin.woff */; };
+		CE2DDA2F2A27374C002AF99B /* SpoqaHanSansNeo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA1A2A27374C002AF99B /* SpoqaHanSansNeo-Light.ttf */; };
+		CE2DDA302A27374C002AF99B /* SpoqaHanSansNeo-Regular.eot in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA1B2A27374C002AF99B /* SpoqaHanSansNeo-Regular.eot */; };
+		CE2DDA312A27374C002AF99B /* SpoqaHanSansNeo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA1C2A27374C002AF99B /* SpoqaHanSansNeo-Bold.ttf */; };
+		CE2DDA322A27374C002AF99B /* SpoqaHanSansNeo-Bold.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA1D2A27374C002AF99B /* SpoqaHanSansNeo-Bold.woff2 */; };
+		CE2DDA332A27374C002AF99B /* SpoqaHanSansNeo-Regular.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA1E2A27374C002AF99B /* SpoqaHanSansNeo-Regular.woff2 */; };
+		CE2DDA342A27374C002AF99B /* SpoqaHanSansNeo-Medium.eot in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA1F2A27374C002AF99B /* SpoqaHanSansNeo-Medium.eot */; };
+		CE2DDA352A27374C002AF99B /* SpoqaHanSansNeo-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA202A27374C002AF99B /* SpoqaHanSansNeo-Thin.ttf */; };
+		CE2DDA362A27374C002AF99B /* SpoqaHanSansNeo-Thin.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA212A27374C002AF99B /* SpoqaHanSansNeo-Thin.woff2 */; };
+		CE2DDA382A27393D002AF99B /* SomLimeFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA372A27393D002AF99B /* SomLimeFonts.swift */; };
 		CE4F263B29B4D07F0037AA30 /* LabelCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */; };
 		CE4F264029BA0A060037AA30 /* CategorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */; };
 		CE7A7A0F29A87B4B00DDE8A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */; };
@@ -147,6 +172,31 @@
 		CE2DD9FA2A068997002AF99B /* BoardPostNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPostNavBar.swift; sourceTree = "<group>"; };
 		CE2DD9FF2A14BC6F002AF99B /* userNameParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userNameParser.swift; sourceTree = "<group>"; };
 		CE2DDA012A1B50EE002AF99B /* ProfileViewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewRepository.swift; sourceTree = "<group>"; };
+		CE2DDA032A2710FC002AF99B /* MyLimeRoomNotLoggedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLimeRoomNotLoggedView.swift; sourceTree = "<group>"; };
+		CE2DDA062A27180D002AF99B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		CE2DDA092A271AAE002AF99B /* SomLimeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomLimeColors.swift; sourceTree = "<group>"; };
+		CE2DDA0D2A27374C002AF99B /* SpoqaHanSansNeo-Medium.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Medium.woff"; sourceTree = "<group>"; };
+		CE2DDA0E2A27374C002AF99B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		CE2DDA0F2A27374C002AF99B /* SpoqaHanSansNeo-Bold.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.woff"; sourceTree = "<group>"; };
+		CE2DDA102A27374C002AF99B /* SpoqaHanSansNeo-Regular.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Regular.woff"; sourceTree = "<group>"; };
+		CE2DDA112A27374C002AF99B /* SpoqaHanSansNeo-Light.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.eot"; sourceTree = "<group>"; };
+		CE2DDA122A27374C002AF99B /* SpoqaHanSansNeo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Regular.ttf"; sourceTree = "<group>"; };
+		CE2DDA132A27374C002AF99B /* SpoqaHanSansNeo-Light.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.woff"; sourceTree = "<group>"; };
+		CE2DDA142A27374C002AF99B /* SpoqaHanSansNeo-Bold.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.eot"; sourceTree = "<group>"; };
+		CE2DDA152A27374C002AF99B /* SpoqaHanSansNeo-Thin.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Thin.eot"; sourceTree = "<group>"; };
+		CE2DDA162A27374C002AF99B /* SpoqaHanSansNeo-Medium.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Medium.woff2"; sourceTree = "<group>"; };
+		CE2DDA172A27374C002AF99B /* SpoqaHanSansNeo-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Medium.ttf"; sourceTree = "<group>"; };
+		CE2DDA182A27374C002AF99B /* SpoqaHanSansNeo-Light.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.woff2"; sourceTree = "<group>"; };
+		CE2DDA192A27374C002AF99B /* SpoqaHanSansNeo-Thin.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Thin.woff"; sourceTree = "<group>"; };
+		CE2DDA1A2A27374C002AF99B /* SpoqaHanSansNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.ttf"; sourceTree = "<group>"; };
+		CE2DDA1B2A27374C002AF99B /* SpoqaHanSansNeo-Regular.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Regular.eot"; sourceTree = "<group>"; };
+		CE2DDA1C2A27374C002AF99B /* SpoqaHanSansNeo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.ttf"; sourceTree = "<group>"; };
+		CE2DDA1D2A27374C002AF99B /* SpoqaHanSansNeo-Bold.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.woff2"; sourceTree = "<group>"; };
+		CE2DDA1E2A27374C002AF99B /* SpoqaHanSansNeo-Regular.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Regular.woff2"; sourceTree = "<group>"; };
+		CE2DDA1F2A27374C002AF99B /* SpoqaHanSansNeo-Medium.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Medium.eot"; sourceTree = "<group>"; };
+		CE2DDA202A27374C002AF99B /* SpoqaHanSansNeo-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Thin.ttf"; sourceTree = "<group>"; };
+		CE2DDA212A27374C002AF99B /* SpoqaHanSansNeo-Thin.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Thin.woff2"; sourceTree = "<group>"; };
+		CE2DDA372A27393D002AF99B /* SomLimeFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomLimeFonts.swift; sourceTree = "<group>"; };
 		CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionView.swift; sourceTree = "<group>"; };
 		CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySectionView.swift; sourceTree = "<group>"; };
 		CE7A7A0B29A87B4B00DDE8A5 /* Somlimee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Somlimee.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,6 +256,8 @@
 				CE2DD9B929D7FFC6002AF99B /* Failures */,
 				CE2DD99D29D2DEA2002AF99B /* Functions */,
 				CE2DD9BE29D8264E002AF99B /* SQLiteDatabaseCommands.swift */,
+				CE2DDA092A271AAE002AF99B /* SomLimeColors.swift */,
+				CE2DDA372A27393D002AF99B /* SomLimeFonts.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -241,6 +293,60 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		CE2DDA052A271113002AF99B /* HomeVC */ = {
+			isa = PBXGroup;
+			children = (
+				CE2DD96329C4AF73002AF99B /* HomeNavBar.swift */,
+				CE2DD96B29C7466D002AF99B /* HomeBoardTableView.swift */,
+				CE2DDA032A2710FC002AF99B /* MyLimeRoomNotLoggedView.swift */,
+			);
+			path = HomeVC;
+			sourceTree = "<group>";
+		};
+		CE2DDA082A271878002AF99B /* Commons */ = {
+			isa = PBXGroup;
+			children = (
+				CE2DDA062A27180D002AF99B /* LoadingView.swift */,
+			);
+			path = Commons;
+			sourceTree = "<group>";
+		};
+		CE2DDA0B2A273733002AF99B /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				CE2DDA0C2A27374C002AF99B /* SpoqaHanSansNeo_TTF_subset */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		CE2DDA0C2A27374C002AF99B /* SpoqaHanSansNeo_TTF_subset */ = {
+			isa = PBXGroup;
+			children = (
+				CE2DDA0D2A27374C002AF99B /* SpoqaHanSansNeo-Medium.woff */,
+				CE2DDA0E2A27374C002AF99B /* LICENSE */,
+				CE2DDA0F2A27374C002AF99B /* SpoqaHanSansNeo-Bold.woff */,
+				CE2DDA102A27374C002AF99B /* SpoqaHanSansNeo-Regular.woff */,
+				CE2DDA112A27374C002AF99B /* SpoqaHanSansNeo-Light.eot */,
+				CE2DDA122A27374C002AF99B /* SpoqaHanSansNeo-Regular.ttf */,
+				CE2DDA132A27374C002AF99B /* SpoqaHanSansNeo-Light.woff */,
+				CE2DDA142A27374C002AF99B /* SpoqaHanSansNeo-Bold.eot */,
+				CE2DDA152A27374C002AF99B /* SpoqaHanSansNeo-Thin.eot */,
+				CE2DDA162A27374C002AF99B /* SpoqaHanSansNeo-Medium.woff2 */,
+				CE2DDA172A27374C002AF99B /* SpoqaHanSansNeo-Medium.ttf */,
+				CE2DDA182A27374C002AF99B /* SpoqaHanSansNeo-Light.woff2 */,
+				CE2DDA192A27374C002AF99B /* SpoqaHanSansNeo-Thin.woff */,
+				CE2DDA1A2A27374C002AF99B /* SpoqaHanSansNeo-Light.ttf */,
+				CE2DDA1B2A27374C002AF99B /* SpoqaHanSansNeo-Regular.eot */,
+				CE2DDA1C2A27374C002AF99B /* SpoqaHanSansNeo-Bold.ttf */,
+				CE2DDA1D2A27374C002AF99B /* SpoqaHanSansNeo-Bold.woff2 */,
+				CE2DDA1E2A27374C002AF99B /* SpoqaHanSansNeo-Regular.woff2 */,
+				CE2DDA1F2A27374C002AF99B /* SpoqaHanSansNeo-Medium.eot */,
+				CE2DDA202A27374C002AF99B /* SpoqaHanSansNeo-Thin.ttf */,
+				CE2DDA212A27374C002AF99B /* SpoqaHanSansNeo-Thin.woff2 */,
+			);
+			path = SpoqaHanSansNeo_TTF_subset;
+			sourceTree = "<group>";
+		};
 		CE4F263729B489320037AA30 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,18 +374,18 @@
 			isa = PBXGroup;
 			children = (
 				CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */,
+				CE2DDA082A271878002AF99B /* Commons */,
 				CE2DD9F029F3A73A002AF99B /* BoardTapView.swift */,
 				CE2DD96529C59721002AF99B /* BoardSectionView.swift */,
 				CE2DD96729C59F84002AF99B /* NormalTableView.swift */,
 				CE2DD9F429F7B71E002AF99B /* BoardTableView.swift */,
 				CE2DD9D829DBF8A6002AF99B /* AnswerBarView.swift */,
-				CE2DD96329C4AF73002AF99B /* HomeNavBar.swift */,
+				CE2DDA052A271113002AF99B /* HomeVC */,
 				CE2DD96F29C828B2002AF99B /* SearchNavBar.swift */,
 				CE2DD9F229F3ADEE002AF99B /* BoardNavBar.swift */,
 				CE2DD9FA2A068997002AF99B /* BoardPostNavBar.swift */,
 				CE2DD9F62A03B84D002AF99B /* BoardPostWriteNavBar.swift */,
 				CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */,
-				CE2DD96B29C7466D002AF99B /* HomeBoardTableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -349,6 +455,7 @@
 				CE7A7A1029A87B4B00DDE8A5 /* SceneDelegate.swift */,
 				CE2DD9AC29D5E052002AF99B /* GoogleService-Info.plist */,
 				CE7A7A1729A87B4D00DDE8A5 /* Assets.xcassets */,
+				CE2DDA0B2A273733002AF99B /* Fonts */,
 				CE7A7A1C29A87B4D00DDE8A5 /* Info.plist */,
 				CE7A7A1929A87B4D00DDE8A5 /* LaunchScreen.storyboard */,
 			);
@@ -415,9 +522,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE2DDA352A27374C002AF99B /* SpoqaHanSansNeo-Thin.ttf in Resources */,
+				CE2DDA2D2A27374C002AF99B /* SpoqaHanSansNeo-Light.woff2 in Resources */,
 				CE7A7A1B29A87B4D00DDE8A5 /* LaunchScreen.storyboard in Resources */,
+				CE2DDA242A27374C002AF99B /* SpoqaHanSansNeo-Bold.woff in Resources */,
+				CE2DDA332A27374C002AF99B /* SpoqaHanSansNeo-Regular.woff2 in Resources */,
 				CE7A7A1829A87B4D00DDE8A5 /* Assets.xcassets in Resources */,
+				CE2DDA302A27374C002AF99B /* SpoqaHanSansNeo-Regular.eot in Resources */,
+				CE2DDA342A27374C002AF99B /* SpoqaHanSansNeo-Medium.eot in Resources */,
 				CE2DD9AD29D5E052002AF99B /* GoogleService-Info.plist in Resources */,
+				CE2DDA2C2A27374C002AF99B /* SpoqaHanSansNeo-Medium.ttf in Resources */,
+				CE2DDA292A27374C002AF99B /* SpoqaHanSansNeo-Bold.eot in Resources */,
+				CE2DDA272A27374C002AF99B /* SpoqaHanSansNeo-Regular.ttf in Resources */,
+				CE2DDA2B2A27374C002AF99B /* SpoqaHanSansNeo-Medium.woff2 in Resources */,
+				CE2DDA222A27374C002AF99B /* SpoqaHanSansNeo-Medium.woff in Resources */,
+				CE2DDA362A27374C002AF99B /* SpoqaHanSansNeo-Thin.woff2 in Resources */,
+				CE2DDA312A27374C002AF99B /* SpoqaHanSansNeo-Bold.ttf in Resources */,
+				CE2DDA232A27374C002AF99B /* LICENSE in Resources */,
+				CE2DDA2F2A27374C002AF99B /* SpoqaHanSansNeo-Light.ttf in Resources */,
+				CE2DDA2E2A27374C002AF99B /* SpoqaHanSansNeo-Thin.woff in Resources */,
+				CE2DDA2A2A27374C002AF99B /* SpoqaHanSansNeo-Thin.eot in Resources */,
+				CE2DDA322A27374C002AF99B /* SpoqaHanSansNeo-Bold.woff2 in Resources */,
+				CE2DDA282A27374C002AF99B /* SpoqaHanSansNeo-Light.woff in Resources */,
+				CE2DDA262A27374C002AF99B /* SpoqaHanSansNeo-Light.eot in Resources */,
+				CE2DDA252A27374C002AF99B /* SpoqaHanSansNeo-Regular.woff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +598,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE2DDA042A2710FC002AF99B /* MyLimeRoomNotLoggedView.swift in Sources */,
 				CE2DD96C29C7466D002AF99B /* HomeBoardTableView.swift in Sources */,
 				CE2DD99B29D2DB90002AF99B /* SearchRealTimeData.swift in Sources */,
 				CE2DD98729D2BE02002AF99B /* HotTrendData.swift in Sources */,
@@ -485,6 +614,7 @@
 				CE2DD96A29C740F4002AF99B /* BoardPostMetaData.swift in Sources */,
 				CE4F263B29B4D07F0037AA30 /* LabelCollectionView.swift in Sources */,
 				CE2DD96429C4AF73002AF99B /* HomeNavBar.swift in Sources */,
+				CE2DDA0A2A271AAE002AF99B /* SomLimeColors.swift in Sources */,
 				CE2DD99929D2DAFA002AF99B /* SearchHistoryData.swift in Sources */,
 				CE2DD9F92A04EA18002AF99B /* BoardPostCommentData.swift in Sources */,
 				CE2DD9EF29F3A10C002AF99B /* BoardViewRepository.swift in Sources */,
@@ -519,6 +649,7 @@
 				CE7A7A1129A87B4B00DDE8A5 /* SceneDelegate.swift in Sources */,
 				CE2DD9CF29DAB9D2002AF99B /* UserLogInFailures.swift in Sources */,
 				CE2DD9C929D86CE6002AF99B /* DataSourceFailures.swift in Sources */,
+				CE2DDA382A27393D002AF99B /* SomLimeFonts.swift in Sources */,
 				CE2DD9A529D30035002AF99B /* SearchViewRepository.swift in Sources */,
 				CE2DD97829CC2084002AF99B /* RealTimeHotBoardViewController.swift in Sources */,
 				CE2DD9CB29D9549E002AF99B /* injectDependencies.swift in Sources */,
@@ -537,6 +668,7 @@
 				CE2DDA022A1B50EE002AF99B /* ProfileViewRepository.swift in Sources */,
 				CE2DD98929D2BFA2002AF99B /* HotBoardRankingData.swift in Sources */,
 				CE2DD9F129F3A73A002AF99B /* BoardTapView.swift in Sources */,
+				CE2DDA072A27180D002AF99B /* LoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,6 +815,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -711,6 +844,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
