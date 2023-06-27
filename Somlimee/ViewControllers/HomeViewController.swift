@@ -18,28 +18,26 @@ class HomeViewController: UIViewController {
     //Base
     var repository: HomeViewRepository?
     
+    let navBar: HomeNavBar = HomeNavBar()
+    
     let scrollView: UIScrollView = UIScrollView()
     
     let contentView: UIStackView = UIStackView()
     
-    // MyLimeVIew
-    let myLimeRoomView: MyLimeRoomNotLoggedView = MyLimeRoomNotLoggedView()
+    //MyLimeVIew
+    let myLimeRoomNotLoggedView: MyLimeRoomNotLoggedView = MyLimeRoomNotLoggedView()
     
-    //Lime Trends Section
-    let limeTrendsContainer: UIStackView = UIStackView()
+    let myLimeRoomLoggedView: MyLimeRoomLoggedView = MyLimeRoomLoggedView()
     
-    let limeTrendTitle: UILabel = UILabel()
+    //Other Lime Rooms
+    let otherLimeRoomScrollView: OtherLimeRoomsScrollView = OtherLimeRoomsScrollView()
     
-//    let limeTrendCollectionView: LimeTrendCollectionView = LimeTrendCollectionView()
+    //Lime Trends
+    let limeTrendCollectionView: LimeTrendCollectionView = LimeTrendCollectionView()
     
+    let limesToday: LimesTodayView = LimesTodayView()
     
-    let limesToday: BoardSectionView = BoardSectionView()
-    
-    let navBar: HomeNavBar = HomeNavBar()
-    
-    let categorySectionView: CategorySectionView = CategorySectionView()
-    
-    var currentCategory: String = "유머"
+    var myRoomName: String = "유머"
     
     var scrollViewTopConstraint: NSLayoutConstraint?
     //call back functions
@@ -115,32 +113,23 @@ class HomeViewController: UIViewController {
             self.scrollView.refreshControl?.endRefreshing()
         }
     }
-    func test(){
-        for _ in 1...10 {
-            let view = UIView()
-            view.backgroundColor = .gray
-            view.heightAnchor.constraint(equalToConstant: 100).isActive = true
-            contentView.addArrangedSubview(view)
-        }
-    }
-    
     func loadData(){
-        //loadTask
+//        otherLimeRoomScrollView.reload()
         Task.init {
             do{
-                
-                categorySectionView.data = try await repository?.getCategoryData()?.list ?? []
-                
-                print(">>>> LOADING HOMEVIEW RT DATA SUCCEEDED...")
-                
-            } catch {
-                
-                print(">>>> LOADING HOMEVIEW RT DATA FAILED...")
-                
+                guard let uid = Auth.auth().currentUser?.uid else{
+                    return
+                }
+                guard let typeName = try await repository?.getUserData(uid: uid)?.personalityType else {
+                    return
+                }
+                self.myRoomName = typeName
+                self.myLimeRoomLoggedView.boardName = self.myRoomName
+                print(">>>> typeName: \(typeName)")
+            }catch{
+                print(">>>> myTypeName 가져오는데 실패\(error)")
             }
         }
-        
-        
     }
     
     // MARK: - UI Configuration and Setup
@@ -154,26 +143,8 @@ class HomeViewController: UIViewController {
         self.scrollView.delegate = self
         //DATA ASSIGNMENT
         
-//        categorySectionView.titleString = "광장"
-//        categorySectionView.buttonTitleString = HomeViewStaticData.categoryButtonTitle
-        categorySectionView.cellClicked = { str in
-            
-            print("cell clicked \(str ?? "")")
-            self.currentCategory = str ?? ""
-            Task.init {
-                do{
-                    self.limesToday.data = try await self.repository?.getBoardInfoData(name: self.currentCategory)
-                    self.limesToday.tableData = try await self.repository?.getBoardPostMetaList(boardName: self.currentCategory, startTime: "NaN")
-                    
-                }catch{
-                    print(">>>> ERROR: \(error)")
-                    self.limesToday.data = BoardInfoData(boardName: "ERROR", boardOwnerID: "", tapList: [], boardLevel: 404, boardDescription: "ERROR", boardHotKeyword: ["ERROR"])
-                    self.limesToday.tableData = []
-                    
-                }
-            }
-            print(">>>> LOADING HOMEVIEW RT DATA SUCCEEDED...")
-        }
+        myLimeRoomLoggedView.boardName = myRoomName
+        
         navBar.dropDownTableClicked = { name in
             let boardV = BoardViewController()
             boardV.boardName = name
@@ -192,23 +163,40 @@ class HomeViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         contentView.axis = .vertical
-        contentView.spacing = 15
+        contentView.spacing = 30
         contentView.distribution = .fill
         navBar.delegate = self
         navBar.title.text = "SomLiMe"
         fogView.addTarget(self, action: #selector(fogTouchUP), for: .touchUpInside)
         
+        myLimeRoomNotLoggedView.isHidden = true
+        myLimeRoomLoggedView.isHidden = true
+        
+        myLimeRoomLoggedView.onClickMoreButton = { str in
+            let vc = BoardViewController()
+            vc.boardName = str ?? "광장"
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        myLimeRoomLoggedView.onClickPostCell = { meta in
+            let vc = BoardPostViewController()
+            vc.boardName = meta.boardID
+            vc.postId = meta.postID
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        myLimeRoomNotLoggedView.logingInButton = {
+            self.navigationController?.pushViewController(LogInViewController(), animated: true)
+        }
         
         //Router
-        limesToday.didPostClicked = { str in
+        limesToday.navigateToPost = { pid in
             let boardV = BoardPostViewController()
-            boardV.boardName = self.currentCategory
-            boardV.postId = str
+            boardV.boardName = self.limesToday.tapView.currentTab
+            boardV.postId = pid
             self.navigationController?.pushViewController(boardV, animated: true)
         }
-        limesToday.onNavigateButtonClicked = {
+        limesToday.navigateToBoard = { bName in
             let boardV = BoardViewController()
-            boardV.boardName = self.currentCategory
+            boardV.boardName = self.limesToday.tapView.currentTab
             self.navigationController?.pushViewController(boardV, animated: true)
         }
         //ADD SUBVIEWS
@@ -216,8 +204,10 @@ class HomeViewController: UIViewController {
         view.addSubview(navBar)
         scrollView.addSubview(contentView)
         contentView.addArrangedSubview(emptyViewBoxForNavigationSpace)
-        contentView.addArrangedSubview(myLimeRoomView)
-        contentView.addArrangedSubview(categorySectionView)
+        contentView.addArrangedSubview(myLimeRoomNotLoggedView)
+        contentView.addArrangedSubview(myLimeRoomLoggedView)
+        contentView.addArrangedSubview(otherLimeRoomScrollView)
+        contentView.addArrangedSubview(limeTrendCollectionView)
         contentView.addArrangedSubview(limesToday)
         
         
@@ -232,7 +222,7 @@ class HomeViewController: UIViewController {
             navBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
         
-        emptyViewBoxForNavigationSpace.heightAnchor.constraint(equalTo: navBar.heightAnchor, multiplier: 0.5).isActive = true
+        emptyViewBoxForNavigationSpace.heightAnchor.constraint(equalTo: navBar.heightAnchor, multiplier: 0.4).isActive = true
         
         self.scrollViewTopConstraint = scrollView.topAnchor.constraint(equalTo: self.view.topAnchor)
         NSLayoutConstraint.activate([
@@ -242,9 +232,9 @@ class HomeViewController: UIViewController {
             scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
         NSLayoutConstraint.activate([
-            contentView.widthAnchor.constraint(equalToConstant: view.frame.width - 20),
+            contentView.widthAnchor.constraint(equalToConstant: view.frame.width - 32),
             contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 10),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 16),
             contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
         ])
@@ -252,7 +242,16 @@ class HomeViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("HomeVC view loaded!")
+        FirebaseAuth.Auth.auth().addStateDidChangeListener { auth, user in
+            if user != nil {
+                self.myLimeRoomNotLoggedView.isHidden = true
+                self.myLimeRoomLoggedView.isHidden = false
+            }else {
+                
+                self.myLimeRoomNotLoggedView.isHidden = false
+                self.myLimeRoomLoggedView.isHidden = true
+            }
+        }
         loadData()
         configure()
         setupLayout()

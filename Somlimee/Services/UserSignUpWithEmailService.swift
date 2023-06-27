@@ -23,11 +23,12 @@ final class UserSignUpWithEmailService{
                 "DaysOfActive": userInfo.daysOfActive,
                 "Badges": userInfo.badges,
                 "PersonalityTestResult": [
-                    userInfo.personalityTestResult.fire,
-                    userInfo.personalityTestResult.water,
-                    userInfo.personalityTestResult.air,
-                    userInfo.personalityTestResult.earth
-                ]
+                    userInfo.personalityTestResult.Strenuousness,
+                    userInfo.personalityTestResult.Receptiveness,
+                    userInfo.personalityTestResult.Harmonization,
+                    userInfo.personalityTestResult.Coagulation
+                ],
+                "PersonalityType": "NDR"
             ])
         }catch{
             print("CouldNotCreatUser")

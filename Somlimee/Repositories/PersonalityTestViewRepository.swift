@@ -45,7 +45,7 @@ final class PersonalityTestViewRepositoryImpl: PersonalityTestViewRepository{
         let rawData = try await DataSourceService.sharedInstance.getPersonalityTestResult()
         
         
-        guard let unwrappedRawData1 = rawData?["fire"] else{
+        guard let unwrappedRawData1 = rawData?["Strenuousness"] else{
             print("fire rawData empty!")
             return nil
         }
@@ -56,7 +56,7 @@ final class PersonalityTestViewRepositoryImpl: PersonalityTestViewRepository{
         }
         
         //second
-        guard let unwrappedRawData2 = rawData?["water"] else{
+        guard let unwrappedRawData2 = rawData?["Receptiveness"] else{
             print("water rawData empty!")
             return nil
         }
@@ -65,7 +65,7 @@ final class PersonalityTestViewRepositoryImpl: PersonalityTestViewRepository{
             print("could not caste rawData")
             return nil
         }
-        guard let unwrappedRawData3 = rawData?["air"] else{
+        guard let unwrappedRawData3 = rawData?["Harmonization"] else{
             print("air rawData empty!")
             return nil
         }
@@ -74,7 +74,7 @@ final class PersonalityTestViewRepositoryImpl: PersonalityTestViewRepository{
             print("could not caste rawData")
             return nil
         }
-        guard let unwrappedRawData4 = rawData?["earth"] else{
+        guard let unwrappedRawData4 = rawData?["Coagulation"] else{
             print("earth rawData empty!")
             return nil
         }
@@ -83,8 +83,17 @@ final class PersonalityTestViewRepositoryImpl: PersonalityTestViewRepository{
             print("could not caste rawData")
             return nil
         }
+        guard let unwrappedRawData5 = rawData?["PersonalityType"] else{
+            print("earth rawData empty!")
+            return nil
+        }
         
-        return PersonalityTestResultData(fire: unwrappedCastedRawData1, water: unwrappedCastedRawData2, air: unwrappedCastedRawData3, earth: unwrappedCastedRawData4)
+        let castedRawData5 = unwrappedRawData5 as? String
+        guard let unwrappedCastedRawData5 = castedRawData5 else {
+            print("could not caste rawData")
+            return nil
+        }
+        return PersonalityTestResultData(Strenuousness: unwrappedCastedRawData1, Receptiveness: unwrappedCastedRawData2, Harmonization: unwrappedCastedRawData3, Coagulation: unwrappedCastedRawData4, type: unwrappedCastedRawData5)
     }
     
 }

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 class MyLimeRoomNotLoggedView: UIView {
     
@@ -29,18 +28,12 @@ class MyLimeRoomNotLoggedView: UIView {
     
     private let myLimeRoomNotLoggedInButton: UIButton = UIButton()
     
-    // - 로그인 뷰
-    private let myLimeRoomContentHStack: UIStackView = UIStackView()
+    // - 버튼 함수
+    var logingInButton: ( () -> Void )?
     
-    private let myLimeRoomLimeImage: UIImageView = UIImageView()
-    
-    private let myLimeRoomBoardVStack: UIStackView = UIStackView()
-    
-    private let myLimeRoomBoardLabel: UILabel = UILabel()
-    
-    private let myLimeRoomBoardTextButton: UIButton = UIButton()
-    
-    private let myLimeRoomBoardTable: UITableView = UITableView()
+    @objc private func loginButtonTouchedUp(){
+        logingInButton?()
+    }
     
     //MARK: - Props Configuration
     
@@ -52,12 +45,7 @@ class MyLimeRoomNotLoggedView: UIView {
         myLimeRoomNotLoggedInMessage.translatesAutoresizingMaskIntoConstraints = false
         myLimeRoomNotLoggedInMessageDetail.translatesAutoresizingMaskIntoConstraints = false
         myLimeRoomNotLoggedInButton.translatesAutoresizingMaskIntoConstraints = false
-        myLimeRoomContentHStack.translatesAutoresizingMaskIntoConstraints = false
-        myLimeRoomLimeImage.translatesAutoresizingMaskIntoConstraints = false
-        myLimeRoomBoardVStack.translatesAutoresizingMaskIntoConstraints = false
-        myLimeRoomBoardLabel.translatesAutoresizingMaskIntoConstraints = false
-        myLimeRoomBoardTextButton.translatesAutoresizingMaskIntoConstraints = false
-        myLimeRoomBoardTable.translatesAutoresizingMaskIntoConstraints = false
+        
         
         myLimeRoomContainer.axis = .vertical
         myLimeRoomContainer.distribution = .fill
@@ -70,7 +58,7 @@ class MyLimeRoomNotLoggedView: UIView {
         myLimeRoomContentContainer.layer.cornerRadius = 20
         myLimeRoomContentContainer.isLayoutMarginsRelativeArrangement = true
         myLimeRoomContentContainer.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 20, leading: 10, bottom: 20, trailing: 10)
-        
+        myLimeRoomContentContainer.backgroundColor = UIColor(cgColor: SomLimeColors.systemGrayLight)
         myLimeRoomTitle.text = "나의 라임방"
         myLimeRoomTitle.textColor = .label
         myLimeRoomTitle.font = UIFont.hanSansNeoBold(size: 21)
@@ -90,6 +78,7 @@ class MyLimeRoomNotLoggedView: UIView {
         filled.cornerStyle = .capsule
         filled.attributedTitle = AttributedString("로그인 하러가기", attributes: AttributeContainer([NSAttributedString.Key.font : UIFont.hanSansNeoMedium(size: 16)]))
         myLimeRoomNotLoggedInButton.configuration = filled
+        myLimeRoomNotLoggedInButton.addTarget(self, action: #selector(loginButtonTouchedUp), for: .touchUpInside)
         
     }
     internal func addSubviews(){
@@ -113,31 +102,11 @@ class MyLimeRoomNotLoggedView: UIView {
             myLimeRoomContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             
         ])
-        
-        
-        
     }
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        FirebaseAuth.Auth.auth().addStateDidChangeListener { auth, user in
-            if user != nil {
-                
-                // 로그인
-                self.myLimeRoomContentContainer.backgroundColor = UIColor(cgColor: SomLimeColors.systemGrayLight)
-                
-                
-                
-                
-            }else{
-                
-                // 로그인 안 됨
-                self.myLimeRoomContentContainer.backgroundColor = UIColor(cgColor: SomLimeColors.systemGrayLight)
-                
-            }
-        }
         configure()
         addSubviews()
         layout()

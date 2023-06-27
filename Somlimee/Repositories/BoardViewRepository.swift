@@ -10,7 +10,7 @@ import FirebaseFirestore
 
 protocol BoardViewRepository{
     func getBoardInfoData(boardName: String) async throws -> BoardInfoData?
-    func getBoardPostMetaList(boardName: String, startTime: String) async throws -> [BoardPostMetaData]?
+    func getBoardPostMetaList(boardName: String, startTime: String, counts: Int) async throws -> [BoardPostMetaData]?
     func writeBoardPost(boardName: String, postData: BoardPostContentData) async throws -> Void
     func getBoardPostMeta(boardName: String, postId: String) async throws -> BoardPostMetaData?
     func getBoardPostContent(boardName: String, postId: String) async throws -> BoardPostContentData?
@@ -40,8 +40,8 @@ class BoardViewRepositoryImpl: BoardViewRepository{
     }
     
     
-    func getBoardPostMetaList(boardName: String, startTime: String)async throws -> [BoardPostMetaData]? {
-        guard let dataList = try await DataSourceService.sharedInstance.getBoardPostMetaList(boardName: boardName, startTime: startTime) else{
+    func getBoardPostMetaList(boardName: String, startTime: String, counts: Int)async throws -> [BoardPostMetaData]? {
+        guard let dataList = try await DataSourceService.sharedInstance.getBoardPostMetaList(boardName: boardName, startTime: startTime, counts: counts) else{
             return nil
         }
         var result: [BoardPostMetaData] = []
@@ -65,6 +65,9 @@ class BoardViewRepositoryImpl: BoardViewRepository{
             let numberOfViews: Int = (data["Views"] as? Int) ?? 404
             
             let numberOfVoteUps: Int = (data["VoteUps"] as? Int) ?? 404
+            
+            let numberOfComments: Int = (data["CommentsNumber"] as? Int) ?? 404
+            
             var postType: PostType = PostType.text
             switch postTypeString{
             case "image":
@@ -74,7 +77,7 @@ class BoardViewRepositoryImpl: BoardViewRepository{
             default:
                 postType = PostType.text
             }
-            result.append(BoardPostMetaData(boardID: boardName, postID: postID, publishedTime: publishedTime, postType: postType, postTitle: postTitle, boardTap: boardTap, userID: userID, numberOfViews: numberOfViews, numberOfVoteUps: numberOfVoteUps))
+            result.append(BoardPostMetaData(boardID: boardName, postID: postID, publishedTime: publishedTime, postType: postType, postTitle: postTitle, boardTap: boardTap, userID: userID, numberOfViews: numberOfViews, numberOfVoteUps: numberOfVoteUps, numberOfComments: numberOfComments))
         }
         
         return result
@@ -110,6 +113,9 @@ class BoardViewRepositoryImpl: BoardViewRepository{
         let numberOfViews: Int = (data["Views"] as? Int) ?? 404
         
         let numberOfVoteUps: Int = (data["VoteUps"] as? Int) ?? 404
+        
+        let numberOfComments: Int = (data["CommentsNumber"] as? Int) ?? 404
+        
         var postType: PostType = PostType.text
         switch postTypeString{
         case "image":
@@ -119,7 +125,7 @@ class BoardViewRepositoryImpl: BoardViewRepository{
         default:
             postType = PostType.text
         }
-        return BoardPostMetaData(boardID: boardName, postID: postID, publishedTime: publishedTime, postType: postType, postTitle: postTitle, boardTap: boardTap, userID: userID, numberOfViews: numberOfViews, numberOfVoteUps: numberOfVoteUps)
+        return BoardPostMetaData(boardID: boardName, postID: postID, publishedTime: publishedTime, postType: postType, postTitle: postTitle, boardTap: boardTap, userID: userID, numberOfViews: numberOfViews, numberOfVoteUps: numberOfVoteUps, numberOfComments: numberOfComments)
         
         
     }

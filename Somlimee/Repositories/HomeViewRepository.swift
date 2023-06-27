@@ -16,8 +16,9 @@ protocol HomeViewRepository{
     func getCategoryData() async throws -> CategoryData?
     func getBoardListData() async throws -> [String]?
     func getBoardInfoData(name: String) async throws -> BoardInfoData?
-    func getBoardPostMetaList(boardName: String, startTime: String) async throws -> [BoardPostMetaData]?
-    
+    func getBoardPostMetaList(boardName: String, startTime: String, counts: Int) async throws -> [BoardPostMetaData]?    
+    func getUserData(uid: String) async throws -> ProfileData?
+    func getBoardHotPostMetaList(boardName: String, startTime: String, counts: Int) async throws -> [BoardPostMetaData]?
 }
 
 final class HomeViewRepositoryImpl: HomeViewRepository{
@@ -27,8 +28,8 @@ final class HomeViewRepositoryImpl: HomeViewRepository{
         }
         return dataList
     }
-    func getBoardPostMetaList(boardName: String, startTime: String)async throws -> [BoardPostMetaData]? {
-        guard let dataList = try await DataSourceService.sharedInstance.getBoardPostMetaList(boardName: boardName, startTime: startTime) else{
+    func getBoardPostMetaList(boardName: String, startTime: String, counts: Int) async throws -> [BoardPostMetaData]? {
+        guard let dataList = try await DataSourceService.sharedInstance.getBoardPostMetaList(boardName: boardName, startTime: startTime, counts: counts) else{
             return nil
         }
         var result: [BoardPostMetaData] = []
@@ -39,7 +40,7 @@ final class HomeViewRepositoryImpl: HomeViewRepository{
             let postID: String = (data["PostId"] as? String) ?? ""
             let val = (data["PublishedTime"] as? Timestamp)?.dateValue()
             
-            let publishedTime: String = String((val?.description as? String)?.prefix(10) ?? "NaN")
+            let publishedTime: String = String((val?.description as? String) ?? "NaN")
             
             let postTypeString: String = (data["PostType"] as? String) ?? ""
             
@@ -52,6 +53,9 @@ final class HomeViewRepositoryImpl: HomeViewRepository{
             let numberOfViews: Int = (data["Views"] as? Int) ?? 404
             
             let numberOfVoteUps: Int = (data["VoteUps"] as? Int) ?? 404
+            
+            let numberOfComments: Int = (data["CommentsNumber"] as? Int) ?? 404
+            
             var postType: PostType = PostType.text
             switch postTypeString{
             case "image":
@@ -61,7 +65,49 @@ final class HomeViewRepositoryImpl: HomeViewRepository{
             default:
                 postType = PostType.text
             }
-            result.append(BoardPostMetaData(boardID: boardName, postID: postID, publishedTime: publishedTime, postType: postType, postTitle: postTitle, boardTap: boardTap, userID: userID, numberOfViews: numberOfViews, numberOfVoteUps: numberOfVoteUps))
+            result.append(BoardPostMetaData(boardID: boardName, postID: postID, publishedTime: publishedTime, postType: postType, postTitle: postTitle, boardTap: boardTap, userID: userID, numberOfViews: numberOfViews, numberOfVoteUps: numberOfVoteUps, numberOfComments: numberOfComments))
+        }
+        
+        return result
+    }
+    func getBoardHotPostMetaList(boardName: String, startTime: String, counts: Int) async throws -> [BoardPostMetaData]? {
+        guard let dataList = try await DataSourceService.sharedInstance.getBoardPostMetaList(boardName: boardName, startTime: startTime, counts: counts) else{
+            return nil
+        }
+        var result: [BoardPostMetaData] = []
+        for data in dataList{
+            
+            let boardName: String = boardName
+            
+            let postID: String = (data["PostId"] as? String) ?? ""
+            let val = (data["PublishedTime"] as? Timestamp)?.dateValue()
+            
+            let publishedTime: String = String((val?.description as? String) ?? "NaN")
+            
+            let postTypeString: String = (data["PostType"] as? String) ?? ""
+            
+            let postTitle: String = (data["PostTitle"] as? String) ?? ""
+            
+            let boardTap: String = (data["BoardTap"] as? String) ?? ""
+            
+            let userID: String = (data["UserId"] as? String) ?? ""
+            
+            let numberOfViews: Int = (data["Views"] as? Int) ?? 404
+            
+            let numberOfVoteUps: Int = (data["VoteUps"] as? Int) ?? 404
+            
+            let numberOfComments: Int = (data["CommentsNumber"] as? Int) ?? 404
+            
+            var postType: PostType = PostType.text
+            switch postTypeString{
+            case "image":
+                postType = PostType.image
+            case "video":
+                postType = PostType.video
+            default:
+                postType = PostType.text
+            }
+            result.append(BoardPostMetaData(boardID: boardName, postID: postID, publishedTime: publishedTime, postType: postType, postTitle: postTitle, boardTap: boardTap, userID: userID, numberOfViews: numberOfViews, numberOfVoteUps: numberOfVoteUps, numberOfComments: numberOfComments))
         }
         
         return result
@@ -125,6 +171,38 @@ final class HomeViewRepositoryImpl: HomeViewRepository{
         }
         return BoardInfoData(boardName: name, boardOwnerID: boardOwnerID as! String, tapList: boardTapList as! [String], boardLevel: boardLevel as! Int, boardDescription: boardDescription as! String, boardHotKeyword: boardHotKeyword as! [String])
     }
-    
+    func getUserData(uid: String) async throws -> ProfileData? {
+        let data = try await DataSourceService.sharedInstance.getUserData(uid: uid)
+        guard let userName: String = data?["UserName"] as? String else{
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+        guard let totalUps: Int = data?["TotalUps"] as? Int else{
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+        
+        guard let receivedUps: Int = data?["TotalUps"] as? Int else{
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+        
+        guard let points: Int = data?["TotalUps"] as? Int else{
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+        
+        guard let daysOfActive: Int = data?["TotalUps"] as? Int else{
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+        guard let personalityType: String = data?["PersonalityType"] as? String else{
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+//        guard let personalityTestResult: [String: Any] = data?["PersonalityTestResult"] as? [String: Any] else{
+//                throw DataSourceFailures.CouldNotFindDocument
+//        }
+//        guard let recentPostsNumber: Int = data?["TotalUps"] as? Int else{
+//            throw DataSourceFailures.CouldNotFindDocument
+//        }
+//        guard let recentPostList: [String: Any] = data?["RecentPosts"] as? [String: Any] else{
+//                throw DataSourceFailures.CouldNotFindDocument
+        return ProfileData(userName: userName, profileImage: nil, totalUps: totalUps, receivedUps: receivedUps, points: points, daysOfActive: daysOfActive, badges: [], personalityTestResult: PersonalityTestResultData(Strenuousness: 10, Receptiveness: 10, Harmonization: 10, Coagulation: 10, type: "NDD"), personalityType: personalityType)
+    }
     
 }

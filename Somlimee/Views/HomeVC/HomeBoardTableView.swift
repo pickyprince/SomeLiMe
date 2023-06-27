@@ -12,21 +12,11 @@ class HomeBoardTableView: UITableView{
     //fixtures
     
     private var heightConstraint: NSLayoutConstraint = NSLayoutConstraint()
-    private var cellHeight: CGFloat = 56{
-        didSet{
-            heightConstraint.isActive = false
-            heightConstraint = self.heightAnchor.constraint(equalToConstant: CGFloat(boardSectionPostCellData?.count ?? 0) * cellHeight)
-            heightConstraint.isActive = true
-        }
-    }
     
     private let topBottomInsets: CGFloat = 10
     public var boardSectionPostCellData: [BoardPostMetaData]?{
         didSet{
             self.reloadData()
-            heightConstraint.isActive = false
-            heightConstraint = self.heightAnchor.constraint(equalToConstant: CGFloat(boardSectionPostCellData?.count ?? 0) * cellHeight)
-            heightConstraint.isActive = true
         }
     }
     
@@ -48,10 +38,6 @@ class HomeBoardTableView: UITableView{
         let label = UILabel()
         label.text = "H"
         let image = UIImageView(image: UIImage(systemName: "person.fill"))
-        cellHeight = (label.intrinsicContentSize.height + image.intrinsicContentSize.height) + topBottomInsets
-        
-        heightConstraint = self.heightAnchor.constraint(equalToConstant: CGFloat(boardSectionPostCellData?.count ?? 0) * cellHeight)
-        heightConstraint.isActive = true
         
     }
     
@@ -87,7 +73,7 @@ extension HomeBoardTableView: UITableViewDataSource, UITableViewDelegate{
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return cellHeight
+        return 30
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -10,14 +10,14 @@ import Foundation
 func calculateTestResult(test: PersonalityTestQuestions) -> PersonalityTestResultData{
     
     //internal calculation
-     var fireTotal = 0
-     var waterTotal = 0
-     var airTotal = 0
-     var earthTotal = 0
+     var strenuousnessTotal = 0
+     var receptivenessTotal = 0
+     var harmonizationTotal = 0
+     var coagulationTotal = 0
     for answer in test.answers{
         if answer == Answer.Neutral{
             
         }
     }
-    return PersonalityTestResultData(fire: fireTotal, water: waterTotal, air: airTotal, earth: earthTotal  )
+    return PersonalityTestResultData(Strenuousness: strenuousnessTotal, Receptiveness: receptivenessTotal, Harmonization: harmonizationTotal, Coagulation: coagulationTotal, type: "NDD")
 }

@@ -96,8 +96,13 @@
 		CE2DDA352A27374C002AF99B /* SpoqaHanSansNeo-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA202A27374C002AF99B /* SpoqaHanSansNeo-Thin.ttf */; };
 		CE2DDA362A27374C002AF99B /* SpoqaHanSansNeo-Thin.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = CE2DDA212A27374C002AF99B /* SpoqaHanSansNeo-Thin.woff2 */; };
 		CE2DDA382A27393D002AF99B /* SomLimeFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA372A27393D002AF99B /* SomLimeFonts.swift */; };
+		CE2DDA3A2A2748A0002AF99B /* MyLimeRoomLoggedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA392A2748A0002AF99B /* MyLimeRoomLoggedView.swift */; };
+		CE2DDA3C2A275EA2002AF99B /* imageShadowExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA3B2A275EA2002AF99B /* imageShadowExt.swift */; };
+		CE2DDA3E2A2766BE002AF99B /* MyLimeRoomBoardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA3D2A2766BE002AF99B /* MyLimeRoomBoardTableView.swift */; };
+		CE2DDA402A30CFB3002AF99B /* OtherLimeRoomsScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA3F2A30CFB3002AF99B /* OtherLimeRoomsScrollView.swift */; };
+		CE2DDA442A384687002AF99B /* LimeTrendCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA432A384687002AF99B /* LimeTrendCollectionView.swift */; };
+		CE2DDA462A386E60002AF99B /* LimesTodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA452A386E60002AF99B /* LimesTodayView.swift */; };
 		CE4F263B29B4D07F0037AA30 /* LabelCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */; };
-		CE4F264029BA0A060037AA30 /* CategorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */; };
 		CE7A7A0F29A87B4B00DDE8A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */; };
 		CE7A7A1129A87B4B00DDE8A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A1029A87B4B00DDE8A5 /* SceneDelegate.swift */; };
 		CE7A7A1329A87B4B00DDE8A5 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A1229A87B4B00DDE8A5 /* ContainerViewController.swift */; };
@@ -197,8 +202,13 @@
 		CE2DDA202A27374C002AF99B /* SpoqaHanSansNeo-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Thin.ttf"; sourceTree = "<group>"; };
 		CE2DDA212A27374C002AF99B /* SpoqaHanSansNeo-Thin.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Thin.woff2"; sourceTree = "<group>"; };
 		CE2DDA372A27393D002AF99B /* SomLimeFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomLimeFonts.swift; sourceTree = "<group>"; };
+		CE2DDA392A2748A0002AF99B /* MyLimeRoomLoggedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLimeRoomLoggedView.swift; sourceTree = "<group>"; };
+		CE2DDA3B2A275EA2002AF99B /* imageShadowExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageShadowExt.swift; sourceTree = "<group>"; };
+		CE2DDA3D2A2766BE002AF99B /* MyLimeRoomBoardTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLimeRoomBoardTableView.swift; sourceTree = "<group>"; };
+		CE2DDA3F2A30CFB3002AF99B /* OtherLimeRoomsScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherLimeRoomsScrollView.swift; sourceTree = "<group>"; };
+		CE2DDA432A384687002AF99B /* LimeTrendCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimeTrendCollectionView.swift; sourceTree = "<group>"; };
+		CE2DDA452A386E60002AF99B /* LimesTodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimesTodayView.swift; sourceTree = "<group>"; };
 		CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionView.swift; sourceTree = "<group>"; };
-		CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySectionView.swift; sourceTree = "<group>"; };
 		CE7A7A0B29A87B4B00DDE8A5 /* Somlimee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Somlimee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE7A7A1029A87B4B00DDE8A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -257,6 +267,7 @@
 				CE2DD99D29D2DEA2002AF99B /* Functions */,
 				CE2DD9BE29D8264E002AF99B /* SQLiteDatabaseCommands.swift */,
 				CE2DDA092A271AAE002AF99B /* SomLimeColors.swift */,
+				CE2DDA3B2A275EA2002AF99B /* imageShadowExt.swift */,
 				CE2DDA372A27393D002AF99B /* SomLimeFonts.swift */,
 			);
 			path = Core;
@@ -297,8 +308,13 @@
 			isa = PBXGroup;
 			children = (
 				CE2DD96329C4AF73002AF99B /* HomeNavBar.swift */,
-				CE2DD96B29C7466D002AF99B /* HomeBoardTableView.swift */,
+				CE2DDA392A2748A0002AF99B /* MyLimeRoomLoggedView.swift */,
 				CE2DDA032A2710FC002AF99B /* MyLimeRoomNotLoggedView.swift */,
+				CE2DD96B29C7466D002AF99B /* HomeBoardTableView.swift */,
+				CE2DDA3D2A2766BE002AF99B /* MyLimeRoomBoardTableView.swift */,
+				CE2DDA3F2A30CFB3002AF99B /* OtherLimeRoomsScrollView.swift */,
+				CE2DDA432A384687002AF99B /* LimeTrendCollectionView.swift */,
+				CE2DDA452A386E60002AF99B /* LimesTodayView.swift */,
 			);
 			path = HomeVC;
 			sourceTree = "<group>";
@@ -385,7 +401,6 @@
 				CE2DD9F229F3ADEE002AF99B /* BoardNavBar.swift */,
 				CE2DD9FA2A068997002AF99B /* BoardPostNavBar.swift */,
 				CE2DD9F62A03B84D002AF99B /* BoardPostWriteNavBar.swift */,
-				CE4F263F29BA0A060037AA30 /* CategorySectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -603,13 +618,16 @@
 				CE2DD99B29D2DB90002AF99B /* SearchRealTimeData.swift in Sources */,
 				CE2DD98729D2BE02002AF99B /* HotTrendData.swift in Sources */,
 				CE2DD96E29C827B7002AF99B /* SearchViewController.swift in Sources */,
+				CE2DDA3C2A275EA2002AF99B /* imageShadowExt.swift in Sources */,
 				CE2DD9BF29D8264E002AF99B /* SQLiteDatabaseCommands.swift in Sources */,
 				CE2DD98F29D2D58B002AF99B /* ProfileData.swift in Sources */,
+				CE2DDA3E2A2766BE002AF99B /* MyLimeRoomBoardTableView.swift in Sources */,
 				CE2DD9E329DC70CF002AF99B /* BoardPostWriteViewController.swift in Sources */,
 				CE2DD9D729DBF279002AF99B /* PersonalityTestViewRepository.swift in Sources */,
 				CE2DD9F72A03B84D002AF99B /* BoardPostWriteNavBar.swift in Sources */,
 				CE2DD9EB29F0F7DD002AF99B /* AppStatesInit.swift in Sources */,
 				CE2DD9E729EFA4C1002AF99B /* AppStates.swift in Sources */,
+				CE2DDA3A2A2748A0002AF99B /* MyLimeRoomLoggedView.swift in Sources */,
 				CE2DD98229CCA126002AF99B /* HomeViewController.swift in Sources */,
 				CE2DD96A29C740F4002AF99B /* BoardPostMetaData.swift in Sources */,
 				CE4F263B29B4D07F0037AA30 /* LabelCollectionView.swift in Sources */,
@@ -621,7 +639,6 @@
 				CE2DD99529D2D71D002AF99B /* RemoteDataSourceService.swift in Sources */,
 				CE2DD9D329DAEAB4002AF99B /* VerifyEmailViewController.swift in Sources */,
 				CE2DD9A729D42570002AF99B /* SearchListData.swift in Sources */,
-				CE4F264029BA0A060037AA30 /* CategorySectionView.swift in Sources */,
 				CE2DD9E929F0F786002AF99B /* LocalDataSourceInit.swift in Sources */,
 				CE2DD98529CD88B8002AF99B /* HomeViewRepository.swift in Sources */,
 				CE2DD9A129D2FCA5002AF99B /* PersonalityTestData.swift in Sources */,
@@ -655,6 +672,7 @@
 				CE2DD9CB29D9549E002AF99B /* injectDependencies.swift in Sources */,
 				CE2DD9AF29D6DD91002AF99B /* UserLoginService.swift in Sources */,
 				CE2DD9F329F3ADEE002AF99B /* BoardNavBar.swift in Sources */,
+				CE2DDA402A30CFB3002AF99B /* OtherLimeRoomsScrollView.swift in Sources */,
 				CE2DD97C29CC21DA002AF99B /* LogInViewController.swift in Sources */,
 				CE2DD97029C828B2002AF99B /* SearchNavBar.swift in Sources */,
 				CE2DD99129D2D5AA002AF99B /* PersonalityTestResultData.swift in Sources */,
@@ -664,10 +682,12 @@
 				CE2DD96629C59721002AF99B /* BoardSectionView.swift in Sources */,
 				CE2DD96829C59F84002AF99B /* NormalTableView.swift in Sources */,
 				CE2DD98B29D2C02C002AF99B /* CategoryData.swift in Sources */,
+				CE2DDA462A386E60002AF99B /* LimesTodayView.swift in Sources */,
 				CE2DD9DB29DC1174002AF99B /* PersonalityTestResultViewController.swift in Sources */,
 				CE2DDA022A1B50EE002AF99B /* ProfileViewRepository.swift in Sources */,
 				CE2DD98929D2BFA2002AF99B /* HotBoardRankingData.swift in Sources */,
 				CE2DD9F129F3A73A002AF99B /* BoardTapView.swift in Sources */,
+				CE2DDA442A384687002AF99B /* LimeTrendCollectionView.swift in Sources */,
 				CE2DDA072A27180D002AF99B /* LoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

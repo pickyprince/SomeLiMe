@@ -175,7 +175,7 @@ class BoardViewController: UIViewController {
         Task.init {
             do{
                 self.info = try await repository?.getBoardInfoData(boardName: boardName)
-                self.posts = try await repository?.getBoardPostMetaList(boardName: boardName, startTime: "NaN")
+                self.posts = try await repository?.getBoardPostMetaList(boardName: boardName, startTime: "NaN", counts: 4)
                 //Relayout
             }catch{
                 print(">>>> BOARD VIEW ERROR: Could Not Load Data - \(error)")
@@ -187,7 +187,7 @@ class BoardViewController: UIViewController {
         Task.init {
             do{
                 guard let last = self.posts?.last else{
-                    guard let temp = try await repository?.getBoardPostMetaList(boardName: boardName, startTime: "NaN")
+                    guard let temp = try await repository?.getBoardPostMetaList(boardName: boardName, startTime: "NaN", counts: 4)
                     else{
                         return
                     }
@@ -196,7 +196,7 @@ class BoardViewController: UIViewController {
                     }
                     return
                 }
-                guard let temp = try await repository?.getBoardPostMetaList(boardName: boardName, startTime: last.publishedTime)
+                guard let temp = try await repository?.getBoardPostMetaList(boardName: boardName, startTime: last.publishedTime, counts: 4)
                 else{
                     return
                 }

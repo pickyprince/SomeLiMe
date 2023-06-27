@@ -31,4 +31,6 @@ struct BoardPostMetaData {
     let numberOfViews: Int
     
     let numberOfVoteUps: Int
+    
+    let numberOfComments: Int
 }

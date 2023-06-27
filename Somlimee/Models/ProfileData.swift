@@ -16,4 +16,5 @@ struct ProfileData {
     let daysOfActive: Int
     let badges: [String]
     let personalityTestResult: PersonalityTestResultData
+    let personalityType: String
 }

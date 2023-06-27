@@ -78,7 +78,6 @@ extension BoardTapView: UICollectionViewDataSource, UICollectionViewDelegate{
         cell.text = tapList?[indexPath.item] ?? ""
         return cell
     }
-    
 }
 extension BoardTapView: UICollectionViewDelegateFlowLayout{
     
@@ -92,10 +91,13 @@ extension BoardTapView: UICollectionViewDelegateFlowLayout{
         return CGSize(width: (button.intrinsicContentSize.width + 10), height: button.intrinsicContentSize.height)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 3
+        return 0
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }
 
@@ -103,15 +105,15 @@ extension BoardTapView: UICollectionViewDelegateFlowLayout{
 
 // MARK: - Cell
 class BoardTapViewCell: UICollectionViewCell {
-    var cellColor: UIColor = .systemBackground
+    var cellColor: UIColor = UIColor(cgColor: SomLimeColors.lightPrimaryColor)
     var index: Int = 0
     var text : String = "" {didSet{cellLabel.text = text}}
     override var isSelected: Bool {
         didSet{
             if isSelected{
-                self.cellColor = .systemGreen
+                self.cellColor = UIColor(cgColor: SomLimeColors.primaryColor)
             }else{
-                self.cellColor = .systemBackground
+                self.cellColor = UIColor(cgColor: SomLimeColors.lightPrimaryColor)
             }
             container.backgroundColor = cellColor
         }
@@ -119,13 +121,13 @@ class BoardTapViewCell: UICollectionViewCell {
     let container: UIView = {
         let view: UIView = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 10
         return view
     }()
     let cellLabel: UILabel = {
         let button = UILabel()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.textColor = .label
+        button.textAlignment = .center
         return button
     }()
     

@@ -32,6 +32,9 @@ class ProfileViewRepositoryImpl: ProfileViewRepository{
         guard let daysOfActive: Int = data?["TotalUps"] as? Int else{
             throw DataSourceFailures.CouldNotFindDocument
         }
+        guard let personalityType: String = data?["PersonalityType"] as? String else{
+            throw DataSourceFailures.CouldNotFindDocument
+        }
 //        guard let personalityTestResult: [String: Any] = data?["PersonalityTestResult"] as? [String: Any] else{
 //                throw DataSourceFailures.CouldNotFindDocument
 //        }
@@ -40,6 +43,6 @@ class ProfileViewRepositoryImpl: ProfileViewRepository{
 //        }
 //        guard let recentPostList: [String: Any] = data?["RecentPosts"] as? [String: Any] else{
 //                throw DataSourceFailures.CouldNotFindDocument
-        return ProfileData(userName: userName, profileImage: nil, totalUps: totalUps, receivedUps: receivedUps, points: points, daysOfActive: daysOfActive, badges: [], personalityTestResult: PersonalityTestResultData(fire: 10, water: 10, air: 10, earth: 10))
+        return ProfileData(userName: userName, profileImage: nil, totalUps: totalUps, receivedUps: receivedUps, points: points, daysOfActive: daysOfActive, badges: [], personalityTestResult: PersonalityTestResultData(Strenuousness: 10, Receptiveness: 10, Harmonization: 10, Coagulation: 10, type: "NDD"), personalityType: personalityType)
     }
 }

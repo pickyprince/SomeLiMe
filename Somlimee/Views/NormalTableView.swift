@@ -12,12 +12,10 @@ class NormalTableView: UITableView {
     var onCellClicked: ((String)->Void)?
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
-        
         self.delegate = self
         self.dataSource = self
         self.translatesAutoresizingMaskIntoConstraints = false
         self.register(NormalTableViewCell.self, forCellReuseIdentifier: String(describing: NormalTableViewCell.self))
-        
     }
     
     required init?(coder: NSCoder) {
