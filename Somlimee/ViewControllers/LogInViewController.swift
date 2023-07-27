@@ -278,6 +278,7 @@ class LogInViewController: UIViewController {
     
     @objc private func signupButtonTapped() {
         // 회원가입 버튼 클릭 시 동작
+        navigationController?.pushViewController(SignUpViewController(), animated: true)
     }
 }
 extension UITextField {

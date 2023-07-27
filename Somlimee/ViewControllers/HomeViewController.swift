@@ -37,6 +37,8 @@ class HomeViewController: UIViewController {
     
     let limesToday: LimesTodayView = LimesTodayView()
     
+    let limeTest: LimeTestSectionView = LimeTestSectionView()
+    
     var myRoomName: String = "유머"
     
     var scrollViewTopConstraint: NSLayoutConstraint?
@@ -114,9 +116,10 @@ class HomeViewController: UIViewController {
         }
     }
     func loadData(){
-//        otherLimeRoomScrollView.reload()
+        //        otherLimeRoomScrollView.reload()
         Task.init {
             do{
+                self.limeTrendCollectionView.data = try await repository?.getLimeTrendsData()?.trendsList ?? []
                 guard let uid = Auth.auth().currentUser?.uid else{
                     return
                 }
@@ -125,6 +128,7 @@ class HomeViewController: UIViewController {
                 }
                 self.myRoomName = typeName
                 self.myLimeRoomLoggedView.boardName = self.myRoomName
+            
                 print(">>>> typeName: \(typeName)")
             }catch{
                 print(">>>> myTypeName 가져오는데 실패\(error)")
@@ -143,7 +147,6 @@ class HomeViewController: UIViewController {
         self.scrollView.delegate = self
         //DATA ASSIGNMENT
         
-        myLimeRoomLoggedView.boardName = myRoomName
         
         navBar.dropDownTableClicked = { name in
             let boardV = BoardViewController()
@@ -186,6 +189,12 @@ class HomeViewController: UIViewController {
         myLimeRoomNotLoggedView.logingInButton = {
             self.navigationController?.pushViewController(LogInViewController(), animated: true)
         }
+        otherLimeRoomScrollView.cellTouchedUp = { boardName in
+            
+            let vc = BoardViewController()
+            vc.boardName = boardName
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         
         //Router
         limesToday.navigateToPost = { pid in
@@ -199,6 +208,10 @@ class HomeViewController: UIViewController {
             boardV.boardName = self.limesToday.tapView.currentTab
             self.navigationController?.pushViewController(boardV, animated: true)
         }
+        limeTrendCollectionView.onCapsuleTapped = { trendItemString in
+            //트렌드 내용에 따라서 검색해야됨
+            print(">>>> 트렌드 \(trendItemString)")
+        }
         //ADD SUBVIEWS
         view.addSubview(scrollView)
         view.addSubview(navBar)
@@ -209,6 +222,7 @@ class HomeViewController: UIViewController {
         contentView.addArrangedSubview(otherLimeRoomScrollView)
         contentView.addArrangedSubview(limeTrendCollectionView)
         contentView.addArrangedSubview(limesToday)
+        contentView.addArrangedSubview(limeTest)
         
         
     }

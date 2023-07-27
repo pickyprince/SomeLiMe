@@ -13,6 +13,7 @@ enum SomLimeColors{
     static let secondaryColor: CGColor = CGColor(red: 0x00/255, green: 0x87/255, blue: 0x26/255, alpha: 1)
     static let systemGrayLight: CGColor = CGColor(red: 0.851, green: 0.851, blue: 0.851, alpha: 1)
     static let backgroundColor: CGColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
+    static let label: CGColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
 }
 
 //7BA6C8

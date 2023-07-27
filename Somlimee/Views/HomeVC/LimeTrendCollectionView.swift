@@ -33,7 +33,7 @@ class LimeTrendCollectionView: UIView {
     
     
     private let cellIdentifier = "CapsuleCell"
-    var data: [String] = ["하나로", "두개로", "세개로", "자유로", "SG워너비", "자유로", "KT어쩌다가", "KT서버 다운일", "하나로", "하나로"] {
+    var data: [String] = [] {
         didSet {
             collectionView.reloadData()
         }

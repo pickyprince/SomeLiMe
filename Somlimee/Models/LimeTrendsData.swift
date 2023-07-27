@@ -1,5 +1,5 @@
 //
-//  HotTrendData.swift
+//  LimeTrendsData.swift
 //  Somlimee
 //
 //  Created by Chanhee on 2023/03/28.
@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct HotTrendData{
-    let realTimeHotRanking: [String]
+struct LimeTrendsData{
+    let trendsList: [String]
 }

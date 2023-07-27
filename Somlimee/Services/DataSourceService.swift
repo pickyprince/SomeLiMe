@@ -24,29 +24,11 @@ final class DataSourceService{
     }
     //MARK: - HOME VIEW REPOSITORY
     
-    func getHotTrendData() async throws -> [String : Any]? {
+    func getLimeTrendsData() async throws -> [String : Any]? {
         guard let db = RemoteDataSourceService.sharedInstance.database else {
             throw DataSourceFailures.CouldNotFindRemoteDataBase
         }
-        let docRef = db.collection("RealTime").document("RThotTrends")
-        let document: DocumentSnapshot
-        do {
-            document = try await docRef.getDocument()
-        }catch{
-            print("CouldNotFindDocument")
-            throw DataSourceFailures.CouldNotFindDocument
-        }
-        return document.data()
-    }
-    
-    
-    
-    func getHotBoardRankingData() async throws -> [String : Any]?{
-        guard let db = RemoteDataSourceService.sharedInstance.database else{
-            print("CouldNotFindRemoteDataBase")
-            throw DataSourceFailures.CouldNotFindRemoteDataBase
-        }
-        let docRef = db.collection("RealTime").document("RTHotBoardRanking")
+        let docRef = db.collection("RealTime").document("RTLimeTrends")
         let document: DocumentSnapshot
         do {
             document = try await docRef.getDocument()
@@ -197,6 +179,43 @@ final class DataSourceService{
         }
     }
     
+    func getBoardHotPostsList(boardName: String, startTime: String, counts: Int) async throws -> [String]?{
+        guard let db = RemoteDataSourceService.sharedInstance.database else{
+            print(">>>>> CouldNotFindRemoteDataBase")
+            throw DataSourceFailures.CouldNotFindRemoteDataBase
+        }
+        do {
+            var colRef: Query
+            
+            guard boardName != "" else{
+                return nil
+            }
+            
+            guard startTime != "" else{
+                return nil
+            }
+            
+            guard counts != 0 else {
+                return nil
+            }
+            let parsedBoardName: String = String(boardName.filter({$0 != "/"}))
+            if startTime == "NaN"{
+                colRef = db.collection("BoardHotPosts").document(parsedBoardName).collection("Posts").order(by: "AddedTime", descending: true).limit(to: counts)
+            }else{
+                colRef = db.collection("BoardHotPosts").document(parsedBoardName).collection("Posts").whereField("AddedTime", isGreaterThanOrEqualTo: startTime).order(by: "AddedTime", descending: true).limit(to: counts)
+            }
+            let documents: QuerySnapshot
+            documents = try await colRef.getDocuments()
+            var data: [String] = []
+            for document in documents.documents {
+                data.append(document.documentID)
+            }
+            return data
+        }catch{
+            print(">>>>>> CouldNotFindDocument")
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+    }
     func getBoardPostMeta(boardName: String, postId: String) async throws -> [String : Any]?{
         guard let db = RemoteDataSourceService.sharedInstance.database else{
             print(">>>>> CouldNotFindRemoteDataBase")

@@ -11,14 +11,13 @@ import FirebaseFirestore
 protocol HomeViewRepository{
     
     //GET REPOSITORY ITEMS
-    func getHotTrendData() async throws -> HotTrendData?
-    func getHotBoardRankingData() async throws -> HotBaoardRankingData?
+    func getLimeTrendsData() async throws -> LimeTrendsData?
     func getCategoryData() async throws -> CategoryData?
     func getBoardListData() async throws -> [String]?
     func getBoardInfoData(name: String) async throws -> BoardInfoData?
     func getBoardPostMetaList(boardName: String, startTime: String, counts: Int) async throws -> [BoardPostMetaData]?    
     func getUserData(uid: String) async throws -> ProfileData?
-    func getBoardHotPostMetaList(boardName: String, startTime: String, counts: Int) async throws -> [BoardPostMetaData]?
+    func getBoardHotPostsList(boardName: String, startTime: String, counts: Int) async throws -> [BoardPostMetaData]?
 }
 
 final class HomeViewRepositoryImpl: HomeViewRepository{
@@ -70,9 +69,17 @@ final class HomeViewRepositoryImpl: HomeViewRepository{
         
         return result
     }
-    func getBoardHotPostMetaList(boardName: String, startTime: String, counts: Int) async throws -> [BoardPostMetaData]? {
-        guard let dataList = try await DataSourceService.sharedInstance.getBoardPostMetaList(boardName: boardName, startTime: startTime, counts: counts) else{
+    func getBoardHotPostsList(boardName: String, startTime: String, counts: Int) async throws -> [BoardPostMetaData]? {
+        guard let list = try await DataSourceService.sharedInstance.getBoardHotPostsList(boardName: boardName, startTime: startTime, counts: counts) else{
             return nil
+        }
+        var dataList: [[String: Any]] = []
+        for id in list {
+            guard var data = try await DataSourceService.sharedInstance.getBoardPostMeta(boardName: boardName, postId: id) else{
+                continue
+            }
+            data["PostId"] = id
+            dataList.append(data)
         }
         var result: [BoardPostMetaData] = []
         for data in dataList{
@@ -112,34 +119,21 @@ final class HomeViewRepositoryImpl: HomeViewRepository{
         
         return result
     }
-    func getHotTrendData() async throws -> HotTrendData? {
+    func getLimeTrendsData () async throws -> LimeTrendsData? {
         
-        let rawData = try await DataSourceService.sharedInstance.getHotTrendData()
-        guard let unwrappedRawData = rawData?["hotTrendsList"] else{
-            print("hotTrendsList rawData empty!")
+        let rawData = try await DataSourceService.sharedInstance.getLimeTrendsData()
+        guard let unwrappedRawData = rawData?["List"] else{
+            print("라임트렌드 없음")
             return nil
         }
         let castedRawData = unwrappedRawData as? [String]
         guard let unwrappedCastedRawData = castedRawData else {
-            print("could not caste rawData")
+            print("could not cast rawData")
             return nil
         }
-        return HotTrendData(realTimeHotRanking: unwrappedCastedRawData)
+        return LimeTrendsData(trendsList: unwrappedCastedRawData)
     }
     
-    func getHotBoardRankingData() async throws -> HotBaoardRankingData? {
-        let rawData = try await DataSourceService.sharedInstance.getHotBoardRankingData()
-        guard let unwrappedRawData = rawData?["RankingList"] else{
-            print("RankingList rawData empty!")
-            return nil
-        }
-        let castedRawData = unwrappedRawData as? [String]
-        guard let unwrappedCastedRawData = castedRawData else {
-            print("could not caste rawData")
-            return nil
-        }
-        return HotBaoardRankingData(realTimeBoardRanking: unwrappedCastedRawData)
-    }
     
     func getCategoryData() async throws -> CategoryData? {
         let data = try await DataSourceService.sharedInstance.getCategoryData()

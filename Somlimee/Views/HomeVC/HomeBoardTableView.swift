@@ -1,5 +1,5 @@
 //
-//  BoardTableView.swift
+//  HomeBoardTableView.swift
 //  Somlimee
 //
 //  Created by Chanhee on 2023/03/19.

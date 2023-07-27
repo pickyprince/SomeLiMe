@@ -23,7 +23,7 @@
 		CE2DD98029CC2729002AF99B /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD97F29CC2729002AF99B /* SideMenuViewController.swift */; };
 		CE2DD98229CCA126002AF99B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD98129CCA126002AF99B /* HomeViewController.swift */; };
 		CE2DD98529CD88B8002AF99B /* HomeViewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD98429CD88B8002AF99B /* HomeViewRepository.swift */; };
-		CE2DD98729D2BE02002AF99B /* HotTrendData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD98629D2BE02002AF99B /* HotTrendData.swift */; };
+		CE2DD98729D2BE02002AF99B /* LimeTrendsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD98629D2BE02002AF99B /* LimeTrendsData.swift */; };
 		CE2DD98929D2BFA2002AF99B /* HotBoardRankingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD98829D2BFA2002AF99B /* HotBoardRankingData.swift */; };
 		CE2DD98B29D2C02C002AF99B /* CategoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD98A29D2C02C002AF99B /* CategoryData.swift */; };
 		CE2DD98D29D2C0E1002AF99B /* BoardHotKeyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD98C29D2C0E1002AF99B /* BoardHotKeyData.swift */; };
@@ -102,6 +102,7 @@
 		CE2DDA402A30CFB3002AF99B /* OtherLimeRoomsScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA3F2A30CFB3002AF99B /* OtherLimeRoomsScrollView.swift */; };
 		CE2DDA442A384687002AF99B /* LimeTrendCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA432A384687002AF99B /* LimeTrendCollectionView.swift */; };
 		CE2DDA462A386E60002AF99B /* LimesTodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA452A386E60002AF99B /* LimesTodayView.swift */; };
+		CE2DDA482A4C31EF002AF99B /* LimeTestSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA472A4C31EF002AF99B /* LimeTestSectionView.swift */; };
 		CE4F263B29B4D07F0037AA30 /* LabelCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */; };
 		CE7A7A0F29A87B4B00DDE8A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */; };
 		CE7A7A1129A87B4B00DDE8A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A1029A87B4B00DDE8A5 /* SceneDelegate.swift */; };
@@ -129,7 +130,7 @@
 		CE2DD97F29CC2729002AF99B /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		CE2DD98129CCA126002AF99B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		CE2DD98429CD88B8002AF99B /* HomeViewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewRepository.swift; sourceTree = "<group>"; };
-		CE2DD98629D2BE02002AF99B /* HotTrendData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotTrendData.swift; sourceTree = "<group>"; };
+		CE2DD98629D2BE02002AF99B /* LimeTrendsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimeTrendsData.swift; sourceTree = "<group>"; };
 		CE2DD98829D2BFA2002AF99B /* HotBoardRankingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotBoardRankingData.swift; sourceTree = "<group>"; };
 		CE2DD98A29D2C02C002AF99B /* CategoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryData.swift; sourceTree = "<group>"; };
 		CE2DD98C29D2C0E1002AF99B /* BoardHotKeyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardHotKeyData.swift; sourceTree = "<group>"; };
@@ -208,6 +209,7 @@
 		CE2DDA3F2A30CFB3002AF99B /* OtherLimeRoomsScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherLimeRoomsScrollView.swift; sourceTree = "<group>"; };
 		CE2DDA432A384687002AF99B /* LimeTrendCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimeTrendCollectionView.swift; sourceTree = "<group>"; };
 		CE2DDA452A386E60002AF99B /* LimesTodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimesTodayView.swift; sourceTree = "<group>"; };
+		CE2DDA472A4C31EF002AF99B /* LimeTestSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimeTestSectionView.swift; sourceTree = "<group>"; };
 		CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionView.swift; sourceTree = "<group>"; };
 		CE7A7A0B29A87B4B00DDE8A5 /* Somlimee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Somlimee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				CE2DDA3F2A30CFB3002AF99B /* OtherLimeRoomsScrollView.swift */,
 				CE2DDA432A384687002AF99B /* LimeTrendCollectionView.swift */,
 				CE2DDA452A386E60002AF99B /* LimesTodayView.swift */,
+				CE2DDA472A4C31EF002AF99B /* LimeTestSectionView.swift */,
 			);
 			path = HomeVC;
 			sourceTree = "<group>";
@@ -369,14 +372,14 @@
 				CE7A7A1229A87B4B00DDE8A5 /* ContainerViewController.swift */,
 				CE2DD98129CCA126002AF99B /* HomeViewController.swift */,
 				CE2DD9CC29DA9AED002AF99B /* SignUpViewController.swift */,
+				CE2DD9D229DAEAB3002AF99B /* VerifyEmailViewController.swift */,
+				CE2DD9D429DAEBEC002AF99B /* PersonalityTestViewController.swift */,
+				CE2DD9DA29DC1174002AF99B /* PersonalityTestResultViewController.swift */,
 				CE2DD97D29CC2717002AF99B /* ProfileViewController.swift */,
 				CE2DD96D29C827B7002AF99B /* SearchViewController.swift */,
 				CE2DD97F29CC2729002AF99B /* SideMenuViewController.swift */,
 				CE2DD97B29CC21DA002AF99B /* LogInViewController.swift */,
-				CE2DD9D229DAEAB3002AF99B /* VerifyEmailViewController.swift */,
-				CE2DD9D429DAEBEC002AF99B /* PersonalityTestViewController.swift */,
 				CE2DD97529CC1107002AF99B /* RealTimeHotDetailViewController.swift */,
-				CE2DD9DA29DC1174002AF99B /* PersonalityTestResultViewController.swift */,
 				CE2DD97929CC21A1002AF99B /* CategoryRequestViewController.swift */,
 				CE2DD97729CC2084002AF99B /* RealTimeHotBoardViewController.swift */,
 				CE2DD9DE29DC7057002AF99B /* BoardViewController.swift */,
@@ -417,7 +420,7 @@
 				CE2DD99A29D2DB90002AF99B /* SearchRealTimeData.swift */,
 				CE2DD99829D2DAFA002AF99B /* SearchHistoryData.swift */,
 				CE2DD98829D2BFA2002AF99B /* HotBoardRankingData.swift */,
-				CE2DD98629D2BE02002AF99B /* HotTrendData.swift */,
+				CE2DD98629D2BE02002AF99B /* LimeTrendsData.swift */,
 				CE2DD99029D2D5AA002AF99B /* PersonalityTestResultData.swift */,
 				CE2DD98E29D2D58B002AF99B /* ProfileData.swift */,
 				CE2DD98A29D2C02C002AF99B /* CategoryData.swift */,
@@ -616,7 +619,7 @@
 				CE2DDA042A2710FC002AF99B /* MyLimeRoomNotLoggedView.swift in Sources */,
 				CE2DD96C29C7466D002AF99B /* HomeBoardTableView.swift in Sources */,
 				CE2DD99B29D2DB90002AF99B /* SearchRealTimeData.swift in Sources */,
-				CE2DD98729D2BE02002AF99B /* HotTrendData.swift in Sources */,
+				CE2DD98729D2BE02002AF99B /* LimeTrendsData.swift in Sources */,
 				CE2DD96E29C827B7002AF99B /* SearchViewController.swift in Sources */,
 				CE2DDA3C2A275EA2002AF99B /* imageShadowExt.swift in Sources */,
 				CE2DD9BF29D8264E002AF99B /* SQLiteDatabaseCommands.swift in Sources */,
@@ -680,6 +683,7 @@
 				CE2DD99729D2D72A002AF99B /* DataSourceService.swift in Sources */,
 				CE2DD9D929DBF8A6002AF99B /* AnswerBarView.swift in Sources */,
 				CE2DD96629C59721002AF99B /* BoardSectionView.swift in Sources */,
+				CE2DDA482A4C31EF002AF99B /* LimeTestSectionView.swift in Sources */,
 				CE2DD96829C59F84002AF99B /* NormalTableView.swift in Sources */,
 				CE2DD98B29D2C02C002AF99B /* CategoryData.swift in Sources */,
 				CE2DDA462A386E60002AF99B /* LimesTodayView.swift in Sources */,

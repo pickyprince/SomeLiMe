@@ -13,8 +13,16 @@ class VerifyEmailViewController: UIViewController{
     let verifyButton: UIButton = UIButton()
     let checkBoxContainerStackView: UIStackView = UIStackView()
     let checkBoxLabel: UILabel = UILabel()
-    let checkBox: UIView = UIView()
     let navigationButton: UIButton = UIButton()
+    
+    
+    let imageView = {
+        let imageView = UIImageView(image: UIImage(named: "loginlogo"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     @objc func verifyButtonTouched(){
         print("verify button clicked")
         Task.init {
@@ -33,11 +41,7 @@ class VerifyEmailViewController: UIViewController{
             }
             print("break")
             if (Auth.auth().currentUser?.isEmailVerified ?? false) {
-                self.checkBoxLabel.text = "Email Verified"
-                self.checkBoxLabel.textColor = .label
-                self.checkBox.backgroundColor = UIColor(red: 50/255, green: 205/255, blue: 50/255, alpha:1)
                 self.navigationButton.isHidden = false
-                self.verifyButton.isHidden = true
             }
         }
     }
@@ -46,7 +50,7 @@ class VerifyEmailViewController: UIViewController{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        verifyButtonTouched()
         Auth.auth().addStateDidChangeListener({auth, user in
             print("email verification changed called")
             guard let result = user?.isEmailVerified else{
@@ -55,9 +59,8 @@ class VerifyEmailViewController: UIViewController{
             if result {
                 //verified -> check box and navigate to next vc
                 print("email is verified")
-                self.checkBoxLabel.text = "Email Verified"
+                self.checkBoxLabel.text = "이메일 인증 완료"
                 self.checkBoxLabel.textColor = .label
-                self.checkBox.backgroundColor = UIColor(red: 50/255, green: 205/255, blue: 50/255, alpha:1)
                 self.navigationButton.isHidden = false
             }else{
                 print("email is not verified")
@@ -69,18 +72,10 @@ class VerifyEmailViewController: UIViewController{
         textView.translatesAutoresizingMaskIntoConstraints = false
         verifyButton.translatesAutoresizingMaskIntoConstraints = false
         checkBoxLabel.translatesAutoresizingMaskIntoConstraints = false
-        checkBox.translatesAutoresizingMaskIntoConstraints = false
         navigationButton.translatesAutoresizingMaskIntoConstraints = false
-        checkBoxContainerStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        checkBoxContainerStackView.axis = .horizontal
-        checkBoxContainerStackView.distribution = .fill
-        checkBoxContainerStackView.spacing = 10
-        checkBoxLabel.text = "Email Not Verified"
+        checkBoxLabel.text = "이메일 인증 미완료"
         checkBoxLabel.textColor = .red
-        checkBox.backgroundColor = .white
-        checkBox.layer.borderWidth = 2
-        checkBox.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.spacing = 10
@@ -89,23 +84,26 @@ class VerifyEmailViewController: UIViewController{
         navigationButton.backgroundColor = UIColor(red: 50/255, green: 205/255, blue: 50/255, alpha:1)
         navigationButton.isHidden = true
         navigationButton.addTarget(self, action: #selector(navigateToPT), for: .touchUpInside)
-        verifyButton.setTitle("이메일 인증하기", for: .normal)
-        verifyButton.backgroundColor = UIColor(red: 50/255, green: 205/255, blue: 50/255, alpha:1)
+        verifyButton.setTitle("이메일 인증 메일 새로 보내기", for: .normal)
+        verifyButton.backgroundColor = UIColor(cgColor: SomLimeColors.primaryColor)
+        verifyButton.setTitleColor(UIColor(cgColor: SomLimeColors.label), for: .normal)
         verifyButton.addTarget(self, action: #selector(verifyButtonTouched), for: .touchUpInside)
-        
-        textView.text = "환영합니다! \n당신의 계정이 생성되었습니다.\n이어서 이메일 인증을 진행해주세요.\n이메일 인증을 하지 않을 경우 계정은 3일 뒤에 삭제됩니다."
+        textView.text = "이메일 인증을 완료해야 활동이 가능합니다.\n인증 완료하지 않을 시에 5일 후에 계정이\n삭제됩니다."
         textView.numberOfLines = 0
         textView.font = UIFont.systemFont(ofSize: 20)
-        
+        checkBoxContainerStackView.axis = .horizontal
+        checkBoxContainerStackView.distribution = .equalCentering
         view.addSubview(stackView)
         view.addSubview(checkBoxContainerStackView)
         view.addSubview(navigationButton)
+        stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(textView)
         stackView.addArrangedSubview(verifyButton)
         checkBoxContainerStackView.addArrangedSubview(checkBoxLabel)
-        checkBoxContainerStackView.addArrangedSubview(checkBox)
         
         NSLayoutConstraint.activate([
+            imageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35),
+            imageView.widthAnchor.constraint(equalTo: view.widthAnchor),
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackView.widthAnchor.constraint(equalToConstant: view.frame.width * 0.8)
@@ -113,11 +111,6 @@ class VerifyEmailViewController: UIViewController{
         NSLayoutConstraint.activate([
             checkBoxContainerStackView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 50),
             checkBoxContainerStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        ])
-        NSLayoutConstraint.activate([
-            checkBox.topAnchor.constraint(equalTo: checkBoxLabel.topAnchor),
-            checkBox.bottomAnchor.constraint(equalTo: checkBoxLabel.bottomAnchor),
-            checkBox.widthAnchor.constraint(equalToConstant: checkBoxLabel.intrinsicContentSize.height)
         ])
         NSLayoutConstraint.activate([
             navigationButton.topAnchor.constraint(equalTo: checkBoxContainerStackView.bottomAnchor, constant: 50),

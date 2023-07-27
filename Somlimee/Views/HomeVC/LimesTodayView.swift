@@ -132,7 +132,7 @@ class LimesTodayTapView: UIViewController {
         horizontalLine2.backgroundColor = UIColor(cgColor: SomLimeColors.lightPrimaryColor)
         Task.init {
             do{
-                self.tableView.data = try await self.repository?.getBoardPostMetaList(boardName: self.currentTab, startTime: "NaN", counts: 10) ?? []
+                self.tableView.data = try await self.repository?.getBoardHotPostsList(boardName: self.currentTab, startTime: "NaN", counts: 10) ?? []
             }
             catch{
                 print(">>>> \(error)")
@@ -142,7 +142,7 @@ class LimesTodayTapView: UIViewController {
             self.currentTab = boardName ?? "광장"
             Task.init {
                 do{
-                    self.tableView.data = try await self.repository?.getBoardPostMetaList(boardName: self.currentTab, startTime: "NaN", counts: 10) ?? []
+                    self.tableView.data = try await self.repository?.getBoardHotPostsList(boardName: self.currentTab, startTime: "NaN", counts: 10) ?? []
                 }
                 catch{
                     print(">>>> \(error)")

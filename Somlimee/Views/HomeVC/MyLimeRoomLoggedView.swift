@@ -50,7 +50,7 @@ class MyLimeRoomLoggedView: UIView {
                 
             Task.init {
                 do{
-                    posts = try await self.repository?.getBoardPostMetaList(boardName: self.boardName ?? "NDD", startTime: "NaN", counts:4)
+                    posts = try await self.repository?.getBoardHotPostsList(boardName: self.boardName ?? "NDD", startTime: "NaN", counts:4)
                 } catch{
                     print(">>>> 핫 게시물 읽어오는 중에 에러가 발생했습니다:\n \(error)")
                 }
