@@ -98,7 +98,23 @@ final class ContainerViewController: UIViewController {
                 self.sideMenuVC.view.frame.origin.x = -self.offSetValue
                 self.profileVC.view.frame.origin.x = self.view.frame.width
                 
-            }, completion: {isComp in self.navigationVC.pushViewController(VerifyEmailViewController(), animated: true)
+            }, completion: {isComp in
+                let vc = VerifyEmailViewController()
+                vc.verifyButtonTouched()
+                self.navigationVC.pushViewController(vc, animated: true)
+                self.homeVC.fogTouchUP()
+            })
+        }
+        
+        profileVC.navigateToPersonalityTest = {
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn ,animations: {
+                self.navigationVC.view.frame.origin.x = 0
+                self.sideMenuVC.view.frame.origin.x = -self.offSetValue
+                self.profileVC.view.frame.origin.x = self.view.frame.width
+                
+            }, completion: {isComp in
+                let vc = PersonalityTestViewController()
+                self.navigationVC.pushViewController(vc, animated: true)
                 self.homeVC.fogTouchUP()
             })
         }

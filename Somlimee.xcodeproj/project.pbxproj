@@ -103,6 +103,8 @@
 		CE2DDA442A384687002AF99B /* LimeTrendCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA432A384687002AF99B /* LimeTrendCollectionView.swift */; };
 		CE2DDA462A386E60002AF99B /* LimesTodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA452A386E60002AF99B /* LimesTodayView.swift */; };
 		CE2DDA482A4C31EF002AF99B /* LimeTestSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DDA472A4C31EF002AF99B /* LimeTestSectionView.swift */; };
+		CE370DA72A7E772F00CFCD6B /* SomLiMeTestBeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE370DA62A7E772F00CFCD6B /* SomLiMeTestBeta.swift */; };
+		CE370DA92A7F689200CFCD6B /* PTChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE370DA82A7F689200CFCD6B /* PTChartView.swift */; };
 		CE4F263B29B4D07F0037AA30 /* LabelCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */; };
 		CE7A7A0F29A87B4B00DDE8A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */; };
 		CE7A7A1129A87B4B00DDE8A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A7A1029A87B4B00DDE8A5 /* SceneDelegate.swift */; };
@@ -210,6 +212,8 @@
 		CE2DDA432A384687002AF99B /* LimeTrendCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimeTrendCollectionView.swift; sourceTree = "<group>"; };
 		CE2DDA452A386E60002AF99B /* LimesTodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimesTodayView.swift; sourceTree = "<group>"; };
 		CE2DDA472A4C31EF002AF99B /* LimeTestSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimeTestSectionView.swift; sourceTree = "<group>"; };
+		CE370DA62A7E772F00CFCD6B /* SomLiMeTestBeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomLiMeTestBeta.swift; sourceTree = "<group>"; };
+		CE370DA82A7F689200CFCD6B /* PTChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTChartView.swift; sourceTree = "<group>"; };
 		CE4F263A29B4D07F0037AA30 /* LabelCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionView.swift; sourceTree = "<group>"; };
 		CE7A7A0B29A87B4B00DDE8A5 /* Somlimee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Somlimee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7A7A0E29A87B4B00DDE8A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -270,6 +274,7 @@
 				CE2DD9BE29D8264E002AF99B /* SQLiteDatabaseCommands.swift */,
 				CE2DDA092A271AAE002AF99B /* SomLimeColors.swift */,
 				CE2DDA3B2A275EA2002AF99B /* imageShadowExt.swift */,
+				CE370DA62A7E772F00CFCD6B /* SomLiMeTestBeta.swift */,
 				CE2DDA372A27393D002AF99B /* SomLimeFonts.swift */,
 			);
 			path = Core;
@@ -325,6 +330,7 @@
 		CE2DDA082A271878002AF99B /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				CE370DA82A7F689200CFCD6B /* PTChartView.swift */,
 				CE2DDA062A27180D002AF99B /* LoadingView.swift */,
 			);
 			path = Commons;
@@ -618,6 +624,7 @@
 			files = (
 				CE2DDA042A2710FC002AF99B /* MyLimeRoomNotLoggedView.swift in Sources */,
 				CE2DD96C29C7466D002AF99B /* HomeBoardTableView.swift in Sources */,
+				CE370DA72A7E772F00CFCD6B /* SomLiMeTestBeta.swift in Sources */,
 				CE2DD99B29D2DB90002AF99B /* SearchRealTimeData.swift in Sources */,
 				CE2DD98729D2BE02002AF99B /* LimeTrendsData.swift in Sources */,
 				CE2DD96E29C827B7002AF99B /* SearchViewController.swift in Sources */,
@@ -661,6 +668,7 @@
 				CE2DD99329D2D711002AF99B /* LocalDataSourceService.swift in Sources */,
 				CE2DD98D29D2C0E1002AF99B /* BoardHotKeyData.swift in Sources */,
 				CE2DD9DD29DC50A0002AF99B /* CalculateTestResult.swift in Sources */,
+				CE370DA92A7F689200CFCD6B /* PTChartView.swift in Sources */,
 				CE2DD97629CC1107002AF99B /* RealTimeHotDetailViewController.swift in Sources */,
 				CE2DD9C529D858EC002AF99B /* LocalDataSourceFailures.swift in Sources */,
 				CE2DD9F529F7B71E002AF99B /* BoardTableView.swift in Sources */,

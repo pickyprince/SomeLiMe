@@ -6,12 +6,12 @@
 //
 
 import Foundation
-
+import FirebaseAuth
 protocol PersonalityTestViewRepository{
     
     //GET REPOSITORY ITEMS
     func getQuestions() async throws -> PersonalityTestQuestions?
-    func updatePersonalityTest(test: PersonalityTestResultData) async throws -> Void
+    func updatePersonalityTest(test: PersonalityTestResultData, uid: String) async throws -> Void
     func getPersonalityTestResult() async throws -> PersonalityTestResultData?
 }
 
@@ -38,62 +38,28 @@ final class PersonalityTestViewRepositoryImpl: PersonalityTestViewRepository{
         }
         return PersonalityTestQuestions(questions: unwrappedCastedRawData, category: unwrappedCastedRawData2, answers: [Answer.Neutral])
     }
-    func updatePersonalityTest(test: PersonalityTestResultData) async throws -> Void{
-        try await DataSourceService.sharedInstance.updatePersonalityTest(test: test)
+    func updatePersonalityTest(test: PersonalityTestResultData, uid: String) async throws -> Void{
+        guard var userData = try await DataSourceService.sharedInstance.getUserData(uid: uid) else {
+            print(">>>> UPDATE PT - ERROR")
+            return
+        }
+        userData["PersonalityTestResult"] = [test.Strenuousness, test.Receptiveness, test.Harmonization, test.Coagulation]
+        userData["PersonalityType"] = test.type
+        try await DataSourceService.sharedInstance.updateUser(userInfo: userData)
     }
     func getPersonalityTestResult() async throws -> PersonalityTestResultData? {
-        let rawData = try await DataSourceService.sharedInstance.getPersonalityTestResult()
+        guard var udata = try await DataSourceService.sharedInstance.getUserData(uid: FirebaseAuth.Auth.auth().currentUser?.uid ?? "") else{
+            print(">>>> UserDataFailed")
+            return nil
+        }
+        let scores: [Int] = udata["PersonalityTestResult"] as! [Int]
+        let type: String = udata["PersonalityType"] as! String
+        let str = scores[0]
+        let rec = scores[1]
+        let har = scores[2]
+        let coa = scores[3]
         
-        
-        guard let unwrappedRawData1 = rawData?["Strenuousness"] else{
-            print("fire rawData empty!")
-            return nil
-        }
-        let castedRawData1 = unwrappedRawData1 as? Int
-        guard let unwrappedCastedRawData1 = castedRawData1 else {
-            print("could not caste rawData")
-            return nil
-        }
-        
-        //second
-        guard let unwrappedRawData2 = rawData?["Receptiveness"] else{
-            print("water rawData empty!")
-            return nil
-        }
-        let castedRawData2 = unwrappedRawData2 as? Int
-        guard let unwrappedCastedRawData2 = castedRawData2 else {
-            print("could not caste rawData")
-            return nil
-        }
-        guard let unwrappedRawData3 = rawData?["Harmonization"] else{
-            print("air rawData empty!")
-            return nil
-        }
-        let castedRawData3 = unwrappedRawData3 as? Int
-        guard let unwrappedCastedRawData3 = castedRawData3 else {
-            print("could not caste rawData")
-            return nil
-        }
-        guard let unwrappedRawData4 = rawData?["Coagulation"] else{
-            print("earth rawData empty!")
-            return nil
-        }
-        let castedRawData4 = unwrappedRawData4 as? Int
-        guard let unwrappedCastedRawData4 = castedRawData4 else {
-            print("could not caste rawData")
-            return nil
-        }
-        guard let unwrappedRawData5 = rawData?["PersonalityType"] else{
-            print("earth rawData empty!")
-            return nil
-        }
-        
-        let castedRawData5 = unwrappedRawData5 as? String
-        guard let unwrappedCastedRawData5 = castedRawData5 else {
-            print("could not caste rawData")
-            return nil
-        }
-        return PersonalityTestResultData(Strenuousness: unwrappedCastedRawData1, Receptiveness: unwrappedCastedRawData2, Harmonization: unwrappedCastedRawData3, Coagulation: unwrappedCastedRawData4, type: unwrappedCastedRawData5)
+        return PersonalityTestResultData(Strenuousness: str, Receptiveness: rec, Harmonization: har, Coagulation: coa, type: type)
     }
     
 }

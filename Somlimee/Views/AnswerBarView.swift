@@ -51,7 +51,7 @@ class AnswerBarView: UIStackView{
         for index in 0...(addedMarbles.count-1){
             if addedMarbles[index].frame.width > 15 {
                 //shrink
-                UIView.animate(withDuration: 0.5, delay: 0, animations: {
+                UIView.animate(withDuration: 0.2, delay: 0, animations: {
                     self.addedMarbles[index].transform = CGAffineTransform(scaleX: 1, y: 1)
                 })
             }
@@ -61,7 +61,7 @@ class AnswerBarView: UIStackView{
         didSet{
             //Animate Through Marbles: if the marble is the selected marble magnify then continue, the others will shrink if it is magnified
             let ref = addedMarbles[selectedMarble]
-            UIView.animate(withDuration: 0.5, delay: 0, animations: {
+            UIView.animate(withDuration: 0.2, delay: 0, animations: {
                 ref.transform = CGAffineTransform(scaleX: 1.7, y: 1.7)
             })
             for index in 0...(addedMarbles.count-1){
@@ -71,7 +71,7 @@ class AnswerBarView: UIStackView{
                 
                 if addedMarbles[index].frame.width > 8 {
                     //shrink
-                    UIView.animate(withDuration: 0.5, delay: 0, animations: {
+                    UIView.animate(withDuration: 0.2, delay: 0, animations: {
                         self.addedMarbles[index].transform = CGAffineTransform(scaleX: 1, y: 1)
                     })
                 }

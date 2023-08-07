@@ -28,7 +28,7 @@ final class UserSignUpWithEmailService{
                     userInfo.personalityTestResult.Harmonization,
                     userInfo.personalityTestResult.Coagulation
                 ],
-                "PersonalityType": "NDR"
+                "PersonalityType": userInfo.personalityTestResult.type
             ])
         }catch{
             print("CouldNotCreatUser")
@@ -49,7 +49,7 @@ final class UserSignUpWithEmailService{
         do{
             try await user.sendEmailVerification()
         }catch{
-            print("CouldNotSendVerificationEmail")
+            print("CouldNotSendVerificationEmail\(error)")
             throw UserSignUpFailures.CouldNotSendVerificationEmail
         }
     }

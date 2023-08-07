@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import FirebaseAuth
 class PersonalityTestViewController: UIViewController{
     //Declare
     var questions: PersonalityTestQuestions? {
@@ -17,7 +17,6 @@ class PersonalityTestViewController: UIViewController{
     var repository: PersonalityTestViewRepository?
     var currentIndex: Int = 0 {
         didSet{
-            
             if currentIndex <= (questions?.questions.count ?? 0) - 1 {
                 questionLabel.text = questions?.questions[currentIndex]
             }
@@ -45,16 +44,20 @@ class PersonalityTestViewController: UIViewController{
         isSelected = false
         if currentIndex > (questions?.questions.count ?? 0) - 1 {
             //
+            var result: PersonalityTestResultData = PersonalityTestResultData(Strenuousness: 0, Receptiveness: 0, Harmonization: 0, Coagulation: 0, type: "")
+            let vc = PersonalityTestResultViewController()
             if let test = questions{
                 Task.init {
                     do{
-                        try await repository?.updatePersonalityTest(test: calculateTestResult(test: test))
+                        result = calculateTestResult(test: test)
+                        vc.testResult = result
+                        try await repository?.updatePersonalityTest(test: result, uid: FirebaseAuth.Auth.auth().currentUser?.uid ?? "")
                     }catch{
                         print("\(error)")
                     }
                 }
             }
-            navigationController?.pushViewController(PersonalityTestResultViewController(), animated: true)
+            navigationController?.pushViewController(vc, animated: true)
             return
         }
         self.questionLabel.layer.opacity = 0

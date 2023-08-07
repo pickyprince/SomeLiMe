@@ -60,9 +60,17 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         signupLabel.translatesAutoresizingMaskIntoConstraints = false
         return signupLabel
     }()
+    
+    let userNameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "닉네임"
+        label.font = UIFont.hanSansNeoBold(size: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     let emailLabel: UILabel = {
         let label = UILabel()
-        label.text = "이미지 주소"
+        label.text = "이메일 주소"
         label.font = UIFont.hanSansNeoBold(size: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -84,9 +92,19 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
     
+    let userNameTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "닉네임"
+        textField.borderStyle = .roundedRect
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.tintColor = .lightGray
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
     let emailTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "email"
+        textField.placeholder = "이메일"
         textField.borderStyle = .roundedRect
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
@@ -150,20 +168,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         return stackView
     }()
     
-    @objc func signUpClicked(){
-        let id = self.emailTextField.text ?? ""
-        let pw = self.passwordLabel.text ?? ""
-        Task.init {
-            do{
-                print("Creating User")
-                try await UserSignUpWithEmailService.sharedInstance.createUser(Email: id, PW: pw, userInfo: ProfileData(userName: "안녕하세용", profileImage: nil, totalUps: 0, receivedUps: 0, points: 0, daysOfActive: 0, badges: [], personalityTestResult: PersonalityTestResultData(Strenuousness: 23, Receptiveness: 30, Harmonization: 15, Coagulation: 10, type: "NDD" ), personalityType: "NDD"))
-                print("Created User Successfully")
-                navigationController?.pushViewController(VerifyEmailViewController(), animated: true)
-            }catch UserSignUpFailures.CouldNotCreatUser{
-                print(">>>>ERROR: Could Not Creat User")
-            }
-        }
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -173,7 +177,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         view.backgroundColor = .white
         view.addSubview(imageView)
         view.addSubview(stackView)
-        let views = [signupLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, confirmPasswordLabel, horizontalStackView, sendEmailButton]
+        let views = [signupLabel,userNameLabel,userNameTextField, emailLabel, emailTextField, passwordLabel, passwordTextField, confirmPasswordLabel, horizontalStackView, sendEmailButton]
         for view in views {
             stackView.addArrangedSubview(view)
         }
@@ -207,9 +211,14 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                         guard let pass = passwordTextField.text else {
                             return
                         }
-                        try await UserSignUpWithEmailService.sharedInstance.createUser(Email: ema , PW: pass, userInfo: ProfileData(userName: "No-Name", profileImage: nil, totalUps: 0, receivedUps: 0, points: 0, daysOfActive: 0, badges: [], personalityTestResult: PersonalityTestResultData(Strenuousness: 0, Receptiveness: 0, Harmonization: 0, Coagulation: 0, type: ""), personalityType: ""))
+                        guard let name = userNameTextField.text else {
+                            return
+                        }
+                        try await UserSignUpWithEmailService.sharedInstance.createUser(Email: ema , PW: pass, userInfo: ProfileData(userName: name, profileImage: nil, totalUps: 0, receivedUps: 0, points: 0, daysOfActive: 0, badges: [], personalityTestResult: PersonalityTestResultData(Strenuousness: 0, Receptiveness: 0, Harmonization: 0, Coagulation: 0, type: ""), personalityType: ""))
                         try await UserSignUpWithEmailService.sharedInstance.verifyEmail()
-                        self.navigationController?.pushViewController(VerifyEmailViewController(), animated: true)
+                        let vc = VerifyEmailViewController()
+                        vc.verifyButtonTouched()
+                        self.navigationController?.pushViewController(vc, animated: true)
                     }catch{
                         print(error)
                     }

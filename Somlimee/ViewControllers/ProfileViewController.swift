@@ -66,6 +66,8 @@ class ProfileViewController: UIViewController {
     let loginButton: UIButton = UIButton()
     let verifyEmailButton: UIButton = UIButton()
     
+    let personalityTestButton: UIButton = UIButton()
+    
     private func createPostListItem(){
         for data in [[:]]{
             let postItemContainer = UIView()
@@ -143,9 +145,14 @@ class ProfileViewController: UIViewController {
         navigateToVerifyEmail?()
     }
     
+    @objc func navigateToPersonalityTestView(){
+        navigateToPersonalityTest?()
+    }
+    
     //MARK: - Delegate Properties (Undefined)
     var navigateToLogin: (()->())?
     var navigateToVerifyEmail: (()->())?
+    var navigateToPersonalityTest: (()->())?
     
     
     func loadData(){
@@ -164,6 +171,7 @@ class ProfileViewController: UIViewController {
         //ADD SUBVIEWS
         self.view.addSubview(loginButton)
         self.view.addSubview(verifyEmailButton)
+        self.view.addSubview(personalityTestButton)
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(recentPostsListContainer)
         self.view.addSubview(profileImageView)
@@ -209,6 +217,7 @@ class ProfileViewController: UIViewController {
         mailButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         verifyEmailButton.translatesAutoresizingMaskIntoConstraints = false
+        personalityTestButton.translatesAutoresizingMaskIntoConstraints = false
         
         
         loginButton.setTitle("로그인하기", for: .normal)
@@ -220,6 +229,10 @@ class ProfileViewController: UIViewController {
         verifyEmailButton.setTitle("이메일 인증", for: .normal)
         verifyEmailButton.setTitleColor(.label, for: .normal)
         verifyEmailButton.addTarget(self, action: #selector(navigateToVerifyEmailView), for: .touchUpInside)
+        
+        personalityTestButton.setTitle("성격테스트", for: .normal)
+        personalityTestButton.setTitleColor(.label, for: .normal)
+        personalityTestButton.addTarget(self, action: #selector(navigateToPersonalityTestView), for: .touchUpInside)
         
         defaultFont = UIFont.systemFont(ofSize: 13)
         profileImageView.image = UIImage(systemName: "person.fill")
@@ -357,7 +370,10 @@ class ProfileViewController: UIViewController {
         NSLayoutConstraint.activate([
             verifyEmailButton.topAnchor.constraint(equalTo: bottomButtonGroup.bottomAnchor),
             verifyEmailButton.trailingAnchor.constraint(equalTo: bottomButtonGroup.trailingAnchor),
-            verifyEmailButton.leadingAnchor.constraint(equalTo: bottomButtonGroup.leadingAnchor)
+            verifyEmailButton.leadingAnchor.constraint(equalTo: bottomButtonGroup.leadingAnchor),
+            personalityTestButton.topAnchor.constraint(equalTo: verifyEmailButton.bottomAnchor),
+            personalityTestButton.trailingAnchor.constraint(equalTo: verifyEmailButton.trailingAnchor),
+            personalityTestButton.leadingAnchor.constraint(equalTo: verifyEmailButton.leadingAnchor),
         ])
         
     }
@@ -368,6 +384,7 @@ class ProfileViewController: UIViewController {
             if user == nil {
                 self.loginButton.isHidden = false
                 self.verifyEmailButton.isHidden = true
+                self.personalityTestButton.isHidden = true
                 self.profileImageView.isHidden = true
                 self.userNameLabel.isHidden = true
                 self.profileSettingButton.isHidden = true
@@ -408,6 +425,14 @@ class ProfileViewController: UIViewController {
                     self.verifyEmailButton.isHidden = true
                 }else{
                     self.verifyEmailButton.isHidden = false
+                }
+                Task.init {
+                    let data = try await self.repository?.getUserData(uid: user?.uid ?? "")
+                    if data?.personalityTestResult.type == ""{
+                        self.verifyEmailButton.isHidden = false
+                    }else{
+                        self.verifyEmailButton.isHidden = true
+                    }
                 }
             }
         })
