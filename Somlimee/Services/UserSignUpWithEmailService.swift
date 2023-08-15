@@ -14,10 +14,13 @@ final class UserSignUpWithEmailService{
     internal func createUser(Email: String, PW: String, userInfo: ProfileData) async throws -> Void{
         do{
             try await FirebaseAuth.Auth.auth().createUser(withEmail: Email, password: PW)
+            print(userInfo.signUpDate)
             try await DataSourceService.sharedInstance.updateUser(userInfo: [
                 "UserName": userInfo.userName,
                 "ProfileImageURL": "", //Later Modify
                 "TotalUps": userInfo.totalUps,
+                "SignUpDate": userInfo.signUpDate,
+                "NumOfPosts": userInfo.numOfPosts,
                 "ReceivedUps": userInfo.receivedUps,
                 "Points": userInfo.points,
                 "DaysOfActive": userInfo.daysOfActive,

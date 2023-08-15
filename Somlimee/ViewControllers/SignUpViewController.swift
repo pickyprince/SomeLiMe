@@ -214,7 +214,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                         guard let name = userNameTextField.text else {
                             return
                         }
-                        try await UserSignUpWithEmailService.sharedInstance.createUser(Email: ema , PW: pass, userInfo: ProfileData(userName: name, profileImage: nil, totalUps: 0, receivedUps: 0, points: 0, daysOfActive: 0, badges: [], personalityTestResult: PersonalityTestResultData(Strenuousness: 0, Receptiveness: 0, Harmonization: 0, Coagulation: 0, type: ""), personalityType: ""))
+                        try await UserSignUpWithEmailService.sharedInstance.createUser(Email: ema , PW: pass, userInfo: ProfileData(userName: name, profileImage: nil, totalUps: 0, signUpDate: Date.now.date.description, numOfPosts: 0, receivedUps: 0, points: 0, daysOfActive: 0, badges: [], personalityTestResult: PersonalityTestResultData(Strenuousness: 0, Receptiveness: 0, Harmonization: 0, Coagulation: 0, type: ""), personalityType: ""))
                         try await UserSignUpWithEmailService.sharedInstance.verifyEmail()
                         let vc = VerifyEmailViewController()
                         vc.verifyButtonTouched()

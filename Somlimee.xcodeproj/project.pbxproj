@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0DB4A586DCC80EE7EBF5DBA0 /* Pods_Somlimee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E5A735D7FA822DBB91BC78 /* Pods_Somlimee.framework */; };
+		CE15740F2A808CD1003CCE1F /* SomeLiMePTTypeDesc.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15740E2A808CD1003CCE1F /* SomeLiMePTTypeDesc.swift */; };
+		CE1574122A81160F003CCE1F /* ProfileCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1574112A81160F003CCE1F /* ProfileCardView.swift */; };
 		CE2DD96429C4AF73002AF99B /* HomeNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD96329C4AF73002AF99B /* HomeNavBar.swift */; };
 		CE2DD96629C59721002AF99B /* BoardSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD96529C59721002AF99B /* BoardSectionView.swift */; };
 		CE2DD96829C59F84002AF99B /* NormalTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DD96729C59F84002AF99B /* NormalTableView.swift */; };
@@ -117,6 +119,8 @@
 		1732E69D082DAF5B0709637F /* Pods-Somlimee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Somlimee.release.xcconfig"; path = "Target Support Files/Pods-Somlimee/Pods-Somlimee.release.xcconfig"; sourceTree = "<group>"; };
 		B4E5A735D7FA822DBB91BC78 /* Pods_Somlimee.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Somlimee.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC0206F4DEE857BC1A7DEA97 /* Pods-Somlimee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Somlimee.debug.xcconfig"; path = "Target Support Files/Pods-Somlimee/Pods-Somlimee.debug.xcconfig"; sourceTree = "<group>"; };
+		CE15740E2A808CD1003CCE1F /* SomeLiMePTTypeDesc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeLiMePTTypeDesc.swift; sourceTree = "<group>"; };
+		CE1574112A81160F003CCE1F /* ProfileCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardView.swift; sourceTree = "<group>"; };
 		CE2DD96329C4AF73002AF99B /* HomeNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavBar.swift; sourceTree = "<group>"; };
 		CE2DD96529C59721002AF99B /* BoardSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSectionView.swift; sourceTree = "<group>"; };
 		CE2DD96729C59F84002AF99B /* NormalTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalTableView.swift; sourceTree = "<group>"; };
@@ -253,6 +257,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CE1574102A8115E5003CCE1F /* ProfileVC */ = {
+			isa = PBXGroup;
+			children = (
+				CE1574112A81160F003CCE1F /* ProfileCardView.swift */,
+			);
+			path = ProfileVC;
+			sourceTree = "<group>";
+		};
 		CE2DD98329CD8885002AF99B /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +288,7 @@
 				CE2DDA3B2A275EA2002AF99B /* imageShadowExt.swift */,
 				CE370DA62A7E772F00CFCD6B /* SomLiMeTestBeta.swift */,
 				CE2DDA372A27393D002AF99B /* SomLimeFonts.swift */,
+				CE15740E2A808CD1003CCE1F /* SomeLiMePTTypeDesc.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -407,6 +420,7 @@
 				CE2DD9D829DBF8A6002AF99B /* AnswerBarView.swift */,
 				CE2DDA052A271113002AF99B /* HomeVC */,
 				CE2DD96F29C828B2002AF99B /* SearchNavBar.swift */,
+				CE1574102A8115E5003CCE1F /* ProfileVC */,
 				CE2DD9F229F3ADEE002AF99B /* BoardNavBar.swift */,
 				CE2DD9FA2A068997002AF99B /* BoardPostNavBar.swift */,
 				CE2DD9F62A03B84D002AF99B /* BoardPostWriteNavBar.swift */,
@@ -657,6 +671,7 @@
 				CE7A7A1329A87B4B00DDE8A5 /* ContainerViewController.swift in Sources */,
 				CE2DD97A29CC21A1002AF99B /* CategoryRequestViewController.swift in Sources */,
 				CE7A7A0F29A87B4B00DDE8A5 /* AppDelegate.swift in Sources */,
+				CE15740F2A808CD1003CCE1F /* SomeLiMePTTypeDesc.swift in Sources */,
 				CE2DD9BB29D7FFDC002AF99B /* UserSignUpFailures.swift in Sources */,
 				CE2DD9B129D7205F002AF99B /* UserSignUpWithEmailService.swift in Sources */,
 				CE2DD9ED29F100BA002AF99B /* SQLiteDatabaseFailures.swift in Sources */,
@@ -670,6 +685,7 @@
 				CE2DD9DD29DC50A0002AF99B /* CalculateTestResult.swift in Sources */,
 				CE370DA92A7F689200CFCD6B /* PTChartView.swift in Sources */,
 				CE2DD97629CC1107002AF99B /* RealTimeHotDetailViewController.swift in Sources */,
+				CE1574122A81160F003CCE1F /* ProfileCardView.swift in Sources */,
 				CE2DD9C529D858EC002AF99B /* LocalDataSourceFailures.swift in Sources */,
 				CE2DD9F529F7B71E002AF99B /* BoardTableView.swift in Sources */,
 				CE2DD9A929D425E0002AF99B /* BoardInfoData.swift in Sources */,

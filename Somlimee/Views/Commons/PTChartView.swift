@@ -36,11 +36,10 @@ class PTChartView: UIView {
     let recBar: UIView = UIView()
     let harBar: UIView = UIView()
     let coaBar: UIView = UIView()
+    
     let emptyBar1: UIView = UIView()
     let emptyBar2: UIView = UIView()
-    let emptyBar3: UIView = UIView()
-    let emptyBar4: UIView = UIView()
-    let labelHStack: UIStackView = UIStackView()
+    
     let strLabel: UILabel = UILabel()
     let recLabel: UILabel = UILabel()
     let harLabel: UILabel = UILabel()
@@ -61,30 +60,24 @@ class PTChartView: UIView {
         coaBar.translatesAutoresizingMaskIntoConstraints = false
         emptyBar1.translatesAutoresizingMaskIntoConstraints = false
         emptyBar2.translatesAutoresizingMaskIntoConstraints = false
-        emptyBar3.translatesAutoresizingMaskIntoConstraints = false
-        emptyBar4.translatesAutoresizingMaskIntoConstraints = false
         strLabel.translatesAutoresizingMaskIntoConstraints = false
         recLabel.translatesAutoresizingMaskIntoConstraints = false
         harLabel.translatesAutoresizingMaskIntoConstraints = false
         coaLabel.translatesAutoresizingMaskIntoConstraints = false
-        labelHStack.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.backgroundColor = UIColor(cgColor: SomLimeColors.backgroundColor)
-        axisY.backgroundColor = UIColor(cgColor: SomLimeColors.systemGrayLight)
-        axisX.backgroundColor = UIColor(cgColor: SomLimeColors.systemGrayLight)
-        labelY.textColor = UIColor(cgColor: SomLimeColors.primaryColor)
+        axisY.backgroundColor = .label
+        axisX.backgroundColor = .label
+        labelY.textColor = .label
         labelY.text = "1.0"
         barHStack.axis = .horizontal
         barHStack.distribution = .equalSpacing
         barHStack.alignment = .lastBaseline
         barHStack.spacing = 50
         
-        labelHStack.axis = .horizontal
-        labelHStack.distribution = .fillEqually
-        
-        strBar.backgroundColor = UIColor(cgColor: SomLimeColors.primaryColor)
-        recBar.backgroundColor = UIColor(cgColor: SomLimeColors.primaryColor)
-        harBar.backgroundColor = UIColor(cgColor: SomLimeColors.primaryColor)
-        coaBar.backgroundColor = UIColor(cgColor: SomLimeColors.primaryColor)
+        strBar.backgroundColor = UIColor(cgColor: SomLimeColors.lightPrimaryColor)
+        recBar.backgroundColor = UIColor(cgColor: SomLimeColors.lightPrimaryColor)
+        harBar.backgroundColor = UIColor(cgColor: SomLimeColors.lightPrimaryColor)
+        coaBar.backgroundColor = UIColor(cgColor: SomLimeColors.lightPrimaryColor)
         
         strLabel.text = "활력성"
         strLabel.font = .hanSansNeoMedium(size: 14)
@@ -102,20 +95,16 @@ class PTChartView: UIView {
         self.addSubview(labelY)
         self.addSubview(axisX)
         self.addSubview(axisY)
-        self.addSubview(labelHStack)
+        self.addSubview(strLabel)
+        self.addSubview(recLabel)
+        self.addSubview(harLabel)
+        self.addSubview(coaLabel)
         barHStack.addArrangedSubview(emptyBar1)
         barHStack.addArrangedSubview(strBar)
         barHStack.addArrangedSubview(recBar)
         barHStack.addArrangedSubview(harBar)
         barHStack.addArrangedSubview(coaBar)
         barHStack.addArrangedSubview(emptyBar2)
-        
-        labelHStack.addArrangedSubview(emptyBar3)
-        labelHStack.addArrangedSubview(strLabel)
-        labelHStack.addArrangedSubview(recLabel)
-        labelHStack.addArrangedSubview(harLabel)
-        labelHStack.addArrangedSubview(coaLabel)
-        labelHStack.addArrangedSubview(emptyBar4)
 
         NSLayoutConstraint.activate([
             labelY.topAnchor.constraint(equalTo: topAnchor),
@@ -129,8 +118,6 @@ class PTChartView: UIView {
             coaBar.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1),
             emptyBar1.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1),
             emptyBar2.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1),
-            emptyBar3.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.05),
-            emptyBar4.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.05),
             
             barHStack.topAnchor.constraint(equalTo: labelY.bottomAnchor),
             barHStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
@@ -138,18 +125,24 @@ class PTChartView: UIView {
             barHStack.widthAnchor.constraint(equalTo: widthAnchor, constant: -40),
             
             axisY.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.9),
-            axisY.widthAnchor.constraint(equalToConstant: 3),
+            axisY.widthAnchor.constraint(equalToConstant: 1),
             axisY.trailingAnchor.constraint(equalTo: barHStack.leadingAnchor),
             axisY.topAnchor.constraint(equalTo: barHStack.topAnchor),
             
             axisX.topAnchor.constraint(equalTo: barHStack.bottomAnchor),
             axisX.leadingAnchor.constraint(equalTo: axisY.leadingAnchor),
-            axisX.widthAnchor.constraint(equalTo: widthAnchor, constant: -70),
-            axisX.heightAnchor.constraint(equalToConstant: 3),
+            axisX.widthAnchor.constraint(equalTo: widthAnchor, constant: -40),
+            axisX.heightAnchor.constraint(equalToConstant: 1),
             
-            labelHStack.topAnchor.constraint(equalTo: axisX.bottomAnchor),
-            labelHStack.leadingAnchor.constraint(equalTo: axisY.leadingAnchor),
-            labelHStack.widthAnchor.constraint(equalTo: widthAnchor),
+            strLabel.centerXAnchor.constraint(equalTo: strBar.centerXAnchor),
+            strLabel.topAnchor.constraint(equalTo: axisX.bottomAnchor, constant: 10),
+            recLabel.centerXAnchor.constraint(equalTo: recBar.centerXAnchor),
+            recLabel.topAnchor.constraint(equalTo: axisX.bottomAnchor, constant: 10),
+            harLabel.centerXAnchor.constraint(equalTo: harBar.centerXAnchor),
+            harLabel.topAnchor.constraint(equalTo: axisX.bottomAnchor, constant: 10),
+            coaLabel.centerXAnchor.constraint(equalTo: coaBar.centerXAnchor),
+            coaLabel.topAnchor.constraint(equalTo: axisX.bottomAnchor, constant: 10),
+            
         ])
     }
     

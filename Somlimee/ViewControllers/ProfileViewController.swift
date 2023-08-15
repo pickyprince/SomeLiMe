@@ -13,26 +13,7 @@ class ProfileViewController: UIViewController {
     
     //MARK: - Computed Properties
     
-    var profile: ProfileData? {
-        didSet{
-            
-            userNameLabel.text = profile?.userName
-            
-            giveUpsLabel.text = "준 추천수 \((profile?.totalUps ?? 0).description)"
-            
-            receivedUpsLabel.text = "받은 추천수 \((profile?.receivedUps ?? 0).description)"
-            
-            activeLabel.text = "활동 일 수 \((profile?.daysOfActive ?? 0).description)"
-            
-            pointsLabel.text = "포인트 \((profile?.points ?? 0).description)"
-            
-            recentPostsNumberLabel.text = 0.description
-            
-            view.setNeedsLayout()
-            
-            view.layoutIfNeeded()
-        }
-    }
+
     
     var repository: ProfileViewRepository? {
         didSet{
@@ -42,18 +23,11 @@ class ProfileViewController: UIViewController {
     
     //MARK: - UI Components
     
-    let profileImageView: UIImageView = UIImageView()
-    let userNameLabel: UILabel = UILabel()
-    let profileSettingButton: UIButton = UIButton()
-    let giveUpsLabel: UILabel = UILabel()
-    let receivedUpsLabel: UILabel = UILabel()
-    let pointsLabel: UILabel = UILabel()
-    let activeLabel: UILabel = UILabel()
-    let badgeView: UIView = UIView()
+    let profileCardView: ProfileCardView = ProfileCardView()
     let testResultContainer: UIView = UIView()
     let testResultTitleLabel: UILabel = UILabel()
     let testResultDetailButton: UIButton = UIButton()
-    let testResultChartView: UIView = UIView()
+    let testResultChartView: PTChartView = PTChartView()
     let recentPostsLabel: UILabel = UILabel()
     let recentPostsNumberLabel: UILabel = UILabel()
     let recentPostsListContainer: UIStackView = UIStackView()
@@ -158,7 +132,7 @@ class ProfileViewController: UIViewController {
     func loadData(){
         Task.init {
             do{
-                self.profile = try await repository?.getUserData(uid: FirebaseAuth.Auth.auth().currentUser?.uid ?? "")
+                self.profileCardView.data = try await repository?.getUserData(uid: FirebaseAuth.Auth.auth().currentUser?.uid ?? "")
                 
             }catch{
                 print("ERROR: \(error)")
@@ -174,15 +148,8 @@ class ProfileViewController: UIViewController {
         self.view.addSubview(personalityTestButton)
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(recentPostsListContainer)
-        self.view.addSubview(profileImageView)
-        self.view.addSubview(userNameLabel)
-        self.view.addSubview(profileSettingButton)
-        self.view.addSubview(giveUpsLabel)
-        self.view.addSubview(receivedUpsLabel)
-        self.view.addSubview(pointsLabel)
-        self.view.addSubview(activeLabel)
-        self.view.addSubview(badgeView)
         self.view.addSubview(testResultContainer)
+        self.view.addSubview(profileCardView)
         testResultContainer.addSubview(testResultTitleLabel)
         testResultContainer.addSubview(testResultDetailButton)
         testResultContainer.addSubview(testResultChartView)
@@ -196,14 +163,6 @@ class ProfileViewController: UIViewController {
         
         
         self.view.translatesAutoresizingMaskIntoConstraints = false
-        profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        userNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        profileSettingButton.translatesAutoresizingMaskIntoConstraints = false
-        giveUpsLabel.translatesAutoresizingMaskIntoConstraints = false
-        receivedUpsLabel.translatesAutoresizingMaskIntoConstraints = false
-        pointsLabel.translatesAutoresizingMaskIntoConstraints = false
-        activeLabel.translatesAutoresizingMaskIntoConstraints = false
-        badgeView.translatesAutoresizingMaskIntoConstraints = false
         testResultContainer.translatesAutoresizingMaskIntoConstraints = false
         testResultTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         testResultDetailButton.translatesAutoresizingMaskIntoConstraints = false
@@ -235,16 +194,7 @@ class ProfileViewController: UIViewController {
         personalityTestButton.addTarget(self, action: #selector(navigateToPersonalityTestView), for: .touchUpInside)
         
         defaultFont = UIFont.systemFont(ofSize: 13)
-        profileImageView.image = UIImage(systemName: "person.fill")
-        profileSettingButton.setImage(UIImage(systemName: "gearshape.fill"), for: .normal)
-        profileSettingButton.tintColor = .label
-        profileSettingButton.addTarget(self, action: #selector(profileSettingButtonTouchUp), for: .touchUpInside)
         
-        giveUpsLabel.font = defaultFont
-        receivedUpsLabel.font = defaultFont
-        pointsLabel.font = defaultFont
-        activeLabel.font = defaultFont
-        badgeView.backgroundColor = .orange
         testResultContainer.backgroundColor = .systemGray5
         testResultTitleLabel.text = "성격테스트 결과"
         testResultTitleLabel.font = UIFont.systemFont(ofSize: 15)
@@ -276,53 +226,19 @@ class ProfileViewController: UIViewController {
     
     private func setUpLayout(){
         
-        NSLayoutConstraint.activate([
-            profileImageView.widthAnchor.constraint(equalToConstant: 40),
-            profileImageView.heightAnchor.constraint(equalToConstant: 40),
-            profileImageView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: UIScreen.main.bounds.height * 0.10),
-            profileImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10)
-        ])
-        NSLayoutConstraint.activate([
-            userNameLabel.topAnchor.constraint(equalTo: profileImageView.topAnchor, constant: 10),
-            userNameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 10)
-        ])
-        NSLayoutConstraint.activate([
-            profileSettingButton.leadingAnchor.constraint(greaterThanOrEqualTo: userNameLabel.trailingAnchor, constant: 20),
-            profileSettingButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
-            profileSettingButton.widthAnchor.constraint(equalToConstant: 40),
-            profileSettingButton.heightAnchor.constraint(equalToConstant: 40),
-            profileSettingButton.topAnchor.constraint(equalTo: profileImageView.topAnchor)
-        ])
-        NSLayoutConstraint.activate([
-            giveUpsLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 3),
-            giveUpsLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor, constant: 10)
-        ])
-        NSLayoutConstraint.activate([
-            receivedUpsLabel.topAnchor.constraint(equalTo: giveUpsLabel.bottomAnchor, constant: 3),
-            receivedUpsLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor, constant: 10)
-        ])
-        NSLayoutConstraint.activate([
-            pointsLabel.topAnchor.constraint(equalTo: receivedUpsLabel.bottomAnchor, constant: 3),
-            pointsLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor, constant: 10)
-        ])
-        NSLayoutConstraint.activate([
-            activeLabel.topAnchor.constraint(equalTo: pointsLabel.bottomAnchor, constant: 3),
-            activeLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor, constant: 10)
-        ])
-        NSLayoutConstraint.activate([
-            badgeView.heightAnchor.constraint(equalToConstant: self.view.frame.height * 0.1),
-            badgeView.widthAnchor.constraint(equalToConstant: self.view.frame.width*0.7 - 20),
-            badgeView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
-            badgeView.topAnchor.constraint(equalTo: activeLabel.bottomAnchor, constant: 10)
-        ])
         
         NSLayoutConstraint.activate([
             testResultContainer.heightAnchor.constraint(equalToConstant: self.view.frame.height * 0.17),
-            testResultContainer.widthAnchor.constraint(equalToConstant: self.view.frame.width*0.7 - 20),
+            testResultContainer.widthAnchor.constraint(equalToConstant: self.view.frame.width*0.8 - 20),
             testResultContainer.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
-            testResultContainer.topAnchor.constraint(equalTo: badgeView.bottomAnchor, constant: 10)
+            testResultContainer.topAnchor.constraint(equalTo: profileCardView.bottomAnchor, constant: 10)
         ])
-        
+        NSLayoutConstraint.activate([
+            profileCardView.heightAnchor.constraint(equalToConstant: self.view.frame.height * 0.2),
+            profileCardView.widthAnchor.constraint(equalToConstant: self.view.frame.width*0.8 - 20),
+            profileCardView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
+            profileCardView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50)
+        ])
         NSLayoutConstraint.activate([
             testResultTitleLabel.topAnchor.constraint(equalTo: testResultContainer.topAnchor, constant: 10),
             testResultTitleLabel.leadingAnchor.constraint(equalTo: testResultContainer.leadingAnchor, constant: 10)
@@ -339,7 +255,7 @@ class ProfileViewController: UIViewController {
         ])
         NSLayoutConstraint.activate([
             recentPostsLabel.topAnchor.constraint(equalTo: testResultContainer.bottomAnchor, constant: 10),
-            recentPostsLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor, constant: 10)
+            recentPostsLabel.leadingAnchor.constraint(equalTo: testResultChartView.leadingAnchor, constant: 10)
         ])
         NSLayoutConstraint.activate([
             recentPostsNumberLabel.topAnchor.constraint(equalTo: recentPostsLabel.topAnchor),
@@ -348,7 +264,7 @@ class ProfileViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             recentPostsListContainer.topAnchor.constraint(equalTo: recentPostsLabel.bottomAnchor, constant: 10),
-            recentPostsListContainer.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor),
+            recentPostsListContainer.leadingAnchor.constraint(equalTo: testResultChartView.leadingAnchor),
             recentPostsListContainer.trailingAnchor.constraint(equalTo: testResultContainer.trailingAnchor),
             recentPostsListContainer.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.1),
         ])
@@ -383,17 +299,9 @@ class ProfileViewController: UIViewController {
         FirebaseAuth.Auth.auth().addStateDidChangeListener({ auth, user in
             if user == nil {
                 self.loginButton.isHidden = false
+                self.profileCardView.isHidden = true
                 self.verifyEmailButton.isHidden = true
                 self.personalityTestButton.isHidden = true
-                self.profileImageView.isHidden = true
-                self.userNameLabel.isHidden = true
-                self.profileSettingButton.isHidden = true
-                self.receivedUpsLabel.isHidden = true
-                
-                self.giveUpsLabel.isHidden = true
-                self.pointsLabel.isHidden = true
-                self.activeLabel.isHidden = true
-                self.badgeView.isHidden = true
                 self.testResultContainer.isHidden = true
                 self.recentPostsLabel.isHidden = true
                 self.recentPostsNumberLabel.isHidden = true
@@ -403,15 +311,7 @@ class ProfileViewController: UIViewController {
             }else{
                 self.loadData()
                 self.loginButton.isHidden = true
-                self.profileImageView.isHidden = false
-                self.userNameLabel.isHidden = false
-                self.profileSettingButton.isHidden = false
-                self.receivedUpsLabel.isHidden = false
-                
-                self.giveUpsLabel.isHidden = false
-                self.pointsLabel.isHidden = false
-                self.activeLabel.isHidden = false
-                self.badgeView.isHidden = false
+                self.profileCardView.isHidden = false
                 self.testResultContainer.isHidden = false
                 self.recentPostsLabel.isHidden = false
                 self.recentPostsNumberLabel.isHidden = false
@@ -442,14 +342,6 @@ class ProfileViewController: UIViewController {
         
         
         self.loginButton.isHidden = false
-        self.profileImageView.isHidden = true
-        self.userNameLabel.isHidden = true
-        self.profileSettingButton.isHidden = true
-        self.receivedUpsLabel.isHidden = true
-        self.giveUpsLabel.isHidden = true
-        self.pointsLabel.isHidden = true
-        self.activeLabel.isHidden = true
-        self.badgeView.isHidden = true
         self.testResultContainer.isHidden = true
         self.recentPostsLabel.isHidden = true
         self.recentPostsNumberLabel.isHidden = true

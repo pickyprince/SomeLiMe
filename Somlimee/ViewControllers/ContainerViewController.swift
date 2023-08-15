@@ -44,15 +44,15 @@ final class ContainerViewController: UIViewController {
         
         // add dependencies
         homeVC.repository = HomeViewRepositoryImpl()
-        offSetValue = view.frame.width * 0.7
+        offSetValue = view.frame.width * 0.8
         NSLayoutConstraint.activate([
             profileVC.view.heightAnchor.constraint(equalTo: view.heightAnchor),
-            profileVC.view.widthAnchor.constraint(equalToConstant: view.frame.width * 0.7),
+            profileVC.view.widthAnchor.constraint(equalToConstant: view.frame.width * 0.8),
             profileVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         NSLayoutConstraint.activate([
             sideMenuVC.view.heightAnchor.constraint(equalTo: view.heightAnchor),
-            sideMenuVC.view.widthAnchor.constraint(equalToConstant: view.frame.width * 0.7),
+            sideMenuVC.view.widthAnchor.constraint(equalToConstant: view.frame.width * 0.8),
             sideMenuVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         ])
         

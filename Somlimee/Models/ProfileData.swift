@@ -11,6 +11,8 @@ struct ProfileData {
     let userName: String
     let profileImage: UIImage?
     let totalUps: Int
+    let signUpDate: String
+    let numOfPosts: Int
     let receivedUps: Int
     let points: Int
     let daysOfActive: Int

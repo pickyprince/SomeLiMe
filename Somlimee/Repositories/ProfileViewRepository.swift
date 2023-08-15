@@ -21,28 +21,31 @@ class ProfileViewRepositoryImpl: ProfileViewRepository{
             throw DataSourceFailures.CouldNotFindDocument
         }
         
-        guard let receivedUps: Int = data?["TotalUps"] as? Int else{
+        guard let receivedUps: Int = data?["ReceivedUps"] as? Int else{
             throw DataSourceFailures.CouldNotFindDocument
         }
         
-        guard let points: Int = data?["TotalUps"] as? Int else{
+        guard let points: Int = data?["Points"] as? Int else{
             throw DataSourceFailures.CouldNotFindDocument
         }
         
-        guard let daysOfActive: Int = data?["TotalUps"] as? Int else{
+        guard let daysOfActive: Int = data?["DaysOfActive"] as? Int else{
             throw DataSourceFailures.CouldNotFindDocument
         }
         guard let personalityType: String = data?["PersonalityType"] as? String else{
             throw DataSourceFailures.CouldNotFindDocument
         }
-//        guard let personalityTestResult: [String: Any] = data?["PersonalityTestResult"] as? [String: Any] else{
-//                throw DataSourceFailures.CouldNotFindDocument
-//        }
-//        guard let recentPostsNumber: Int = data?["TotalUps"] as? Int else{
-//            throw DataSourceFailures.CouldNotFindDocument
-//        }
+        guard let personalityTestResult: [Int] = data?["PersonalityTestResult"] as? [Int] else{
+                throw DataSourceFailures.CouldNotFindDocument
+        }
+        guard let numOfPosts: Int = data?["NumOfPosts"] as? Int else{
+            throw DataSourceFailures.CouldNotFindDocument
+        }
+        guard let signUpDate: String = data?["SignUpDate"] as? String else{
+            throw DataSourceFailures.CouldNotFindDocument
+        }
 //        guard let recentPostList: [String: Any] = data?["RecentPosts"] as? [String: Any] else{
 //                throw DataSourceFailures.CouldNotFindDocument
-        return ProfileData(userName: userName, profileImage: nil, totalUps: totalUps, receivedUps: receivedUps, points: points, daysOfActive: daysOfActive, badges: [], personalityTestResult: PersonalityTestResultData(Strenuousness: 10, Receptiveness: 10, Harmonization: 10, Coagulation: 10, type: "NDD"), personalityType: personalityType)
+        return ProfileData(userName: userName, profileImage: nil, totalUps: totalUps, signUpDate: signUpDate, numOfPosts: numOfPosts, receivedUps: receivedUps, points: points, daysOfActive: daysOfActive, badges: [], personalityTestResult: PersonalityTestResultData(Strenuousness: personalityTestResult[0], Receptiveness: personalityTestResult[0], Harmonization: personalityTestResult[0], Coagulation: personalityTestResult[0], type: "NDD"), personalityType: personalityType)
     }
 }
